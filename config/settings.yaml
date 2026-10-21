@@ -14,6 +14,8 @@ paths:
   runs_dir: data/runs
   validation_report: data/validation_report.json
   insights: data/insights.json
+  narrative: data/narrative.json
+  dashboard: dashboard/index.html
 
 # ---------------------------------------------------------------------------
 # Test plan (spec section 2.1)
@@ -123,3 +125,12 @@ analysis:
   rerun:
     mtbf_soak_hours: 24          # targeted MTBF soak on affected DUTs
     kpi_remeasure_hours: 4       # per metric
+
+# ---------------------------------------------------------------------------
+# Narrative layer (Step 6)
+# ---------------------------------------------------------------------------
+narrative:
+  mode: auto              # auto: Claude when the SDK + credentials are available, else template | template | claude
+  model: claude-opus-5-5
+  effort: medium
+  max_tokens: 16000

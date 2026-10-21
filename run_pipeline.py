@@ -1,10 +1,12 @@
 """Bluetooth Test Infrastructure Dashboard Agent - pipeline entry point.
 
-Stages (more are added as the project progresses):
+Stages:
   plan     - one-time test plan generator -> data/test_plan.json
   runs     - sample test run generator   -> data/runs/*.json
   validate - data validation layer       -> data/validation_report.json (stops the pipeline on failure)
   analyse  - analysis engine             -> data/insights.json
+  narrate  - narrative layer             -> data/narrative.json (Claude API, template fallback)
+  dashboard - static HTML dashboard      -> dashboard/index.html
 
 Usage:
   python run_pipeline.py                 # all stages; reuses an existing test plan
@@ -16,12 +18,14 @@ import argparse
 import sys
 
 from analysis.engine import analyse
+from dashboard.build_dashboard import build as build_dashboard
 from generator.common import DEFAULT_CONFIG, load_config, read_json, resolve, write_json
 from generator.run_generator import SampleTestRunGenerator, write_runs
 from generator.test_plan_generator import TestPlanGenerator
+from narrative.narrator import build_narrative
 from validation.validator import Validator
 
-STAGES = ["plan", "runs", "validate", "analyse"]
+STAGES = ["plan", "runs", "validate", "analyse", "narrate", "dashboard"]
 
 
 def stage_plan(config, regen):
@@ -92,11 +96,27 @@ def stage_analyse(config):
           f"next actions: {len(insights['next_actions']['actions'])}")
 
 
+def stage_narrate(config, mode=None):
+    insights = read_json(config["paths"]["insights"])
+    cfg = {**config["narrative"], **({"mode": mode} if mode else {})}
+    narrative = build_narrative(insights, cfg)
+    write_json(config["paths"]["narrative"], narrative)
+    via = f"Claude ({narrative['model']})" if narrative["source"] == "claude" else \
+        f"template ({narrative['fallback_reason']})"
+    print(f"[narrate] wrote {config['paths']['narrative']} via {via}")
+
+
+def stage_dashboard(config):
+    out = build_dashboard(config)
+    print(f"[dashboard] wrote {out.relative_to(resolve('.'))} ({out.stat().st_size // 1024} KB) - open it in a browser")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--config", default=str(DEFAULT_CONFIG))
     parser.add_argument("--stage", choices=STAGES + ["all"], default="all")
     parser.add_argument("--regen-plan", action="store_true", help="rebuild the one-time test plan")
+    parser.add_argument("--narrative", choices=["auto", "template", "claude"], help="override narrative.mode")
     args = parser.parse_args(argv)
     config = load_config(args.config)
 
@@ -109,6 +129,10 @@ def main(argv=None):
         return 1
     if args.stage in ("analyse", "all"):
         stage_analyse(config)
+    if args.stage in ("narrate", "all"):
+        stage_narrate(config, args.narrative)
+    if args.stage in ("dashboard", "all"):
+        stage_dashboard(config)
     return 0
 
 

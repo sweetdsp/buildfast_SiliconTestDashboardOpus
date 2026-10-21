@@ -15,23 +15,35 @@ the test plan and test run data that the agent analyses.
 | 2 | One-time test plan generator | Done |
 | 3 | Sample test run generator (8 firmware builds) | Done |
 | 4 | Data validation layer | Done |
-| 5 | Analysis engine (5 intelligence outputs) | Done, in review |
-| 6 | Narrative layer (optional Claude API) | Next |
-| 7 | Dashboard UI (static HTML) | |
-| 8 | Tests | |
+| 5 | Analysis engine (5 intelligence outputs) | Done |
+| 6 | Narrative layer (optional Claude API) | Done |
+| 7 | Dashboard UI (static HTML) | Done, in review |
+| 8 | Tests | Next |
 | 9 | Pipeline, docs and delivery | |
 
 ## Quick start
 
 ```bash
 pip install -r requirements.txt
-python run_pipeline.py                  # plan (reused) -> runs -> validate -> analyse
+python run_pipeline.py                  # plan (reused) -> runs -> validate -> analyse -> narrate -> dashboard
+open dashboard/index.html               # or double-click it: a single self-contained file
 python run_pipeline.py --regen-plan     # rebuild the one-time test plan too
-python run_pipeline.py --stage analyse  # re-run a single stage
+python run_pipeline.py --stage dashboard  # re-run a single stage
 ```
 
 Everything is seeded (`config/settings.yaml` -> `seeds`), so the same config always
-produces byte-identical output.
+produces byte-identical output. The one exception is the narrative when Claude writes it.
+
+### Optional: Claude-written narrative
+
+```bash
+pip install -r requirements-claude.txt
+export ANTHROPIC_API_KEY=...            # or `ant auth login`
+python run_pipeline.py --stage narrate --narrative claude && python run_pipeline.py --stage dashboard
+```
+
+Without the SDK or credentials, the pipeline falls back to template wording and the
+dashboard says which source wrote it.
 
 ## Layout
 
@@ -44,6 +56,9 @@ generator/run_generator.py         SampleTestRunGenerator -> data/runs/*.json
 validation/validator.py            structural + consistency checks -> data/validation_report.json
 analysis/                          the 5 intelligence outputs -> data/insights.json
   tldr.py  risk.py  anomalies.py  clustering.py  next_actions.py  engine.py
+narrative/narrator.py              executive wording (Claude API or template) -> data/narrative.json
+dashboard/template.html            dashboard page: layout, theme tokens, SVG charts (no external libraries)
+dashboard/build_dashboard.py       injects the data -> dashboard/index.html
 run_pipeline.py                    entry point
 data/test_plan.json                6,000 test cases + MTBF and KPI plans
 data/runs/                         one JSON per full test cycle, plus index.json
@@ -128,3 +143,30 @@ All formulas are configured under `analysis:` in `config/settings.yaml`.
 - Burn-down cycles: if the pass-rate gate still fails after the must-fix set, extra 9-day fix cycles at the failure burn-down velocity of the last 3 builds.
 
 Slip = ready date - target date (last run end + 21 days). Status: <= 0 days ON_TRACK, <= 7 AT_RISK, otherwise OFF_TRACK.
+
+## Narrative layer (`data/narrative.json`)
+
+The narrative layer sends Claude (`claude-opus-5-5`, adaptive thinking, medium effort) a compact
+fact sheet taken from `insights.json`, never the raw logs. The system prompt only allows
+numbers, IDs and dates that appear in the fact sheet. The answer has a fixed JSON schema:
+executive summary, TL;DR bullets, release statement, key risks and team briefs. Declined
+requests use the server-side default fallback model. Missing credentials, API errors,
+refusals and truncation all fall back to the deterministic template. Set
+`narrative.mode` (or `--narrative`) to `auto`, `template` or `claude`.
+
+## Dashboard (`dashboard/index.html`)
+
+A single ~130 KB HTML file with the data embedded. It needs no server, makes no network
+calls and opens from disk. Sections:
+
+1. **TL;DR**: health index hero figure and score breakdown, executive summary, stat tiles.
+2. **Release readiness**: go/no-go, schedule status, gate table, forecast timeline, must-fix set, open Blocker/Critical Jiras.
+3. **Trends**: health, pass rate, crashes, MTBF, Blocker/Critical and cycle duration across the 8 builds, each with its gate line.
+4. **Test domains**: feature x build heatmap (40 features), most-affected features, crashes per DUT, KPI table with sparklines.
+5. **Anomalies & blind spots**: one card per finding, with severity.
+6. **Bug clustering**: subsystem impact, candidate duplicates, crash signatures across builds.
+7. **Next actions**: tasks by team (filterable), team briefs, re-run subsets with copy-to-clipboard test IDs.
+
+Light and dark themes follow the OS setting, and a toggle overrides it. Every chart has
+hover/focus tooltips and a table view. Status is always shown as icon + label, never
+colour alone. The layout works down to phone width.
