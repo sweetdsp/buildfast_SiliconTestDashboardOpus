@@ -1,0 +1,273 @@
+"""Static domain knowledge: firmware subsystems, test features, DUT fleet, KPI metrics.
+
+The test plan generator turns this catalog into concrete test cases; the run
+generator uses it for failure signatures, DUT attributes and KPI targets.
+"""
+
+# Firmware subsystems used for semantic bug clustering (spec 4.1 #4).
+SUBSYSTEMS = {
+    "HCI": "Host-Controller Interface",
+    "LMP": "Link Manager Protocol",
+    "LINK_LAYER": "LE Link Layer / Isochronous",
+    "BASEBAND": "Baseband / Scheduler",
+    "PHY_RF": "PHY / RF",
+    "AUDIO_CODEC": "Audio Codec / LC3",
+    "SECURITY": "Security / Pairing & Encryption",
+    "HOST_STACK": "Host Stack (L2CAP / GATT / Profiles)",
+    "POWER_MGMT": "Power Management",
+    "COEX": "BT / Wi-Fi Coexistence",
+}
+
+# Parameter variants combined with each feature operation to name test cases.
+VARIANT_POOLS = {
+    "LE": ["1M PHY", "2M PHY", "Coded PHY S=8", "min interval", "max interval",
+           "negative: invalid parameters", "boundary values", "back-to-back x100",
+           "after HCI_Reset", "4 concurrent links", "encrypted link", "long run 2h"],
+    "BREDR": ["DM1/DH1", "2-DH5", "3-DH5", "central role", "peripheral role",
+              "negative: invalid parameters", "boundary values", "back-to-back x100",
+              "after HCI_Reset", "3 concurrent ACL", "encrypted link", "long run 2h"],
+    "HCI": ["UART H4", "UART H5", "USB transport", "default event mask", "masked events",
+            "negative: invalid parameters", "boundary values", "back-to-back x1000",
+            "after HCI_Reset", "under ACL load", "under ISO load", "long run 2h"],
+    "HOST": ["MTU 23", "MTU 247", "MTU 512", "LE transport", "BR/EDR transport",
+             "negative: invalid handle", "boundary values", "back-to-back x100",
+             "after reconnect", "4 concurrent clients", "encrypted link", "long run 2h"],
+    "PHONE": ["screen on", "screen off / doze", "after reboot", "low battery mode",
+              "Wi-Fi 2.4 GHz active", "Wi-Fi 5 GHz active", "app in background",
+              "repeat x20", "negative: peer out of range", "airplane mode toggle"],
+}
+
+SPEC_REFS = {
+    "LL": "BT Core v5.2 Vol 6 Part B (Link Layer)",
+    "ISO": "BT Core v5.2 Vol 6 Part G (ISOAL)",
+    "RADIO": "BT Core v5.2 Vol 6 Part A (Radio)",
+    "HCI": "BT Core v5.2 Vol 4 Part E (HCI)",
+    "LMP": "BT Core v5.2 Vol 2 Part C (LMP)",
+    "BB": "BT Core v5.2 Vol 2 Part B (Baseband)",
+    "SEC": "BT Core v5.2 Vol 2 Part H / Vol 3 Part H (Security)",
+    "GATT": "BT Core v5.2 Vol 3 Parts F-G (ATT/GATT)",
+    "L2CAP": "BT Core v5.2 Vol 3 Part A (L2CAP)",
+}
+
+
+def _f(key, abbr, weight, subsystem, pool, spec, min_bt, ops, secondary=None):
+    return {"feature": key, "abbr": abbr, "weight": weight, "subsystem": subsystem,
+            "secondary": secondary, "variant_pool": pool, "spec_ref": SPEC_REFS[spec],
+            "min_bt_version": min_bt, "operations": ops}
+
+
+# 25 HCI regression features. Weights are relative; the generator scales them to
+# the configured total (5,000).
+HCI_FEATURES = [
+    _f("LE_Advertising", "LEADV", 280, "LINK_LAYER", "LE", "LL", "4.2",
+       ["Legacy ADV_IND", "Scannable undirected adv", "Directed high duty cycle adv",
+        "Adv data update while advertising", "Adv TX power read", "Adv enable/disable cycling"]),
+    _f("LE_Scanning", "LESCN", 200, "LINK_LAYER", "LE", "LL", "4.2",
+       ["Passive scan", "Active scan with scan response", "Duplicate filtering",
+        "Filter accept list scan", "Extended scan on Coded PHY"]),
+    _f("LE_Connection", "LECON", 320, "LINK_LAYER", "LE", "LL", "4.2",
+       ["Create connection", "Connection parameter update", "Supervision timeout handling",
+        "Channel map update", "Disconnect with reason code", "Connection cancel"]),
+    _f("LE_Audio_CIS_BIS", "LEAUD", 480, "LINK_LAYER", "LE", "ISO", "5.2",
+       ["CIG create and CIS establish", "CIS disconnect and re-establish",
+        "BIG create (broadcast source)", "BIG sync (broadcast sink)",
+        "ISO data path setup (LC3)", "ISO test mode TX/RX", "Presentation delay compliance"],
+       secondary=("AUDIO_CODEC", 0.4)),
+    _f("LE_Power_Control", "LEPWC", 120, "LINK_LAYER", "LE", "LL", "5.2",
+       ["Path loss monitoring", "Transmit power reporting", "Power control request",
+        "Read remote TX power"]),
+    _f("LE_Data_Length_Ext", "LEDLE", 140, "LINK_LAYER", "LE", "LL", "4.2",
+       ["Set data length 251", "Data length negotiation", "Max TX time update",
+        "DLE with PHY update"]),
+    _f("LE_2M_Coded_PHY", "LEPHY", 200, "PHY_RF", "LE", "RADIO", "5.0",
+       ["PHY update to 2M", "PHY update to Coded S=2", "Asymmetric PHY",
+        "Default PHY preference", "Receiver/transmitter test on PHY"]),
+    _f("LE_Privacy", "LEPRV", 160, "SECURITY", "LE", "SEC", "4.2",
+       ["RPA generation", "Resolving list management", "Privacy mode device/network",
+        "RPA timeout rotation"]),
+    _f("LE_Secure_Connections", "LESEC", 200, "SECURITY", "LE", "SEC", "4.2",
+       ["LESC Just Works", "LESC Numeric Comparison", "LESC Passkey entry", "OOB pairing",
+        "P-256 key generation"]),
+    _f("LE_Periodic_Adv", "LEPAD", 160, "LINK_LAYER", "LE", "LL", "5.0",
+       ["Periodic adv start", "Periodic adv sync create", "Periodic adv sync transfer",
+        "Sync lost recovery"]),
+    _f("LE_Direction_Finding", "LEDFD", 120, "PHY_RF", "LE", "RADIO", "5.1",
+       ["CTE transmit (AoD)", "CTE receive IQ sampling (AoA)", "Connectionless CTE",
+        "Antenna switching pattern"]),
+    _f("LE_Channel_Selection_2", "LECSA", 100, "LINK_LAYER", "LE", "LL", "5.0",
+       ["CSA#2 negotiation", "CSA#2 channel hopping", "CSA#2 with channel map update"]),
+    _f("BR_EDR_Connections", "BRCON", 340, "LMP", "BREDR", "LMP", "4.2",
+       ["Create ACL connection", "Accept connection request", "Packet type change",
+        "Link supervision timeout", "Disconnect with reason code", "Remote name request"]),
+    _f("BR_EDR_Inquiry_Paging", "BRINQ", 160, "BASEBAND", "BREDR", "BB", "4.2",
+       ["General inquiry", "Inquiry with RSSI", "Extended inquiry response", "Page scan modes",
+        "Periodic inquiry"]),
+    _f("SCO_eSCO", "BRSCO", 220, "BASEBAND", "BREDR", "BB", "4.2",
+       ["Setup synchronous connection", "eSCO with mSBC", "eSCO with LC3-SWB",
+        "SCO-over-HCI data path", "eSCO renegotiation"],
+       secondary=("AUDIO_CODEC", 0.2)),
+    _f("Role_Switch", "BRRSW", 140, "LMP", "BREDR", "LMP", "4.2",
+       ["Role switch on connect", "Role switch request", "Role switch with encryption",
+        "Role switch rejection"]),
+    _f("Sniff_Mode", "BRSNF", 160, "POWER_MGMT", "BREDR", "LMP", "4.2",
+       ["Enter sniff mode", "Exit sniff mode", "Sniff subrating", "Sniff with ACL traffic"],
+       secondary=("LMP", 0.3)),
+    _f("AFH", "BRAFH", 140, "PHY_RF", "BREDR", "BB", "4.2",
+       ["AFH channel classification", "Host channel classification", "AFH map update",
+        "AFH with Wi-Fi interference"],
+       secondary=("COEX", 0.3)),
+    _f("Secure_Simple_Pairing", "BRSSP", 200, "SECURITY", "BREDR", "SEC", "4.2",
+       ["SSP Just Works", "SSP Numeric Comparison", "SSP Passkey entry", "SSP OOB",
+        "IO capability exchange"]),
+    _f("Encryption_Key_Refresh", "BRENC", 120, "SECURITY", "BREDR", "SEC", "4.2",
+       ["Start encryption", "Encryption key refresh", "Encryption key size negotiation",
+        "Pause/resume encryption"]),
+    _f("HCI_Flow_Control", "HCIFC", 220, "HCI", "HCI", "HCI", "4.2",
+       ["ACL buffer flow control", "Host buffer size", "Number of completed packets event",
+        "Controller to host flow control", "ISO buffer flow control"]),
+    _f("HCI_Reset_Init", "HCIRS", 140, "HCI", "HCI", "HCI", "4.2",
+       ["HCI_Reset", "Read local version/features", "Set event mask", "Read buffer size",
+        "Controller init sequence"]),
+    _f("Vendor_Specific_Cmds", "HCIVS", 160, "HCI", "HCI", "HCI", "4.2",
+       ["VSC firmware patch download", "VSC RF calibration", "VSC debug log enable",
+        "VSC coex config", "VSC power table load"]),
+    _f("GATT_ATT", "GATT", 300, "HOST_STACK", "HOST", "GATT", "4.2",
+       ["Primary service discovery", "Characteristic read/write", "Notifications and indications",
+        "Robust caching / DB hash", "Long write / prepare write", "MTU exchange"]),
+    _f("L2CAP_CoC", "L2CAP", 220, "HOST_STACK", "HOST", "L2CAP", "4.2",
+       ["LE credit-based connection", "Enhanced credit-based (ECFC)", "Credit flow handling",
+        "Segmentation and reassembly", "Channel reconfiguration"]),
+]
+
+PEER_DEVICES = ["TWS_Earbuds", "LE_Audio_Earbuds", "Over_Ear_Headset", "Car_Kit", "Smartwatch",
+                "BT_Speaker", "Keyboard_Mouse", "Game_Controller", "Laptop", "Hearing_Aid"]
+
+
+def _p(key, abbr, weight, subsystem, profile, peers, ops, secondary=None):
+    return {"feature": key, "abbr": abbr, "weight": weight, "subsystem": subsystem,
+            "secondary": secondary, "variant_pool": "PHONE", "profile": profile,
+            "peers": peers, "operations": ops}
+
+
+# 15 phone interoperability features (weights sum to 1,000).
+PHONE_FEATURES = [
+    _p("Pairing_Bonding", "PAIR", 90, "SECURITY", "GAP / SMP",
+       ["TWS_Earbuds", "Car_Kit", "Smartwatch", "Keyboard_Mouse", "Laptop"],
+       ["Pair from settings", "Pair via NFC/OOB", "Re-pair after unpair",
+        "Bond persistence after reboot", "Pair with PIN"]),
+    _p("A2DP_Streaming", "A2DP", 100, "BASEBAND", "A2DP 1.4 / AVDTP",
+       ["TWS_Earbuds", "Over_Ear_Headset", "Car_Kit", "BT_Speaker"],
+       ["Stream SBC", "Stream AAC", "Codec switch mid-stream", "Absolute volume",
+        "Stream with call interruption"], secondary=("AUDIO_CODEC", 0.3)),
+    _p("HFP_Calls", "HFP", 90, "BASEBAND", "HFP 1.8",
+       ["TWS_Earbuds", "Over_Ear_Headset", "Car_Kit"],
+       ["Outgoing call audio", "Incoming call answer", "Call waiting / 3-way",
+        "Wideband speech", "Voice assistant activation"], secondary=("AUDIO_CODEC", 0.3)),
+    _p("AVRCP_Controls", "AVRCP", 60, "HOST_STACK", "AVRCP 1.6",
+       ["TWS_Earbuds", "Car_Kit", "BT_Speaker"],
+       ["Play/pause", "Track metadata", "Browsing", "Volume sync"]),
+    _p("LE_Audio_Unicast", "LEUNI", 90, "LINK_LAYER", "BAP / CAP / TMAP",
+       ["LE_Audio_Earbuds", "Hearing_Aid"],
+       ["Unicast media streaming", "Unicast conversational audio", "Stereo CIS to TWS",
+        "Context switch media/call"], secondary=("AUDIO_CODEC", 0.4)),
+    _p("LE_Audio_Broadcast", "LEBRC", 60, "LINK_LAYER", "BAP Broadcast / BASS",
+       ["LE_Audio_Earbuds", "Hearing_Aid", "BT_Speaker"],
+       ["Broadcast audio source", "Broadcast assistant scan", "Broadcast join with code",
+        "Multi-sink broadcast"], secondary=("AUDIO_CODEC", 0.4)),
+    _p("HID_Peripherals", "HID", 50, "HOST_STACK", "HID / HOGP",
+       ["Keyboard_Mouse", "Game_Controller"],
+       ["Keyboard input", "Mouse input", "HOGP reconnect", "Game controller latency"]),
+    _p("PAN_Tethering", "PAN", 40, "HOST_STACK", "PAN / BNEP", ["Laptop"],
+       ["Bluetooth tethering", "PAN reconnect", "Data throughput"]),
+    _p("PBAP_MAP_Sync", "PBAP", 50, "HOST_STACK", "PBAP 1.2 / MAP 1.4", ["Car_Kit", "Smartwatch"],
+       ["Phonebook download", "Call history sync", "Message notification",
+        "Send message from peer"]),
+    _p("OPP_File_Transfer", "OPP", 30, "HOST_STACK", "OPP / OBEX", ["Laptop"],
+       ["Send file", "Receive file", "Large file transfer"]),
+    _p("BLE_Wearables_GATT", "WEAR", 80, "HOST_STACK", "GATT", ["Smartwatch"],
+       ["Companion app pairing", "Notification forwarding", "Background reconnect",
+        "Firmware update over BLE"], secondary=("LINK_LAYER", 0.3)),
+    _p("Multi_Device_Connection", "MULTI", 70, "BASEBAND", "Multi-profile",
+       ["TWS_Earbuds", "Smartwatch", "Car_Kit", "Keyboard_Mouse"],
+       ["Two audio sinks", "Audio + wearable", "Switch active device", "Max connected devices"]),
+    _p("BT_WiFi_Coex", "COEX", 70, "COEX", "Coexistence",
+       ["TWS_Earbuds", "LE_Audio_Earbuds", "Smartwatch"],
+       ["A2DP during Wi-Fi download", "HFP during Wi-Fi call", "LE Audio with hotspot",
+        "BLE scan during Wi-Fi scan"]),
+    _p("Airplane_Toggle_Recovery", "AIRPL", 50, "HCI", "Stack lifecycle",
+       ["TWS_Earbuds", "Smartwatch", "Car_Kit"],
+       ["Airplane mode toggle reconnect", "BT toggle stress", "Recovery after stack restart"]),
+    _p("Power_Save_Sleep", "PWR", 70, "POWER_MGMT", "Platform power",
+       ["Smartwatch", "TWS_Earbuds"],
+       ["Doze reconnect", "Idle drain with connected watch", "Wake on peer reconnect",
+        "Battery saver mode"]),
+]
+
+# MTBF fleet: 16 DUTs, 4 per bench. DUT-02 is an older EVT2 board; the run
+# generator gives it a higher crash susceptibility (a planted hardware anomaly).
+DUT_FLEET = [
+    {"dut_id": f"DUT-{i:02d}",
+     "bench": f"BENCH-{(i - 1) // 4 + 1}",
+     "board_rev": "EVT2" if i == 2 else "DVT1",
+     "rf_module_lot": "LOT-A17" if i in (2, 5, 9, 14) else ("LOT-B03" if i % 2 else "LOT-B04"),
+     "host_platform": "Mobile_Ref_Platform_A" if i <= 8 else "Mobile_Ref_Platform_B"}
+    for i in range(1, 17)
+]
+DUT_CRASH_SUSCEPTIBILITY = {"DUT-02": 3.0}
+
+# KPI & performance matrix. comparator "<" means lower is better.
+KPI_METRICS = [
+    {"metric_name": "A2DP_Latency_ms", "feature": "A2DP_Streaming", "unit": "ms",
+     "comparator": "<", "target": 100, "nominal": 86, "sd": 6},
+    {"metric_name": "A2DP_Dropouts_per_hr", "feature": "A2DP_Streaming", "unit": "events/h",
+     "comparator": "<", "target": 1.0, "nominal": 0.4, "sd": 0.15},
+    {"metric_name": "LE_Audio_Latency_ms", "feature": "LE_Audio_Unicast", "unit": "ms",
+     "comparator": "<", "target": 40, "nominal": 31, "sd": 2.5},
+    {"metric_name": "LE_Audio_THD_percent", "feature": "LE_Audio_Unicast", "unit": "%",
+     "comparator": "<", "target": 0.5, "nominal": 0.3, "sd": 0.04},
+    {"metric_name": "LE_Audio_Broadcast_Sync_ms", "feature": "LE_Audio_Broadcast", "unit": "ms",
+     "comparator": "<", "target": 1500, "nominal": 1100, "sd": 120},
+    {"metric_name": "HFP_Call_Setup_ms", "feature": "HFP_Calls", "unit": "ms",
+     "comparator": "<", "target": 600, "nominal": 450, "sd": 40},
+    {"metric_name": "Connect_Time_ms", "feature": "BR_EDR_Connections", "unit": "ms",
+     "comparator": "<", "target": 400, "nominal": 340, "sd": 25},
+    {"metric_name": "LE_Connect_Time_ms", "feature": "LE_Connection", "unit": "ms",
+     "comparator": "<", "target": 150, "nominal": 95, "sd": 12},
+    {"metric_name": "BR_EDR_Throughput_kbps", "feature": "BR_EDR_Connections", "unit": "kbps",
+     "comparator": ">", "target": 1900, "nominal": 2150, "sd": 60},
+    {"metric_name": "LE_2M_Throughput_kbps", "feature": "LE_2M_Coded_PHY", "unit": "kbps",
+     "comparator": ">", "target": 1300, "nominal": 1420, "sd": 40},
+    {"metric_name": "Packet_Error_Rate_percent", "feature": "AFH", "unit": "%",
+     "comparator": "<", "target": 1.0, "nominal": 0.45, "sd": 0.1},
+    {"metric_name": "Power_Sniff_Idle_mW", "feature": "Sniff_Mode", "unit": "mW",
+     "comparator": "<", "target": 1.2, "nominal": 0.95, "sd": 0.05},
+    {"metric_name": "Power_A2DP_Stream_mW", "feature": "A2DP_Streaming", "unit": "mW",
+     "comparator": "<", "target": 12.0, "nominal": 10.4, "sd": 0.5},
+    {"metric_name": "Power_LE_Audio_Stream_mW", "feature": "LE_Audio_Unicast", "unit": "mW",
+     "comparator": "<", "target": 8.0, "nominal": 6.6, "sd": 0.4},
+]
+
+# Failure signatures for single-instance and minor defects, by subsystem.
+FAILURE_SIGNATURES = {
+    "HCI": ["HCI_Command_Status timeout (2000 ms)", "Unexpected HCI error 0x0C Command Disallowed",
+            "Unexpected HCI error 0x12 Invalid HCI Command Parameters",
+            "Missing Number_Of_Completed_Packets event", "Event mask not honoured"],
+    "LMP": ["LMP response timeout (error 0x22)", "LMP transaction collision (error 0x23)",
+            "Unexpected LMP_not_accepted", "Link supervision timeout (error 0x08)"],
+    "LINK_LAYER": ["LL response timeout (error 0x22)", "Connection failed to be established (0x3E)",
+                   "Instant passed (error 0x28)", "Unexpected LL_TERMINATE_IND",
+                   "ISO SDU dropped / sequence gap"],
+    "BASEBAND": ["Page timeout (error 0x04)", "Scheduler slot overrun", "eSCO retransmission window miss",
+                 "ACL packet loss above threshold"],
+    "PHY_RF": ["RX sensitivity below spec", "TX power out of tolerance", "CRC error rate above threshold",
+               "PHY update procedure timeout"],
+    "AUDIO_CODEC": ["LC3 frame decode error", "Audio underrun in codec buffer", "Codec config mismatch",
+                    "Presentation delay out of range"],
+    "SECURITY": ["Authentication failure (error 0x05)", "PIN or key missing (error 0x06)",
+                 "Pairing confirm value mismatch", "Encryption key size below minimum"],
+    "HOST_STACK": ["ATT error 0x0E Unlikely Error", "GATT procedure timeout (30 s)",
+                   "L2CAP credit underflow", "Profile connection rejected", "SDP record not found"],
+    "POWER_MGMT": ["Wake-up latency above spec", "Sniff exit timeout", "Unexpected deep-sleep entry",
+                   "Current draw above budget"],
+    "COEX": ["Coex grant starvation", "Wi-Fi priority override of BT slot", "AFH map not updated on Wi-Fi channel change"],
+}
