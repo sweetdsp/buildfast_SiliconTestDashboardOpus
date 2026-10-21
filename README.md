@@ -13,10 +13,10 @@ the test plan and test run data that the agent analyses.
 |---|---|---|
 | 1 | Project scaffolding and config | Done |
 | 2 | One-time test plan generator | Done |
-| 3 | Sample test run generator (8 firmware builds) | Done, in review |
-| 4 | Data validation layer | Next |
-| 5 | Analysis engine (5 intelligence outputs) | |
-| 6 | Narrative layer (optional Claude API) | |
+| 3 | Sample test run generator (8 firmware builds) | Done |
+| 4 | Data validation layer | Done |
+| 5 | Analysis engine (5 intelligence outputs) | Done, in review |
+| 6 | Narrative layer (optional Claude API) | Next |
 | 7 | Dashboard UI (static HTML) | |
 | 8 | Tests | |
 | 9 | Pipeline, docs and delivery | |
@@ -25,8 +25,9 @@ the test plan and test run data that the agent analyses.
 
 ```bash
 pip install -r requirements.txt
-python run_pipeline.py                # reuses the committed test plan, regenerates runs
-python run_pipeline.py --regen-plan   # rebuild the one-time test plan too
+python run_pipeline.py                  # plan (reused) -> runs -> validate -> analyse
+python run_pipeline.py --regen-plan     # rebuild the one-time test plan too
+python run_pipeline.py --stage analyse  # re-run a single stage
 ```
 
 Everything is seeded (`config/settings.yaml` -> `seeds`), so the same config always
@@ -40,6 +41,9 @@ generator/catalog.py               subsystems, 25 HCI + 15 phone features, DUT f
 generator/defect_catalog.py        curated firmware defects that drive the simulated runs
 generator/test_plan_generator.py   one-time test plan -> data/test_plan.json
 generator/run_generator.py         SampleTestRunGenerator -> data/runs/*.json
+validation/validator.py            structural + consistency checks -> data/validation_report.json
+analysis/                          the 5 intelligence outputs -> data/insights.json
+  tldr.py  risk.py  anomalies.py  clustering.py  next_actions.py  engine.py
 run_pipeline.py                    entry point
 data/test_plan.json                6,000 test cases + MTBF and KPI plans
 data/runs/                         one JSON per full test cycle, plus index.json
@@ -90,3 +94,37 @@ A defect timeline decides each build's results:
 - **DUT-02** (an EVT2 board) has 3x crash susceptibility, a planted hardware anomaly.
 - **Elastic duration:** failures add retry time, diagnostic log collection and
   isolation suites, so builds with more failures take longer than 7 days.
+
+## Validation (`data/validation_report.json`)
+
+About 520 checks run before analysis, and the pipeline stops if any fail. They cover:
+the plan's totals, dependencies and time budget; pass + fail + blocked = total at
+domain and feature level; every failed test linked to a Jira; every blocked test
+depending on a failed gating test; crash totals, unique signatures and MTBF
+arithmetic; KPI status vs target; Jira severity totals; cycle timing; and run order.
+
+## Analysis engine (`data/insights.json`)
+
+All formulas are configured under `analysis:` in `config/settings.yaml`.
+
+| Output | What it computes |
+|---|---|
+| **1. TL;DR** | Pass rate over the 6,000 HCI + phone tests, cycle length vs the 7-day baseline (with re-run / log / isolation overhead), and the **health index**. Template headline bullets. |
+| **2. Risk & forecast** | 5 release gates; the **must-fix set** (all Blockers, the highest-impact Criticals above the allowance, the tickets behind KPI breaches, and crash tickets until projected MTBF clears its gate); slippage forecast; MTBF per DUT and for the fleet without outliers. |
+| **3. Anomalies** | DUT crash outliers (>= 2x fleet median and z >= 2), hardware-group effects without the outliers, KPI step changes coinciding with feature failure spikes (confirmed when they share a Jira), blocked-test concentrations behind gating bugs, persistent coverage gaps, new Blocker/Critical regressions. |
+| **4. Clustering** | Tickets grouped by firmware subsystem and ranked by impact, candidate duplicates (same subsystem + signature), recurring vs single-instance crash signatures across builds, persistent vs new test failures. |
+| **5. Next actions** | Tasks per developer role, P0-P2, each fix with a targeted **re-run subset** (failing + blocked tests, gating smoke tests of affected features, 24 h MTBF soak on affected DUTs, KPI re-measure), plus a next-build verification subset and the release decision. |
+
+**Health index** = 0.40 x pass-rate score + 0.25 x defect score + 0.20 x MTBF score + 0.15 x KPI score.
+- Pass-rate score: 90% maps to 0 and 100% to 100.
+- Defect score: 100 minus 20 per open Blocker, 5 per Critical, 0.5 per Medium and 0.1 per Trivial.
+- MTBF score: MTBF / 200 h gate (capped at 100) x auto-recovery rate.
+- KPI score: (pass + 0.5 x degraded) / metric count.
+- Bands: >= 85 GREEN, >= 70 AMBER, otherwise RED.
+
+**Projected ready date** = last run end + fix days + triage days + one verification cycle + burn-down cycles.
+- Fix days: per-ticket fix days (Blocker 5, Critical 3), serial within a subsystem team and parallel across teams.
+- Triage days: failed tests x 0.5 h / 48 h per day of team capacity.
+- Burn-down cycles: if the pass-rate gate still fails after the must-fix set, extra 9-day fix cycles at the failure burn-down velocity of the last 3 builds.
+
+Slip = ready date - target date (last run end + 21 days). Status: <= 0 days ON_TRACK, <= 7 AT_RISK, otherwise OFF_TRACK.

@@ -1,23 +1,27 @@
 """Bluetooth Test Infrastructure Dashboard Agent - pipeline entry point.
 
 Stages (more are added as the project progresses):
-  plan  - one-time test plan generator   -> data/test_plan.json
-  runs  - sample test run generator      -> data/runs/*.json
+  plan     - one-time test plan generator -> data/test_plan.json
+  runs     - sample test run generator   -> data/runs/*.json
+  validate - data validation layer       -> data/validation_report.json (stops the pipeline on failure)
+  analyse  - analysis engine             -> data/insights.json
 
 Usage:
   python run_pipeline.py                 # all stages; reuses an existing test plan
   python run_pipeline.py --regen-plan    # force a new test plan
-  python run_pipeline.py --stage runs
+  python run_pipeline.py --stage analyse
 """
 
 import argparse
 import sys
 
+from analysis.engine import analyse
 from generator.common import DEFAULT_CONFIG, load_config, read_json, resolve, write_json
 from generator.run_generator import SampleTestRunGenerator, write_runs
 from generator.test_plan_generator import TestPlanGenerator
+from validation.validator import Validator
 
-STAGES = ["plan", "runs"]
+STAGES = ["plan", "runs", "validate", "analyse"]
 
 
 def stage_plan(config, regen):
@@ -51,6 +55,43 @@ def stage_runs(config):
               f"{sev['Blocker']:>3}/{sev['Critical']}")
 
 
+def load_runs(config):
+    runs_dir = resolve(config["paths"]["runs_dir"])
+    index = read_json(runs_dir / "index.json")
+    return [read_json(runs_dir / e["file"]) for e in index["runs"]], index
+
+
+def stage_validate(config):
+    plan = read_json(config["paths"]["test_plan"])
+    runs, index = load_runs(config)
+    v = Validator(plan)
+    v.validate_plan()
+    v.validate_runs(runs, index)
+    report = v.report()
+    write_json(config["paths"]["validation_report"], report)
+    print(f"[validate] {report['status']}: {report['checks_passed']}/{report['checks_total']} checks passed")
+    for f in report["failures"][:20]:
+        print(f"  FAIL [{f['scope']}] {f['check']}: {f['detail']}")
+    return report["status"] == "PASS"
+
+
+def stage_analyse(config):
+    plan = read_json(config["paths"]["test_plan"])
+    runs, _ = load_runs(config)
+    insights = analyse(config, plan, runs)
+    write_json(config["paths"]["insights"], insights)
+    t, r = insights["tldr"], insights["risk"]
+    print(f"[analyse] wrote {config['paths']['insights']} for {t['firmware_build']}")
+    for line in t["headline"]:
+        print(f"  - {line}")
+    fc = r["forecast"]
+    print(f"  Release: {r['release_recommendation']} ({r['gates_passed']}/{r['gates_total']} gates), "
+          f"{fc['schedule_status']}, ready {fc['projected_ready_date']} vs target {fc['target_release_date']} "
+          f"(slip {fc['slip_days']} d)")
+    print(f"  Anomalies: {insights['anomalies']['count']} flagged ({insights['anomalies']['high']} high); "
+          f"next actions: {len(insights['next_actions']['actions'])}")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--config", default=str(DEFAULT_CONFIG))
@@ -63,6 +104,11 @@ def main(argv=None):
         stage_plan(config, args.regen_plan)
     if args.stage in ("runs", "all"):
         stage_runs(config)
+    if args.stage in ("validate", "all") and not stage_validate(config):
+        print("[validate] stopping: fix the data before analysis")
+        return 1
+    if args.stage in ("analyse", "all"):
+        stage_analyse(config)
     return 0
 
 

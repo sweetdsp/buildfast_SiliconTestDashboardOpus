@@ -1,0 +1,3597 @@
+{
+  "insights_version": "1.0",
+  "generated_from": {
+    "latest_run_id": "BT_FULL_CYCLE_20261020_01",
+    "firmware_build": "FW_v14.2.109_RC3",
+    "chipset_revision": "BT_5_2_REV_C2",
+    "runs_analysed": [
+      "BT_FULL_CYCLE_20260819_01",
+      "BT_FULL_CYCLE_20260828_01",
+      "BT_FULL_CYCLE_20260906_01",
+      "BT_FULL_CYCLE_20260915_01",
+      "BT_FULL_CYCLE_20260923_01",
+      "BT_FULL_CYCLE_20261002_01",
+      "BT_FULL_CYCLE_20261011_01",
+      "BT_FULL_CYCLE_20261020_01"
+    ],
+    "test_plan_version": "TP_BT52_2026.10_v1"
+  },
+  "tldr": {
+    "run_id": "BT_FULL_CYCLE_20261020_01",
+    "firmware_build": "FW_v14.2.109_RC3",
+    "previous_firmware_build": "FW_v14.2.107_RC2",
+    "test_totals": {
+      "total_tests": 6000,
+      "passed": 5783,
+      "failed": 163,
+      "blocked": 54,
+      "executed": 5946,
+      "pass_rate_percent": 96.38,
+      "executed_pass_rate_percent": 97.26
+    },
+    "pass_rate_delta_pts": 0.45,
+    "domain_pass_rates": {
+      "HCI_REGRESSION": 96.58,
+      "PHONE_TESTING": 95.4
+    },
+    "cycle": {
+      "actual_hours": 179.3,
+      "actual_days": 7.47,
+      "baseline_hours": 168,
+      "delta_hours": 11.3,
+      "delta_percent": 6.7,
+      "critical_path_domain": "HCI_REGRESSION",
+      "overhead_breakdown_hours": {
+        "retries": 8.8,
+        "diagnostic_logs": 1.5,
+        "isolation_suites": 1.0
+      }
+    },
+    "health_index": {
+      "score": 63.2,
+      "band": "RED",
+      "components": {
+        "pass_rate": {
+          "score": 63.8,
+          "detail": "96.38% pass rate (floor 90%)",
+          "weight": 0.4
+        },
+        "defects": {
+          "score": 35.5,
+          "detail": "1 Blocker, 6 Critical, 26 Medium, 15 Trivial open (penalty 64.5)",
+          "weight": 0.25
+        },
+        "mtbf": {
+          "score": 80.0,
+          "detail": "MTBF 160.0 h vs 200 h gate, 100.0% auto-recovery",
+          "weight": 0.2
+        },
+        "kpi": {
+          "score": 85.7,
+          "detail": "12/14 KPIs pass, 0 degraded",
+          "weight": 0.15
+        }
+      }
+    },
+    "health_delta": 8.5,
+    "mtbf_hours": 160.0,
+    "total_crashes": 12,
+    "unique_crashes": 3,
+    "open_blockers": 1,
+    "open_criticals": 6,
+    "kpi_summary": {
+      "pass": 12,
+      "degraded": 0,
+      "fail": 2,
+      "breached": [
+        "A2DP_Latency_ms",
+        "A2DP_Dropouts_per_hr"
+      ]
+    },
+    "headline": [
+      "FW_v14.2.109_RC3: health index 63.2/100 (RED), +8.5 vs FW_v14.2.107_RC2.",
+      "Pass rate 96.38% across 6,000 HCI + phone tests (163 failed, 54 blocked), +0.45 pts vs previous build.",
+      "Full cycle took 7.47 days (179.3 h), +11.3 h over the 7-day baseline due to failure re-runs; critical path HCI_REGRESSION.",
+      "MTBF 160.0 h per DUT with 12 crashes (3 unique signatures); 1 Blocker and 6 Critical Jiras open.",
+      "KPI breaches: A2DP_Latency_ms 124.3 vs target < 100 (FAIL), A2DP_Dropouts_per_hr 1.209 vs target < 1.0 (FAIL)."
+    ]
+  },
+  "risk": {
+    "gates": [
+      {
+        "gate": "Open Blocker Jiras",
+        "threshold": "<= 0",
+        "actual": 1,
+        "status": "FAIL"
+      },
+      {
+        "gate": "Open Critical Jiras",
+        "threshold": "<= 5",
+        "actual": 6,
+        "status": "FAIL"
+      },
+      {
+        "gate": "Overall pass rate %",
+        "threshold": ">= 98.0",
+        "actual": 96.38,
+        "status": "FAIL"
+      },
+      {
+        "gate": "MTBF hours per DUT",
+        "threshold": ">= 200",
+        "actual": 160.0,
+        "status": "FAIL"
+      },
+      {
+        "gate": "KPI metrics passing",
+        "threshold": "all",
+        "actual": "12/14",
+        "status": "FAIL"
+      }
+    ],
+    "gates_passed": 0,
+    "gates_total": 5,
+    "release_recommendation": "NO-GO",
+    "release_blockers": [
+      {
+        "jira_id": "BTFW-4012",
+        "title": "LC3 codec frame buffer NULL dereference on CIS re-establishment",
+        "severity": "Blocker",
+        "subsystem": "AUDIO_CODEC",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.093",
+        "builds_open": 7,
+        "failed_tests": 13,
+        "blocked_tests": 46,
+        "crash_occurrences": 7,
+        "affected_duts": [
+          "DUT-02",
+          "DUT-05",
+          "DUT-14"
+        ],
+        "kpi_metrics": [],
+        "impact_score": 94
+      },
+      {
+        "jira_id": "BTFW-4031",
+        "title": "Scheduler starves ISO events when A2DP ACL and LE Audio CIS run concurrently",
+        "severity": "Critical",
+        "subsystem": "BASEBAND",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.104",
+        "builds_open": 4,
+        "failed_tests": 34,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "affected_duts": [],
+        "kpi_metrics": [
+          "A2DP_Latency_ms",
+          "A2DP_Dropouts_per_hr"
+        ],
+        "impact_score": 54
+      },
+      {
+        "jira_id": "BTFW-4022",
+        "title": "Controller hangs on HCI_Reset issued right after A2DP stream teardown",
+        "severity": "Critical",
+        "subsystem": "HCI",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.101",
+        "builds_open": 5,
+        "failed_tests": 10,
+        "blocked_tests": 0,
+        "crash_occurrences": 4,
+        "affected_duts": [
+          "DUT-11"
+        ],
+        "kpi_metrics": [],
+        "impact_score": 30
+      },
+      {
+        "jira_id": "BTFW-4027",
+        "title": "Robust caching: database hash stale after Service Changed indication",
+        "severity": "Critical",
+        "subsystem": "HOST_STACK",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.097",
+        "builds_open": 6,
+        "failed_tests": 12,
+        "blocked_tests": 8,
+        "crash_occurrences": 0,
+        "affected_duts": [],
+        "kpi_metrics": [],
+        "impact_score": 20
+      },
+      {
+        "jira_id": "BTFW-4018",
+        "title": "LMP response timeout during role switch with encrypted ACL",
+        "severity": "Critical",
+        "subsystem": "LMP",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.088",
+        "builds_open": 8,
+        "failed_tests": 14,
+        "blocked_tests": 0,
+        "crash_occurrences": 1,
+        "affected_duts": [
+          "DUT-07"
+        ],
+        "kpi_metrics": [],
+        "impact_score": 19
+      },
+      {
+        "jira_id": "BTFW-5477",
+        "title": "HCI_Flow_Control: Event mask not honoured",
+        "severity": "Critical",
+        "subsystem": "HCI",
+        "status": "Open",
+        "first_seen_build": "FW_v14.2.109_RC3",
+        "builds_open": 1,
+        "failed_tests": 9,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "affected_duts": [],
+        "kpi_metrics": [],
+        "impact_score": 9
+      },
+      {
+        "jira_id": "BTFW-5372",
+        "title": "Sniff_Mode: Current draw above budget",
+        "severity": "Critical",
+        "subsystem": "POWER_MGMT",
+        "status": "In Progress",
+        "first_seen_build": "FW_v14.2.107_RC2",
+        "builds_open": 2,
+        "failed_tests": 3,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "affected_duts": [],
+        "kpi_metrics": [],
+        "impact_score": 3
+      }
+    ],
+    "forecast": {
+      "target_release_date": "2026-11-10T11:18:00Z",
+      "projected_ready_date": "2026-11-12T15:21:00Z",
+      "slip_days": 2.2,
+      "schedule_status": "AT_RISK",
+      "breakdown_days": {
+        "fix": 5,
+        "triage": 1.7,
+        "verification_cycle": 7.5,
+        "burn_down_cycles": 9
+      },
+      "fix_days_by_subsystem": {
+        "AUDIO_CODEC": 5,
+        "BASEBAND": 3
+      },
+      "pass_rate_projection": {
+        "current_non_pass": 217,
+        "cleared_by_must_fix": 93,
+        "projected_non_pass": 124,
+        "allowed_non_pass": 120,
+        "shortfall": 4,
+        "burn_down_velocity_per_build": 42.7,
+        "extra_fix_cycles": 1
+      },
+      "must_fix": [
+        {
+          "jira_id": "BTFW-4012",
+          "title": "LC3 codec frame buffer NULL dereference on CIS re-establishment",
+          "severity": "Blocker",
+          "subsystem": "AUDIO_CODEC",
+          "status": "In Progress",
+          "first_seen_build": "FW_v14.2.093",
+          "builds_open": 7,
+          "failed_tests": 13,
+          "blocked_tests": 46,
+          "crash_occurrences": 7,
+          "affected_duts": [
+            "DUT-02",
+            "DUT-05",
+            "DUT-14"
+          ],
+          "kpi_metrics": [],
+          "impact_score": 94,
+          "required_by": "Blocker gate"
+        },
+        {
+          "jira_id": "BTFW-4031",
+          "title": "Scheduler starves ISO events when A2DP ACL and LE Audio CIS run concurrently",
+          "severity": "Critical",
+          "subsystem": "BASEBAND",
+          "status": "In Progress",
+          "first_seen_build": "FW_v14.2.104",
+          "builds_open": 4,
+          "failed_tests": 34,
+          "blocked_tests": 0,
+          "crash_occurrences": 0,
+          "affected_duts": [],
+          "kpi_metrics": [
+            "A2DP_Latency_ms",
+            "A2DP_Dropouts_per_hr"
+          ],
+          "impact_score": 54,
+          "required_by": "Critical gate"
+        }
+      ],
+      "projected_crashes_after_fixes": 5
+    },
+    "mtbf": {
+      "fleet_mtbf_hours": 160.0,
+      "gate_hours": 200,
+      "meets_gate": false,
+      "recovery_success_rate_percent": 100.0,
+      "mtbf_excluding_outliers_hours": 180.0,
+      "outlier_duts": [
+        "DUT-02"
+      ],
+      "per_dut": [
+        {
+          "dut_id": "DUT-01",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-1",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-02",
+          "board_rev": "EVT2",
+          "rf_module_lot": "LOT-A17",
+          "bench": "BENCH-1",
+          "crashes": 2,
+          "mtbf_hours": 60.0,
+          "downtime_hours": 0.24
+        },
+        {
+          "dut_id": "DUT-03",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-1",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-04",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-1",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-05",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-A17",
+          "bench": "BENCH-2",
+          "crashes": 3,
+          "mtbf_hours": 40.0,
+          "downtime_hours": 0.25
+        },
+        {
+          "dut_id": "DUT-06",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-2",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-07",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-2",
+          "crashes": 1,
+          "mtbf_hours": 120.0,
+          "downtime_hours": 0.2
+        },
+        {
+          "dut_id": "DUT-08",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-2",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-09",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-A17",
+          "bench": "BENCH-3",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-10",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-3",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-11",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-3",
+          "crashes": 4,
+          "mtbf_hours": 30.0,
+          "downtime_hours": 0.62
+        },
+        {
+          "dut_id": "DUT-12",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-3",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-13",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-4",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-14",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-A17",
+          "bench": "BENCH-4",
+          "crashes": 2,
+          "mtbf_hours": 60.0,
+          "downtime_hours": 0.17
+        },
+        {
+          "dut_id": "DUT-15",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B03",
+          "bench": "BENCH-4",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        },
+        {
+          "dut_id": "DUT-16",
+          "board_rev": "DVT1",
+          "rf_module_lot": "LOT-B04",
+          "bench": "BENCH-4",
+          "crashes": 0,
+          "mtbf_hours": null,
+          "downtime_hours": 0.0
+        }
+      ],
+      "trend": [
+        {
+          "firmware_build": "FW_v14.2.088",
+          "mtbf_hours": 36.9,
+          "crashes": 52,
+          "unique_crashes": 10
+        },
+        {
+          "firmware_build": "FW_v14.2.093",
+          "mtbf_hours": 43.6,
+          "crashes": 44,
+          "unique_crashes": 10
+        },
+        {
+          "firmware_build": "FW_v14.2.097",
+          "mtbf_hours": 53.3,
+          "crashes": 36,
+          "unique_crashes": 9
+        },
+        {
+          "firmware_build": "FW_v14.2.101",
+          "mtbf_hours": 50.5,
+          "crashes": 38,
+          "unique_crashes": 8
+        },
+        {
+          "firmware_build": "FW_v14.2.104",
+          "mtbf_hours": 96.0,
+          "crashes": 20,
+          "unique_crashes": 4
+        },
+        {
+          "firmware_build": "FW_v14.2.106_RC1",
+          "mtbf_hours": 96.0,
+          "crashes": 20,
+          "unique_crashes": 5
+        },
+        {
+          "firmware_build": "FW_v14.2.107_RC2",
+          "mtbf_hours": 147.7,
+          "crashes": 13,
+          "unique_crashes": 3
+        },
+        {
+          "firmware_build": "FW_v14.2.109_RC3",
+          "mtbf_hours": 160.0,
+          "crashes": 12,
+          "unique_crashes": 3
+        }
+      ]
+    },
+    "test_domains_scope": [
+      "HCI_REGRESSION",
+      "PHONE_TESTING"
+    ]
+  },
+  "anomalies": {
+    "count": 7,
+    "high": 5,
+    "dut_variance": [
+      {
+        "type": "DUT_CRASH_VARIANCE",
+        "severity": "HIGH",
+        "dut_id": "DUT-02",
+        "crashes_all_builds": 45,
+        "fleet_median": 14.0,
+        "ratio_vs_median": 3.2,
+        "z_score": 3.19,
+        "crashes_latest_build": 2,
+        "board_rev": "EVT2",
+        "rf_module_lot": "LOT-A17",
+        "bench": "BENCH-1",
+        "top_signatures": [
+          {
+            "signature": "NullPointerInLC3CodecBuffer",
+            "count": 22
+          },
+          {
+            "signature": "RFCalibrationTimeoutAfterSleep",
+            "count": 9
+          },
+          {
+            "signature": "AssertInLLConnectionUpdate",
+            "count": 6
+          }
+        ],
+        "summary": "DUT-02 crashed 45 times across 8 builds: 3.2x the fleet median (14) and 11.2x DUT-16 (4). Board EVT2, RF lot LOT-A17."
+      }
+    ],
+    "hardware_groups": [],
+    "dut_crash_table": [
+      {
+        "dut_id": "DUT-01",
+        "crashes_all_builds": 26,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-1"
+      },
+      {
+        "dut_id": "DUT-02",
+        "crashes_all_builds": 45,
+        "crashes_latest_build": 2,
+        "board_rev": "EVT2",
+        "rf_module_lot": "LOT-A17",
+        "bench": "BENCH-1"
+      },
+      {
+        "dut_id": "DUT-03",
+        "crashes_all_builds": 9,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-1"
+      },
+      {
+        "dut_id": "DUT-04",
+        "crashes_all_builds": 12,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-1"
+      },
+      {
+        "dut_id": "DUT-05",
+        "crashes_all_builds": 16,
+        "crashes_latest_build": 3,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-A17",
+        "bench": "BENCH-2"
+      },
+      {
+        "dut_id": "DUT-06",
+        "crashes_all_builds": 13,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-2"
+      },
+      {
+        "dut_id": "DUT-07",
+        "crashes_all_builds": 16,
+        "crashes_latest_build": 1,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-2"
+      },
+      {
+        "dut_id": "DUT-08",
+        "crashes_all_builds": 7,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-2"
+      },
+      {
+        "dut_id": "DUT-09",
+        "crashes_all_builds": 15,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-A17",
+        "bench": "BENCH-3"
+      },
+      {
+        "dut_id": "DUT-10",
+        "crashes_all_builds": 7,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-3"
+      },
+      {
+        "dut_id": "DUT-11",
+        "crashes_all_builds": 17,
+        "crashes_latest_build": 4,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-3"
+      },
+      {
+        "dut_id": "DUT-12",
+        "crashes_all_builds": 6,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-3"
+      },
+      {
+        "dut_id": "DUT-13",
+        "crashes_all_builds": 16,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-4"
+      },
+      {
+        "dut_id": "DUT-14",
+        "crashes_all_builds": 17,
+        "crashes_latest_build": 2,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-A17",
+        "bench": "BENCH-4"
+      },
+      {
+        "dut_id": "DUT-15",
+        "crashes_all_builds": 9,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B03",
+        "bench": "BENCH-4"
+      },
+      {
+        "dut_id": "DUT-16",
+        "crashes_all_builds": 4,
+        "crashes_latest_build": 0,
+        "board_rev": "DVT1",
+        "rf_module_lot": "LOT-B04",
+        "bench": "BENCH-4"
+      }
+    ],
+    "cross_talk": [
+      {
+        "type": "FEATURE_CROSS_TALK",
+        "severity": "HIGH",
+        "build": "FW_v14.2.104",
+        "metric": "A2DP_Latency_ms",
+        "metric_before": 84.9,
+        "metric_after": 124.0,
+        "metric_status": "FAIL",
+        "common_jira": "BTFW-4031",
+        "feature_spikes": [
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "LE_Audio_CIS_BIS",
+            "before": 56,
+            "after": 83,
+            "correlation": 0.652,
+            "tests_linked_to_kpi_jira": 17
+          }
+        ],
+        "other_concurrent_spikes": [
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "Vendor_Specific_Cmds",
+            "before": 2,
+            "after": 10,
+            "correlation": 0.39,
+            "tests_linked_to_kpi_jira": 0
+          },
+          {
+            "domain": "PHONE_TESTING",
+            "feature": "HFP_Calls",
+            "before": 0,
+            "after": 8,
+            "correlation": -0.189,
+            "tests_linked_to_kpi_jira": 0
+          },
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "HCI_Flow_Control",
+            "before": 5,
+            "after": 12,
+            "correlation": -0.373,
+            "tests_linked_to_kpi_jira": 0
+          }
+        ],
+        "summary": "At FW_v14.2.104, A2DP_Latency_ms degraded 84.9 -> 124.0 while failures spiked in LE_Audio_CIS_BIS (56->83); BTFW-4031 links both."
+      },
+      {
+        "type": "FEATURE_CROSS_TALK",
+        "severity": "HIGH",
+        "build": "FW_v14.2.104",
+        "metric": "A2DP_Dropouts_per_hr",
+        "metric_before": 0.408,
+        "metric_after": 1.189,
+        "metric_status": "FAIL",
+        "common_jira": "BTFW-4031",
+        "feature_spikes": [
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "LE_Audio_CIS_BIS",
+            "before": 56,
+            "after": 83,
+            "correlation": 0.659,
+            "tests_linked_to_kpi_jira": 17
+          }
+        ],
+        "other_concurrent_spikes": [
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "Vendor_Specific_Cmds",
+            "before": 2,
+            "after": 10,
+            "correlation": 0.38,
+            "tests_linked_to_kpi_jira": 0
+          },
+          {
+            "domain": "PHONE_TESTING",
+            "feature": "HFP_Calls",
+            "before": 0,
+            "after": 8,
+            "correlation": -0.202,
+            "tests_linked_to_kpi_jira": 0
+          },
+          {
+            "domain": "HCI_REGRESSION",
+            "feature": "HCI_Flow_Control",
+            "before": 5,
+            "after": 12,
+            "correlation": -0.368,
+            "tests_linked_to_kpi_jira": 0
+          }
+        ],
+        "summary": "At FW_v14.2.104, A2DP_Dropouts_per_hr degraded 0.408 -> 1.189 while failures spiked in LE_Audio_CIS_BIS (56->83); BTFW-4031 links both."
+      }
+    ],
+    "blocked_concentrations": [
+      {
+        "type": "BLOCKED_CONCENTRATION",
+        "severity": "HIGH",
+        "jira_id": "BTFW-4012",
+        "title": "LC3 codec frame buffer NULL dereference on CIS re-establishment",
+        "ticket_severity": "Blocker",
+        "subsystem": "AUDIO_CODEC",
+        "blocked_tests": 46,
+        "features": {
+          "LE_Audio_CIS_BIS": 41,
+          "LE_Audio_Unicast": 5
+        },
+        "gating_tests": [
+          "HCI-LEAUD-0124",
+          "HCI-LEAUD-0296",
+          "HCI-LEAUD-0315",
+          "PHN-LEUNI-085"
+        ],
+        "suites": 4,
+        "summary": "BTFW-4012 (Blocker, AUDIO_CODEC) fails 4 gating tests and blocks 46 tests in 4 suites: 41 LE_Audio_CIS_BIS, 5 LE_Audio_Unicast. Indicative of a gating driver bug."
+      }
+    ],
+    "coverage_gaps": [
+      {
+        "type": "COVERAGE_GAP",
+        "severity": "MEDIUM",
+        "domain": "HCI_REGRESSION",
+        "feature": "LE_Audio_CIS_BIS",
+        "blocked_now": 41,
+        "blocked_share_percent": 8.5,
+        "blocked_every_build_of_last": 3,
+        "persistently_blocked_tests": 30,
+        "summary": "LE_Audio_CIS_BIS: 41 of 480 tests (8.5%) not executed this build; 30 tests have been blocked in each of the last 3 builds."
+      },
+      {
+        "type": "COVERAGE_GAP",
+        "severity": "MEDIUM",
+        "domain": "PHONE_TESTING",
+        "feature": "LE_Audio_Unicast",
+        "blocked_now": 5,
+        "blocked_share_percent": 5.6,
+        "blocked_every_build_of_last": 3,
+        "persistently_blocked_tests": 5,
+        "summary": "LE_Audio_Unicast: 5 of 90 tests (5.6%) not executed this build; 5 tests have been blocked in each of the last 3 builds."
+      }
+    ],
+    "regressions": [
+      {
+        "type": "NEW_REGRESSION",
+        "severity": "HIGH",
+        "jira_id": "BTFW-5477",
+        "title": "HCI_Flow_Control: Event mask not honoured",
+        "ticket_severity": "Critical",
+        "subsystem": "HCI",
+        "failed_tests": 9,
+        "summary": "New Critical regression in FW_v14.2.109_RC3: BTFW-5477 HCI_Flow_Control: Event mask not honoured."
+      }
+    ],
+    "outlier_duts": [
+      "DUT-02"
+    ]
+  },
+  "clusters": {
+    "subsystems": [
+      {
+        "subsystem": "AUDIO_CODEC",
+        "subsystem_name": "Audio Codec / LC3",
+        "owner_team": "Audio / Codec Firmware",
+        "tickets": 1,
+        "severity": {
+          "Blocker": 1,
+          "Critical": 0,
+          "Medium": 0,
+          "Trivial": 0
+        },
+        "failed_tests": 13,
+        "blocked_tests": 46,
+        "crash_occurrences": 7,
+        "jira_ids": [
+          "BTFW-4012"
+        ],
+        "impact_score": 28.8,
+        "top_features": [
+          [
+            "LE_Audio_CIS_BIS",
+            9
+          ],
+          [
+            "LE_Audio_Unicast",
+            4
+          ]
+        ],
+        "top_signatures": [
+          [
+            "NullPointerInLC3CodecBuffer",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "BASEBAND",
+        "subsystem_name": "Baseband / Scheduler",
+        "owner_team": "BR/EDR Controller Firmware",
+        "tickets": 6,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 1,
+          "Medium": 5,
+          "Trivial": 0
+        },
+        "failed_tests": 45,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-4031",
+          "BTFW-5479",
+          "BTFW-5518",
+          "BTFW-5535",
+          "BTFW-5542",
+          "BTFW-5544"
+        ],
+        "impact_score": 24.0,
+        "top_features": [
+          [
+            "LE_Audio_CIS_BIS",
+            18
+          ],
+          [
+            "A2DP_Streaming",
+            10
+          ],
+          [
+            "LE_Audio_Unicast",
+            6
+          ],
+          [
+            "SCO_eSCO",
+            4
+          ],
+          [
+            "LE_Audio_Broadcast",
+            4
+          ]
+        ],
+        "top_signatures": [
+          [
+            "Page timeout (error 0x04)",
+            2
+          ],
+          [
+            "eSCO retransmission window miss",
+            2
+          ],
+          [
+            "ISO slot starvation under concurrent A2DP + LE Audio",
+            1
+          ],
+          [
+            "ACL packet loss above threshold",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "HOST_STACK",
+        "subsystem_name": "Host Stack (L2CAP / GATT / Profiles)",
+        "owner_team": "Host Stack",
+        "tickets": 8,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 1,
+          "Medium": 3,
+          "Trivial": 4
+        },
+        "failed_tests": 21,
+        "blocked_tests": 8,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-4027",
+          "BTFW-5532",
+          "BTFW-5533",
+          "BTFW-5538",
+          "BTFW-5370",
+          "BTFW-5528",
+          "BTFW-5529",
+          "BTFW-5540"
+        ],
+        "impact_score": 20.8,
+        "top_features": [
+          [
+            "GATT_ATT",
+            14
+          ],
+          [
+            "BLE_Wearables_GATT",
+            4
+          ],
+          [
+            "L2CAP_CoC",
+            2
+          ],
+          [
+            "OPP_File_Transfer",
+            1
+          ]
+        ],
+        "top_signatures": [
+          [
+            "SDP record not found",
+            3
+          ],
+          [
+            "Profile connection rejected",
+            2
+          ],
+          [
+            "ATT error 0x0E Unlikely Error",
+            2
+          ],
+          [
+            "GATT DB hash not regenerated after service change",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "LINK_LAYER",
+        "subsystem_name": "LE Link Layer / Isochronous",
+        "owner_team": "LE Controller Firmware",
+        "tickets": 11,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 0,
+          "Medium": 5,
+          "Trivial": 6
+        },
+        "failed_tests": 21,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-4035",
+          "BTFW-5484",
+          "BTFW-5487",
+          "BTFW-5492",
+          "BTFW-5505",
+          "BTFW-5481",
+          "BTFW-5489",
+          "BTFW-5491",
+          "BTFW-5493",
+          "BTFW-5494",
+          "BTFW-5502"
+        ],
+        "impact_score": 20.2,
+        "top_features": [
+          [
+            "LE_Power_Control",
+            12
+          ],
+          [
+            "LE_2M_Coded_PHY",
+            2
+          ],
+          [
+            "LE_Connection",
+            2
+          ],
+          [
+            "LE_Channel_Selection_2",
+            2
+          ],
+          [
+            "LE_Scanning",
+            1
+          ]
+        ],
+        "top_signatures": [
+          [
+            "ISO SDU dropped / sequence gap",
+            4
+          ],
+          [
+            "Connection failed to be established (0x3E)",
+            3
+          ],
+          [
+            "Path loss report stuck after PHY update",
+            1
+          ],
+          [
+            "Instant passed (error 0x28)",
+            1
+          ],
+          [
+            "LL response timeout (error 0x22)",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "HCI",
+        "subsystem_name": "Host-Controller Interface",
+        "owner_team": "HCI / Transport Firmware",
+        "tickets": 3,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 2,
+          "Medium": 1,
+          "Trivial": 0
+        },
+        "failed_tests": 20,
+        "blocked_tests": 0,
+        "crash_occurrences": 4,
+        "jira_ids": [
+          "BTFW-4022",
+          "BTFW-5477",
+          "BTFW-5527"
+        ],
+        "impact_score": 20.0,
+        "top_features": [
+          [
+            "HCI_Flow_Control",
+            9
+          ],
+          [
+            "HCI_Reset_Init",
+            6
+          ],
+          [
+            "Airplane_Toggle_Recovery",
+            4
+          ],
+          [
+            "Vendor_Specific_Cmds",
+            1
+          ]
+        ],
+        "top_signatures": [
+          [
+            "HCI_Reset_Hang_Post_A2DP_Stream",
+            1
+          ],
+          [
+            "Event mask not honoured",
+            1
+          ],
+          [
+            "Unexpected HCI error 0x12 Invalid HCI Command Parameters",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "LMP",
+        "subsystem_name": "Link Manager Protocol",
+        "owner_team": "BR/EDR Controller Firmware",
+        "tickets": 7,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 1,
+          "Medium": 3,
+          "Trivial": 3
+        },
+        "failed_tests": 20,
+        "blocked_tests": 0,
+        "crash_occurrences": 1,
+        "jira_ids": [
+          "BTFW-4018",
+          "BTFW-5507",
+          "BTFW-5511",
+          "BTFW-5515",
+          "BTFW-5506",
+          "BTFW-5510",
+          "BTFW-5513"
+        ],
+        "impact_score": 19.0,
+        "top_features": [
+          [
+            "BR_EDR_Connections",
+            10
+          ],
+          [
+            "Role_Switch",
+            7
+          ],
+          [
+            "Multi_Device_Connection",
+            3
+          ]
+        ],
+        "top_signatures": [
+          [
+            "Link supervision timeout (error 0x08)",
+            3
+          ],
+          [
+            "LinkManagerTimeoutOnRoleSwitch",
+            1
+          ],
+          [
+            "Unexpected LMP_not_accepted",
+            1
+          ],
+          [
+            "LMP response timeout (error 0x22)",
+            1
+          ],
+          [
+            "LMP transaction collision (error 0x23)",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "SECURITY",
+        "subsystem_name": "Security / Pairing & Encryption",
+        "owner_team": "Security Firmware",
+        "tickets": 4,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 0,
+          "Medium": 4,
+          "Trivial": 0
+        },
+        "failed_tests": 10,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-5257",
+          "BTFW-5476",
+          "BTFW-5526",
+          "BTFW-5534"
+        ],
+        "impact_score": 10.0,
+        "top_features": [
+          [
+            "LE_Privacy",
+            6
+          ],
+          [
+            "Encryption_Key_Refresh",
+            2
+          ],
+          [
+            "Secure_Simple_Pairing",
+            1
+          ],
+          [
+            "Pairing_Bonding",
+            1
+          ]
+        ],
+        "top_signatures": [
+          [
+            "Pairing confirm value mismatch",
+            2
+          ],
+          [
+            "Authentication failure (error 0x05)",
+            1
+          ],
+          [
+            "PIN or key missing (error 0x06)",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "PHY_RF",
+        "subsystem_name": "PHY / RF",
+        "owner_team": "RF / PHY",
+        "tickets": 4,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 0,
+          "Medium": 4,
+          "Trivial": 0
+        },
+        "failed_tests": 7,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-4040",
+          "BTFW-5495",
+          "BTFW-5497",
+          "BTFW-5499"
+        ],
+        "impact_score": 9.4,
+        "top_features": [
+          [
+            "LE_Data_Length_Ext",
+            4
+          ],
+          [
+            "LE_2M_Coded_PHY",
+            3
+          ]
+        ],
+        "top_signatures": [
+          [
+            "LE 2M throughput drop with DLE 251",
+            1
+          ],
+          [
+            "TX power out of tolerance",
+            1
+          ],
+          [
+            "PHY update procedure timeout",
+            1
+          ],
+          [
+            "RX sensitivity below spec",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "POWER_MGMT",
+        "subsystem_name": "Power Management",
+        "owner_team": "Power Management Firmware",
+        "tickets": 1,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 1,
+          "Medium": 0,
+          "Trivial": 0
+        },
+        "failed_tests": 3,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-5372"
+        ],
+        "impact_score": 5.6,
+        "top_features": [
+          [
+            "Sniff_Mode",
+            3
+          ]
+        ],
+        "top_signatures": [
+          [
+            "Current draw above budget",
+            1
+          ]
+        ]
+      },
+      {
+        "subsystem": "COEX",
+        "subsystem_name": "BT / Wi-Fi Coexistence",
+        "owner_team": "Coexistence Firmware",
+        "tickets": 3,
+        "severity": {
+          "Blocker": 0,
+          "Critical": 0,
+          "Medium": 1,
+          "Trivial": 2
+        },
+        "failed_tests": 3,
+        "blocked_tests": 0,
+        "crash_occurrences": 0,
+        "jira_ids": [
+          "BTFW-5523",
+          "BTFW-5520",
+          "BTFW-5547"
+        ],
+        "impact_score": 4.6,
+        "top_features": [
+          [
+            "AFH",
+            2
+          ],
+          [
+            "BT_WiFi_Coex",
+            1
+          ]
+        ],
+        "top_signatures": [
+          [
+            "Wi-Fi priority override of BT slot",
+            3
+          ]
+        ]
+      }
+    ],
+    "duplicate_candidates": [
+      {
+        "subsystem": "LINK_LAYER",
+        "signature": "ISO SDU dropped / sequence gap",
+        "tickets": [
+          "BTFW-5487",
+          "BTFW-5492",
+          "BTFW-5505",
+          "BTFW-5494"
+        ],
+        "failed_tests": 4,
+        "summary": "4 LINK_LAYER tickets share the signature 'ISO SDU dropped / sequence gap' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "LMP",
+        "signature": "Link supervision timeout (error 0x08)",
+        "tickets": [
+          "BTFW-5507",
+          "BTFW-5515",
+          "BTFW-5513"
+        ],
+        "failed_tests": 3,
+        "summary": "3 LMP tickets share the signature 'Link supervision timeout (error 0x08)' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "COEX",
+        "signature": "Wi-Fi priority override of BT slot",
+        "tickets": [
+          "BTFW-5523",
+          "BTFW-5520",
+          "BTFW-5547"
+        ],
+        "failed_tests": 3,
+        "summary": "3 COEX tickets share the signature 'Wi-Fi priority override of BT slot' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "HOST_STACK",
+        "signature": "SDP record not found",
+        "tickets": [
+          "BTFW-5532",
+          "BTFW-5370",
+          "BTFW-5528"
+        ],
+        "failed_tests": 5,
+        "summary": "3 HOST_STACK tickets share the signature 'SDP record not found' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "LINK_LAYER",
+        "signature": "Connection failed to be established (0x3E)",
+        "tickets": [
+          "BTFW-5481",
+          "BTFW-5491",
+          "BTFW-5502"
+        ],
+        "failed_tests": 3,
+        "summary": "3 LINK_LAYER tickets share the signature 'Connection failed to be established (0x3E)' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "BASEBAND",
+        "signature": "Page timeout (error 0x04)",
+        "tickets": [
+          "BTFW-5518",
+          "BTFW-5542"
+        ],
+        "failed_tests": 2,
+        "summary": "2 BASEBAND tickets share the signature 'Page timeout (error 0x04)' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "SECURITY",
+        "signature": "Pairing confirm value mismatch",
+        "tickets": [
+          "BTFW-5526",
+          "BTFW-5534"
+        ],
+        "failed_tests": 2,
+        "summary": "2 SECURITY tickets share the signature 'Pairing confirm value mismatch' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "HOST_STACK",
+        "signature": "Profile connection rejected",
+        "tickets": [
+          "BTFW-5533",
+          "BTFW-5538"
+        ],
+        "failed_tests": 2,
+        "summary": "2 HOST_STACK tickets share the signature 'Profile connection rejected' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "BASEBAND",
+        "signature": "eSCO retransmission window miss",
+        "tickets": [
+          "BTFW-5535",
+          "BTFW-5544"
+        ],
+        "failed_tests": 2,
+        "summary": "2 BASEBAND tickets share the signature 'eSCO retransmission window miss' - likely one root cause; triage together."
+      },
+      {
+        "subsystem": "HOST_STACK",
+        "signature": "ATT error 0x0E Unlikely Error",
+        "tickets": [
+          "BTFW-5529",
+          "BTFW-5540"
+        ],
+        "failed_tests": 2,
+        "summary": "2 HOST_STACK tickets share the signature 'ATT error 0x0E Unlikely Error' - likely one root cause; triage together."
+      }
+    ],
+    "crash_signatures": {
+      "recurring": 13,
+      "single_instance": 1,
+      "active": 3,
+      "resolved": 11,
+      "signatures": [
+        {
+          "crash_signature": "NullPointerInLC3CodecBuffer",
+          "jira_id": "BTFW-4012",
+          "severity": "Blocker",
+          "subsystem": "AUDIO_CODEC",
+          "stack_trace_top_frames": [
+            "lc3_decode_frame+0x1a4",
+            "iso_rx_sdu_complete+0x88",
+            "cis_rx_handler+0x3c",
+            "ll_isr_dispatch+0x110"
+          ],
+          "builds_seen": [
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101",
+            "FW_v14.2.104",
+            "FW_v14.2.106_RC1",
+            "FW_v14.2.107_RC2",
+            "FW_v14.2.109_RC3"
+          ],
+          "total_occurrences": 52,
+          "affected_duts": [
+            "DUT-02",
+            "DUT-05",
+            "DUT-09",
+            "DUT-14"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.093": 4,
+            "FW_v14.2.097": 6,
+            "FW_v14.2.101": 9,
+            "FW_v14.2.104": 8,
+            "FW_v14.2.106_RC1": 10,
+            "FW_v14.2.107_RC2": 8,
+            "FW_v14.2.109_RC3": 7
+          },
+          "status": "ACTIVE",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.109_RC3"
+        },
+        {
+          "crash_signature": "LinkManagerTimeoutOnRoleSwitch",
+          "jira_id": "BTFW-4018",
+          "severity": "Critical",
+          "subsystem": "LMP",
+          "stack_trace_top_frames": [
+            "lmp_role_switch_fsm+0x2f0",
+            "lmp_timer_expiry+0x54",
+            "lc_sched_tick+0x9c"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101",
+            "FW_v14.2.104",
+            "FW_v14.2.106_RC1",
+            "FW_v14.2.107_RC2",
+            "FW_v14.2.109_RC3"
+          ],
+          "total_occurrences": 28,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-07"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 3,
+            "FW_v14.2.093": 1,
+            "FW_v14.2.097": 6,
+            "FW_v14.2.101": 6,
+            "FW_v14.2.104": 3,
+            "FW_v14.2.106_RC1": 5,
+            "FW_v14.2.107_RC2": 3,
+            "FW_v14.2.109_RC3": 1
+          },
+          "status": "ACTIVE",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.109_RC3"
+        },
+        {
+          "crash_signature": "HCI_Reset_Hang_Post_A2DP_Stream",
+          "jira_id": "BTFW-4022",
+          "severity": "Critical",
+          "subsystem": "HCI",
+          "stack_trace_top_frames": [
+            "hci_cmd_reset+0x40",
+            "acl_flush_pending+0x1d8",
+            "mutex_lock_timeout+0x22"
+          ],
+          "builds_seen": [
+            "FW_v14.2.101",
+            "FW_v14.2.106_RC1",
+            "FW_v14.2.107_RC2",
+            "FW_v14.2.109_RC3"
+          ],
+          "total_occurrences": 9,
+          "affected_duts": [
+            "DUT-11"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.101": 2,
+            "FW_v14.2.106_RC1": 1,
+            "FW_v14.2.107_RC2": 2,
+            "FW_v14.2.109_RC3": 4
+          },
+          "status": "ACTIVE",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.109_RC3"
+        },
+        {
+          "crash_signature": "ISOChannelDesyncOnCISTeardown",
+          "jira_id": "BTFW-3983",
+          "severity": "Critical",
+          "subsystem": "LINK_LAYER",
+          "stack_trace_top_frames": [
+            "cig_remove_cis+0xd4",
+            "iso_sync_lost+0x40",
+            "ll_isr_dispatch+0x110"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101",
+            "FW_v14.2.104"
+          ],
+          "total_occurrences": 28,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-05",
+            "DUT-06",
+            "DUT-07",
+            "DUT-08",
+            "DUT-09",
+            "DUT-10",
+            "DUT-11",
+            "DUT-13",
+            "DUT-14"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 4,
+            "FW_v14.2.093": 11,
+            "FW_v14.2.097": 3,
+            "FW_v14.2.101": 5,
+            "FW_v14.2.104": 5
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.104"
+        },
+        {
+          "crash_signature": "AssertInLLConnectionUpdate",
+          "jira_id": "BTFW-3970",
+          "severity": "Critical",
+          "subsystem": "LINK_LAYER",
+          "stack_trace_top_frames": [
+            "ll_conn_update_instant+0x88",
+            "assert_handler+0x14",
+            "ll_evt_prepare+0x2c4"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101"
+          ],
+          "total_occurrences": 27,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-03",
+            "DUT-04",
+            "DUT-06",
+            "DUT-09",
+            "DUT-10",
+            "DUT-12",
+            "DUT-13",
+            "DUT-14",
+            "DUT-15",
+            "DUT-16"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 9,
+            "FW_v14.2.093": 4,
+            "FW_v14.2.097": 5,
+            "FW_v14.2.101": 9
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.101"
+        },
+        {
+          "crash_signature": "PowerMgrWakeupRaceOnSniffExit",
+          "jira_id": "BTFW-3990",
+          "severity": "Critical",
+          "subsystem": "POWER_MGMT",
+          "stack_trace_top_frames": [
+            "pm_wakeup_handler+0x9c",
+            "lmp_sniff_exit+0x48",
+            "irq_dispatch+0x20"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101"
+          ],
+          "total_occurrences": 23,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-03",
+            "DUT-04",
+            "DUT-06",
+            "DUT-07",
+            "DUT-09",
+            "DUT-11",
+            "DUT-12",
+            "DUT-13",
+            "DUT-15",
+            "DUT-16"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 11,
+            "FW_v14.2.093": 4,
+            "FW_v14.2.097": 7,
+            "FW_v14.2.101": 1
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.101"
+        },
+        {
+          "crash_signature": "RFCalibrationTimeoutAfterSleep",
+          "jira_id": "BTFW-3977",
+          "severity": "Critical",
+          "subsystem": "PHY_RF",
+          "stack_trace_top_frames": [
+            "rf_cal_run+0x15c",
+            "pm_exit_deep_sleep+0x60",
+            "radio_init+0x24"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101",
+            "FW_v14.2.104"
+          ],
+          "total_occurrences": 18,
+          "affected_duts": [
+            "DUT-02",
+            "DUT-06",
+            "DUT-10",
+            "DUT-13"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 3,
+            "FW_v14.2.093": 4,
+            "FW_v14.2.097": 4,
+            "FW_v14.2.101": 3,
+            "FW_v14.2.104": 4
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.104"
+        },
+        {
+          "crash_signature": "WatchdogResetInBasebandScheduler",
+          "jira_id": "BTFW-3961",
+          "severity": "Blocker",
+          "subsystem": "BASEBAND",
+          "stack_trace_top_frames": [
+            "sched_resolve_conflict+0x7c",
+            "sched_insert+0x1f0",
+            "wdt_isr+0x10"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093"
+          ],
+          "total_occurrences": 14,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-04",
+            "DUT-08",
+            "DUT-09",
+            "DUT-13",
+            "DUT-15",
+            "DUT-16"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 6,
+            "FW_v14.2.093": 8
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.093"
+        },
+        {
+          "crash_signature": "DeadlockInCoexArbiter",
+          "jira_id": "BTFW-3980",
+          "severity": "Blocker",
+          "subsystem": "COEX",
+          "stack_trace_top_frames": [
+            "coex_arbiter_lock+0x30",
+            "wlan_grant_cb+0x5c",
+            "os_mutex_wait+0x18"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097",
+            "FW_v14.2.101",
+            "FW_v14.2.106_RC1"
+          ],
+          "total_occurrences": 11,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-03",
+            "DUT-05",
+            "DUT-07",
+            "DUT-08",
+            "DUT-10",
+            "DUT-12",
+            "DUT-14",
+            "DUT-15"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 4,
+            "FW_v14.2.093": 1,
+            "FW_v14.2.097": 2,
+            "FW_v14.2.101": 3,
+            "FW_v14.2.106_RC1": 1
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.106_RC1"
+        },
+        {
+          "crash_signature": "HeapCorruptionInACLReassembly",
+          "jira_id": "BTFW-3965",
+          "severity": "Critical",
+          "subsystem": "HCI",
+          "stack_trace_top_frames": [
+            "acl_reassemble+0x134",
+            "heap_free+0x48",
+            "hci_acl_rx+0x90"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093",
+            "FW_v14.2.097"
+          ],
+          "total_occurrences": 10,
+          "affected_duts": [
+            "DUT-01",
+            "DUT-02",
+            "DUT-04",
+            "DUT-05",
+            "DUT-06",
+            "DUT-07",
+            "DUT-10",
+            "DUT-11",
+            "DUT-13"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 3,
+            "FW_v14.2.093": 5,
+            "FW_v14.2.097": 2
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.097"
+        },
+        {
+          "crash_signature": "DoubleFreeInGATTCacheFlush",
+          "jira_id": "BTFW-3985",
+          "severity": "Critical",
+          "subsystem": "HOST_STACK",
+          "stack_trace_top_frames": [
+            "gatt_cache_flush+0x58",
+            "heap_free+0x48",
+            "l2cap_disconnect_cb+0x34"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088"
+          ],
+          "total_occurrences": 7,
+          "affected_duts": [
+            "DUT-02",
+            "DUT-03",
+            "DUT-10",
+            "DUT-14",
+            "DUT-16"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 7
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.088"
+        },
+        {
+          "crash_signature": "StackOverflowInSMPPairing",
+          "jira_id": "BTFW-3972",
+          "severity": "Critical",
+          "subsystem": "SECURITY",
+          "stack_trace_top_frames": [
+            "ecc_p256_mul+0x3a0",
+            "smp_dhkey_check+0x74",
+            "task_stack_guard+0x08"
+          ],
+          "builds_seen": [
+            "FW_v14.2.088",
+            "FW_v14.2.093"
+          ],
+          "total_occurrences": 4,
+          "affected_duts": [
+            "DUT-03",
+            "DUT-08"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.088": 2,
+            "FW_v14.2.093": 2
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.093"
+        },
+        {
+          "crash_signature": "UseAfterFreeInESCOTeardown",
+          "jira_id": "BTFW-4029",
+          "severity": "Critical",
+          "subsystem": "BASEBAND",
+          "stack_trace_top_frames": [
+            "esco_link_free+0x2c",
+            "codec_reneg_cb+0x80",
+            "sched_remove+0x44"
+          ],
+          "builds_seen": [
+            "FW_v14.2.106_RC1"
+          ],
+          "total_occurrences": 3,
+          "affected_duts": [
+            "DUT-04",
+            "DUT-15"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.106_RC1": 3
+          },
+          "status": "RESOLVED",
+          "classification": "RECURRING",
+          "last_seen_build": "FW_v14.2.106_RC1"
+        },
+        {
+          "crash_signature": "HardFaultInAFHChannelMapUpdate",
+          "jira_id": "BTFW-3993",
+          "severity": "Critical",
+          "subsystem": "PHY_RF",
+          "stack_trace_top_frames": [
+            "afh_apply_map+0x64",
+            "hop_seq_regen+0x1b0",
+            "hardfault_handler+0x00"
+          ],
+          "builds_seen": [
+            "FW_v14.2.097"
+          ],
+          "total_occurrences": 1,
+          "affected_duts": [
+            "DUT-06"
+          ],
+          "occurrences_by_build": {
+            "FW_v14.2.097": 1
+          },
+          "status": "RESOLVED",
+          "classification": "SINGLE_INSTANCE",
+          "last_seen_build": "FW_v14.2.097"
+        }
+      ]
+    },
+    "failure_persistence": {
+      "persistent_threshold_builds": 3,
+      "persistent_failures": 88,
+      "new_failures": 61,
+      "intermittent_or_short": 14,
+      "persistent_by_jira": [
+        {
+          "jira_id": "BTFW-4031",
+          "tests": 27,
+          "max_streak": 8
+        },
+        {
+          "jira_id": "BTFW-4018",
+          "tests": 13,
+          "max_streak": 8
+        },
+        {
+          "jira_id": "BTFW-4012",
+          "tests": 12,
+          "max_streak": 7
+        },
+        {
+          "jira_id": "BTFW-4035",
+          "tests": 10,
+          "max_streak": 3
+        },
+        {
+          "jira_id": "BTFW-4022",
+          "tests": 9,
+          "max_streak": 5
+        },
+        {
+          "jira_id": "BTFW-4027",
+          "tests": 9,
+          "max_streak": 8
+        },
+        {
+          "jira_id": "BTFW-5257",
+          "tests": 5,
+          "max_streak": 3
+        },
+        {
+          "jira_id": "BTFW-4040",
+          "tests": 3,
+          "max_streak": 3
+        }
+      ]
+    },
+    "ticket_origin": {
+      "TRACKED": 7,
+      "AUTO_MINOR": 6,
+      "SINGLE_INSTANCE": 35
+    }
+  },
+  "next_actions": {
+    "actions": [
+      {
+        "priority": "P0",
+        "team": "Audio / Codec Firmware",
+        "action": "Fix BTFW-4012 (LC3 codec frame buffer NULL dereference on CIS re-establishment) immediately to unblock 46 blocked tests (41 LE_Audio_CIS_BIS, 5 LE_Audio_Unicast); clear 13 failing tests (9 LE_Audio_CIS_BIS, 4 LE_Audio_Unicast); eliminate 7 MTBF crashes on DUT-02, DUT-05, DUT-14.",
+        "rationale": "Blocker, open 7 build(s), required by: Blocker gate. Verify with RS-01 (93 tests, ~24 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-4012"
+        ],
+        "rerun_subset": "RS-01",
+        "impact": {
+          "blocked_tests": 46,
+          "failed_tests": 13,
+          "crashes": 7,
+          "kpi_metrics": 0
+        },
+        "id": "NA-01"
+      },
+      {
+        "priority": "P0",
+        "team": "Release Lead",
+        "action": "Hold the release: 5 of 5 gates failing (Open Blocker Jiras, Open Critical Jiras, Overall pass rate %, MTBF hours per DUT, KPI metrics passing). Projected ready 2026-11-12 vs target 2026-11-10 (AT_RISK, +2.2 days).",
+        "rationale": "Must-fix set: BTFW-4012, BTFW-4031.",
+        "jira_ids": [
+          "BTFW-4012",
+          "BTFW-4031"
+        ],
+        "rerun_subset": null,
+        "impact": {},
+        "id": "NA-02"
+      },
+      {
+        "priority": "P1",
+        "team": "BR/EDR Controller Firmware",
+        "action": "Fix BTFW-4031 (Scheduler starves ISO events when A2DP ACL and LE Audio CIS run concurrently) to clear 34 failing tests (18 LE_Audio_CIS_BIS, 6 LE_Audio_Unicast, 4 LE_Audio_Broadcast, 3 SCO_eSCO, 3 A2DP_Streaming); bring A2DP_Latency_ms back within target (124.3 vs < 100); bring A2DP_Dropouts_per_hr back within target (1.209 vs < 1.0).",
+        "rationale": "Critical, open 4 build(s), required by: Critical gate. Verify with RS-02 (99 tests, ~8 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-4031"
+        ],
+        "rerun_subset": "RS-02",
+        "impact": {
+          "blocked_tests": 0,
+          "failed_tests": 34,
+          "crashes": 0,
+          "kpi_metrics": 2
+        },
+        "id": "NA-03"
+      },
+      {
+        "priority": "P1",
+        "team": "Hardware / Board Bring-up",
+        "action": "Inspect DUT-02 (EVT2 board, RF lot LOT-A17) and swap it for a DVT1 board in the next MTBF run to separate hardware from firmware causes.",
+        "rationale": "DUT-02 crashed 45 times across 8 builds: 3.2x the fleet median (14) and 11.2x DUT-16 (4). Board EVT2, RF lot LOT-A17.",
+        "jira_ids": [],
+        "rerun_subset": null,
+        "impact": {},
+        "id": "NA-04"
+      },
+      {
+        "priority": "P1",
+        "team": "Test Infrastructure / Triage",
+        "action": "Run targeted subset RS-08 on the next build (619 tests, ~24 h, 86.6% shorter than the 179.3 h full cycle). Keep the full cycle for the final release candidate.",
+        "rationale": "Every open failure, blocked test and feature gating test is covered; MTBF soak on DUTs that crashed.",
+        "jira_ids": [
+          "BTFW-4012",
+          "BTFW-4031"
+        ],
+        "rerun_subset": "RS-08",
+        "impact": {},
+        "id": "NA-05"
+      },
+      {
+        "priority": "P2",
+        "team": "BR/EDR Controller Firmware",
+        "action": "Fix BTFW-4018 (LMP response timeout during role switch with encrypted ACL) to clear 14 failing tests (7 Role_Switch, 4 BR_EDR_Connections, 3 Multi_Device_Connection); eliminate 1 MTBF crash on DUT-07.",
+        "rationale": "Critical, open 8 build(s), required by: open Critical. Verify with RS-03 (53 tests, ~24 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-4018"
+        ],
+        "rerun_subset": "RS-03",
+        "impact": {
+          "blocked_tests": 0,
+          "failed_tests": 14,
+          "crashes": 1,
+          "kpi_metrics": 0
+        },
+        "id": "NA-06"
+      },
+      {
+        "priority": "P2",
+        "team": "HCI / Transport Firmware",
+        "action": "Fix BTFW-4022 (Controller hangs on HCI_Reset issued right after A2DP stream teardown) to clear 10 failing tests (6 HCI_Reset_Init, 4 Airplane_Toggle_Recovery); eliminate 4 MTBF crashes on DUT-11.",
+        "rationale": "Critical, open 5 build(s), required by: open Critical. Verify with RS-04 (22 tests, ~24 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-4022"
+        ],
+        "rerun_subset": "RS-04",
+        "impact": {
+          "blocked_tests": 0,
+          "failed_tests": 10,
+          "crashes": 4,
+          "kpi_metrics": 0
+        },
+        "id": "NA-07"
+      },
+      {
+        "priority": "P2",
+        "team": "Host Stack",
+        "action": "Fix BTFW-4027 (Robust caching: database hash stale after Service Changed indication) to unblock 8 blocked tests (8 GATT_ATT); clear 12 failing tests (9 GATT_ATT, 3 BLE_Wearables_GATT).",
+        "rationale": "Critical, open 6 build(s), required by: open Critical. Verify with RS-05 (45 tests, ~0.7 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-4027"
+        ],
+        "rerun_subset": "RS-05",
+        "impact": {
+          "blocked_tests": 8,
+          "failed_tests": 12,
+          "crashes": 0,
+          "kpi_metrics": 0
+        },
+        "id": "NA-08"
+      },
+      {
+        "priority": "P2",
+        "team": "Power Management Firmware",
+        "action": "Fix BTFW-5372 (Sniff_Mode: Current draw above budget) to clear 3 failing tests (3 Sniff_Mode).",
+        "rationale": "Critical, open 2 build(s), required by: open Critical. Verify with RS-06 (13 tests, ~0.2 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-5372"
+        ],
+        "rerun_subset": "RS-06",
+        "impact": {
+          "blocked_tests": 0,
+          "failed_tests": 3,
+          "crashes": 0,
+          "kpi_metrics": 0
+        },
+        "id": "NA-09"
+      },
+      {
+        "priority": "P2",
+        "team": "HCI / Transport Firmware",
+        "action": "Fix BTFW-5477 (HCI_Flow_Control: Event mask not honoured) to clear 9 failing tests (9 HCI_Flow_Control).",
+        "rationale": "Critical, open 1 build(s), required by: open Critical. Verify with RS-07 (21 tests, ~0.4 h) instead of a full cycle.",
+        "jira_ids": [
+          "BTFW-5477"
+        ],
+        "rerun_subset": "RS-07",
+        "impact": {
+          "blocked_tests": 0,
+          "failed_tests": 9,
+          "crashes": 0,
+          "kpi_metrics": 0
+        },
+        "id": "NA-10"
+      },
+      {
+        "priority": "P2",
+        "team": "Test Infrastructure / Triage",
+        "action": "Merge 10 candidate duplicate clusters (26 tickets) into root-cause tickets, starting with 'ISO SDU dropped / sequence gap' (4 tickets).",
+        "rationale": "Auto-ticketing created separate Jiras for failures that share subsystem and signature.",
+        "jira_ids": [
+          "BTFW-5487",
+          "BTFW-5492",
+          "BTFW-5505",
+          "BTFW-5494",
+          "BTFW-5507",
+          "BTFW-5515",
+          "BTFW-5513",
+          "BTFW-5523",
+          "BTFW-5520",
+          "BTFW-5547",
+          "BTFW-5532",
+          "BTFW-5370",
+          "BTFW-5528",
+          "BTFW-5481",
+          "BTFW-5491",
+          "BTFW-5502",
+          "BTFW-5518",
+          "BTFW-5542",
+          "BTFW-5526",
+          "BTFW-5534",
+          "BTFW-5533",
+          "BTFW-5538",
+          "BTFW-5535",
+          "BTFW-5544",
+          "BTFW-5529",
+          "BTFW-5540"
+        ],
+        "rerun_subset": null,
+        "impact": {},
+        "id": "NA-11"
+      },
+      {
+        "priority": "P2",
+        "team": "Test Infrastructure / Triage",
+        "action": "Add an alternative setup path for LE_Audio_CIS_BIS, LE_Audio_Unicast so persistently blocked tests regain coverage while the gating bugs are open.",
+        "rationale": "LE_Audio_CIS_BIS: 41 of 480 tests (8.5%) not executed this build; 30 tests have been blocked in each of the last 3 builds.; LE_Audio_Unicast: 5 of 90 tests (5.6%) not executed this build; 5 tests have been blocked in each of the last 3 builds.",
+        "jira_ids": [],
+        "rerun_subset": null,
+        "impact": {},
+        "id": "NA-12"
+      }
+    ],
+    "by_team": {
+      "Audio / Codec Firmware": [
+        "NA-01"
+      ],
+      "Release Lead": [
+        "NA-02"
+      ],
+      "BR/EDR Controller Firmware": [
+        "NA-03",
+        "NA-06"
+      ],
+      "Hardware / Board Bring-up": [
+        "NA-04"
+      ],
+      "Test Infrastructure / Triage": [
+        "NA-05",
+        "NA-11",
+        "NA-12"
+      ],
+      "HCI / Transport Firmware": [
+        "NA-07",
+        "NA-10"
+      ],
+      "Host Stack": [
+        "NA-08"
+      ],
+      "Power Management Firmware": [
+        "NA-09"
+      ]
+    },
+    "rerun_subsets": [
+      {
+        "id": "RS-01",
+        "purpose": "Verify fix for BTFW-4012",
+        "jira_ids": [
+          "BTFW-4012"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-LEAUD-0001",
+            "HCI-LEAUD-0013",
+            "HCI-LEAUD-0030",
+            "HCI-LEAUD-0051",
+            "HCI-LEAUD-0052",
+            "HCI-LEAUD-0062",
+            "HCI-LEAUD-0086",
+            "HCI-LEAUD-0105",
+            "HCI-LEAUD-0112",
+            "HCI-LEAUD-0124",
+            "HCI-LEAUD-0125",
+            "HCI-LEAUD-0126",
+            "HCI-LEAUD-0127",
+            "HCI-LEAUD-0128",
+            "HCI-LEAUD-0129",
+            "HCI-LEAUD-0130",
+            "HCI-LEAUD-0131",
+            "HCI-LEAUD-0132",
+            "HCI-LEAUD-0133",
+            "HCI-LEAUD-0134",
+            "HCI-LEAUD-0135",
+            "HCI-LEAUD-0136",
+            "HCI-LEAUD-0137",
+            "HCI-LEAUD-0157",
+            "HCI-LEAUD-0170",
+            "HCI-LEAUD-0187",
+            "HCI-LEAUD-0191",
+            "HCI-LEAUD-0213",
+            "HCI-LEAUD-0224",
+            "HCI-LEAUD-0232",
+            "HCI-LEAUD-0251",
+            "HCI-LEAUD-0264",
+            "HCI-LEAUD-0274",
+            "HCI-LEAUD-0296",
+            "HCI-LEAUD-0297",
+            "HCI-LEAUD-0298",
+            "HCI-LEAUD-0299",
+            "HCI-LEAUD-0300",
+            "HCI-LEAUD-0301",
+            "HCI-LEAUD-0302",
+            "HCI-LEAUD-0303",
+            "HCI-LEAUD-0304",
+            "HCI-LEAUD-0305",
+            "HCI-LEAUD-0306",
+            "HCI-LEAUD-0307",
+            "HCI-LEAUD-0308",
+            "HCI-LEAUD-0309",
+            "HCI-LEAUD-0310",
+            "HCI-LEAUD-0311",
+            "HCI-LEAUD-0312",
+            "HCI-LEAUD-0313",
+            "HCI-LEAUD-0314",
+            "HCI-LEAUD-0315",
+            "HCI-LEAUD-0316",
+            "HCI-LEAUD-0317",
+            "HCI-LEAUD-0318",
+            "HCI-LEAUD-0319",
+            "HCI-LEAUD-0320",
+            "HCI-LEAUD-0321",
+            "HCI-LEAUD-0322",
+            "HCI-LEAUD-0323",
+            "HCI-LEAUD-0324",
+            "HCI-LEAUD-0325",
+            "HCI-LEAUD-0326",
+            "HCI-LEAUD-0327",
+            "HCI-LEAUD-0342",
+            "HCI-LEAUD-0359",
+            "HCI-LEAUD-0379",
+            "HCI-LEAUD-0387",
+            "HCI-LEAUD-0411",
+            "HCI-LEAUD-0428",
+            "HCI-LEAUD-0434",
+            "HCI-LEAUD-0436",
+            "HCI-LEAUD-0456",
+            "HCI-LEAUD-0472",
+            "HCI-LEAUD-0478",
+            "HCI-LEAUD-0480"
+          ],
+          "PHONE_TESTING": [
+            "PHN-LEUNI-001",
+            "PHN-LEUNI-008",
+            "PHN-LEUNI-016",
+            "PHN-LEUNI-022",
+            "PHN-LEUNI-034",
+            "PHN-LEUNI-036",
+            "PHN-LEUNI-042",
+            "PHN-LEUNI-058",
+            "PHN-LEUNI-072",
+            "PHN-LEUNI-077",
+            "PHN-LEUNI-085",
+            "PHN-LEUNI-086",
+            "PHN-LEUNI-087",
+            "PHN-LEUNI-088",
+            "PHN-LEUNI-089",
+            "PHN-LEUNI-090"
+          ]
+        },
+        "test_count": 93,
+        "smoke_gating_tests": 34,
+        "mtbf_duts": [
+          "DUT-02",
+          "DUT-05",
+          "DUT-14"
+        ],
+        "kpi_metrics": [],
+        "estimated_hours": 24,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 86.6
+      },
+      {
+        "id": "RS-02",
+        "purpose": "Verify fix for BTFW-4031",
+        "jira_ids": [
+          "BTFW-4031"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-BRSCO-0001",
+            "HCI-BRSCO-0014",
+            "HCI-BRSCO-0022",
+            "HCI-BRSCO-0040",
+            "HCI-BRSCO-0042",
+            "HCI-BRSCO-0051",
+            "HCI-BRSCO-0074",
+            "HCI-BRSCO-0094",
+            "HCI-BRSCO-0097",
+            "HCI-BRSCO-0119",
+            "HCI-BRSCO-0134",
+            "HCI-BRSCO-0151",
+            "HCI-BRSCO-0171",
+            "HCI-BRSCO-0182",
+            "HCI-BRSCO-0202",
+            "HCI-LEAUD-0001",
+            "HCI-LEAUD-0010",
+            "HCI-LEAUD-0011",
+            "HCI-LEAUD-0013",
+            "HCI-LEAUD-0030",
+            "HCI-LEAUD-0036",
+            "HCI-LEAUD-0051",
+            "HCI-LEAUD-0062",
+            "HCI-LEAUD-0086",
+            "HCI-LEAUD-0105",
+            "HCI-LEAUD-0108",
+            "HCI-LEAUD-0118",
+            "HCI-LEAUD-0124",
+            "HCI-LEAUD-0137",
+            "HCI-LEAUD-0157",
+            "HCI-LEAUD-0170",
+            "HCI-LEAUD-0191",
+            "HCI-LEAUD-0195",
+            "HCI-LEAUD-0213",
+            "HCI-LEAUD-0224",
+            "HCI-LEAUD-0230",
+            "HCI-LEAUD-0232",
+            "HCI-LEAUD-0243",
+            "HCI-LEAUD-0248",
+            "HCI-LEAUD-0251",
+            "HCI-LEAUD-0252",
+            "HCI-LEAUD-0262",
+            "HCI-LEAUD-0264",
+            "HCI-LEAUD-0274",
+            "HCI-LEAUD-0285",
+            "HCI-LEAUD-0296",
+            "HCI-LEAUD-0315",
+            "HCI-LEAUD-0327",
+            "HCI-LEAUD-0342",
+            "HCI-LEAUD-0350",
+            "HCI-LEAUD-0359",
+            "HCI-LEAUD-0374",
+            "HCI-LEAUD-0379",
+            "HCI-LEAUD-0387",
+            "HCI-LEAUD-0396",
+            "HCI-LEAUD-0411",
+            "HCI-LEAUD-0424",
+            "HCI-LEAUD-0428",
+            "HCI-LEAUD-0436",
+            "HCI-LEAUD-0441",
+            "HCI-LEAUD-0456",
+            "HCI-LEAUD-0469",
+            "HCI-LEAUD-0472"
+          ],
+          "PHONE_TESTING": [
+            "PHN-A2DP-001",
+            "PHN-A2DP-016",
+            "PHN-A2DP-023",
+            "PHN-A2DP-024",
+            "PHN-A2DP-037",
+            "PHN-A2DP-053",
+            "PHN-A2DP-064",
+            "PHN-A2DP-078",
+            "PHN-A2DP-085",
+            "PHN-A2DP-091",
+            "PHN-A2DP-096",
+            "PHN-A2DP-099",
+            "PHN-LEBRC-001",
+            "PHN-LEBRC-013",
+            "PHN-LEBRC-019",
+            "PHN-LEBRC-020",
+            "PHN-LEBRC-021",
+            "PHN-LEBRC-027",
+            "PHN-LEBRC-034",
+            "PHN-LEBRC-040",
+            "PHN-LEBRC-048",
+            "PHN-LEBRC-053",
+            "PHN-LEUNI-001",
+            "PHN-LEUNI-016",
+            "PHN-LEUNI-017",
+            "PHN-LEUNI-022",
+            "PHN-LEUNI-026",
+            "PHN-LEUNI-034",
+            "PHN-LEUNI-042",
+            "PHN-LEUNI-058",
+            "PHN-LEUNI-066",
+            "PHN-LEUNI-070",
+            "PHN-LEUNI-072",
+            "PHN-LEUNI-074",
+            "PHN-LEUNI-081",
+            "PHN-LEUNI-085"
+          ]
+        },
+        "test_count": 99,
+        "smoke_gating_tests": 65,
+        "mtbf_duts": [],
+        "kpi_metrics": [
+          "A2DP_Latency_ms",
+          "A2DP_Dropouts_per_hr"
+        ],
+        "estimated_hours": 8,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 95.5
+      },
+      {
+        "id": "RS-03",
+        "purpose": "Verify fix for BTFW-4018",
+        "jira_ids": [
+          "BTFW-4018"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-BRCON-0001",
+            "HCI-BRCON-0010",
+            "HCI-BRCON-0024",
+            "HCI-BRCON-0027",
+            "HCI-BRCON-0044",
+            "HCI-BRCON-0053",
+            "HCI-BRCON-0062",
+            "HCI-BRCON-0080",
+            "HCI-BRCON-0096",
+            "HCI-BRCON-0106",
+            "HCI-BRCON-0118",
+            "HCI-BRCON-0135",
+            "HCI-BRCON-0148",
+            "HCI-BRCON-0159",
+            "HCI-BRCON-0168",
+            "HCI-BRCON-0177",
+            "HCI-BRCON-0194",
+            "HCI-BRCON-0202",
+            "HCI-BRCON-0203",
+            "HCI-BRCON-0212",
+            "HCI-BRCON-0220",
+            "HCI-BRCON-0228",
+            "HCI-BRCON-0249",
+            "HCI-BRCON-0266",
+            "HCI-BRCON-0288",
+            "HCI-BRCON-0308",
+            "HCI-BRCON-0327",
+            "HCI-BRRSW-0001",
+            "HCI-BRRSW-0010",
+            "HCI-BRRSW-0022",
+            "HCI-BRRSW-0027",
+            "HCI-BRRSW-0039",
+            "HCI-BRRSW-0042",
+            "HCI-BRRSW-0048",
+            "HCI-BRRSW-0065",
+            "HCI-BRRSW-0085",
+            "HCI-BRRSW-0086",
+            "HCI-BRRSW-0089",
+            "HCI-BRRSW-0107",
+            "HCI-BRRSW-0115",
+            "HCI-BRRSW-0126",
+            "HCI-BRRSW-0127",
+            "HCI-BRRSW-0129",
+            "HCI-BRRSW-0136"
+          ],
+          "PHONE_TESTING": [
+            "PHN-MULTI-001",
+            "PHN-MULTI-013",
+            "PHN-MULTI-015",
+            "PHN-MULTI-027",
+            "PHN-MULTI-029",
+            "PHN-MULTI-044",
+            "PHN-MULTI-055",
+            "PHN-MULTI-058",
+            "PHN-MULTI-066"
+          ]
+        },
+        "test_count": 53,
+        "smoke_gating_tests": 39,
+        "mtbf_duts": [
+          "DUT-07"
+        ],
+        "kpi_metrics": [],
+        "estimated_hours": 24,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 86.6
+      },
+      {
+        "id": "RS-04",
+        "purpose": "Verify fix for BTFW-4022",
+        "jira_ids": [
+          "BTFW-4022"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-HCIRS-0001",
+            "HCI-HCIRS-0003",
+            "HCI-HCIRS-0021",
+            "HCI-HCIRS-0034",
+            "HCI-HCIRS-0037",
+            "HCI-HCIRS-0044",
+            "HCI-HCIRS-0056",
+            "HCI-HCIRS-0073",
+            "HCI-HCIRS-0095",
+            "HCI-HCIRS-0107",
+            "HCI-HCIRS-0109",
+            "HCI-HCIRS-0110",
+            "HCI-HCIRS-0133",
+            "HCI-HCIRS-0138"
+          ],
+          "PHONE_TESTING": [
+            "PHN-AIRPL-001",
+            "PHN-AIRPL-013",
+            "PHN-AIRPL-015",
+            "PHN-AIRPL-017",
+            "PHN-AIRPL-021",
+            "PHN-AIRPL-025",
+            "PHN-AIRPL-034",
+            "PHN-AIRPL-046"
+          ]
+        },
+        "test_count": 22,
+        "smoke_gating_tests": 12,
+        "mtbf_duts": [
+          "DUT-11"
+        ],
+        "kpi_metrics": [],
+        "estimated_hours": 24,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 86.6
+      },
+      {
+        "id": "RS-05",
+        "purpose": "Verify fix for BTFW-4027",
+        "jira_ids": [
+          "BTFW-4027"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-GATT-0001",
+            "HCI-GATT-0003",
+            "HCI-GATT-0014",
+            "HCI-GATT-0020",
+            "HCI-GATT-0039",
+            "HCI-GATT-0061",
+            "HCI-GATT-0076",
+            "HCI-GATT-0077",
+            "HCI-GATT-0100",
+            "HCI-GATT-0101",
+            "HCI-GATT-0102",
+            "HCI-GATT-0103",
+            "HCI-GATT-0104",
+            "HCI-GATT-0105",
+            "HCI-GATT-0106",
+            "HCI-GATT-0107",
+            "HCI-GATT-0108",
+            "HCI-GATT-0109",
+            "HCI-GATT-0117",
+            "HCI-GATT-0125",
+            "HCI-GATT-0133",
+            "HCI-GATT-0148",
+            "HCI-GATT-0172",
+            "HCI-GATT-0175",
+            "HCI-GATT-0188",
+            "HCI-GATT-0207",
+            "HCI-GATT-0220",
+            "HCI-GATT-0227",
+            "HCI-GATT-0243",
+            "HCI-GATT-0246",
+            "HCI-GATT-0253",
+            "HCI-GATT-0262",
+            "HCI-GATT-0275",
+            "HCI-GATT-0290"
+          ],
+          "PHONE_TESTING": [
+            "PHN-WEAR-001",
+            "PHN-WEAR-007",
+            "PHN-WEAR-011",
+            "PHN-WEAR-024",
+            "PHN-WEAR-035",
+            "PHN-WEAR-043",
+            "PHN-WEAR-055",
+            "PHN-WEAR-056",
+            "PHN-WEAR-069",
+            "PHN-WEAR-071",
+            "PHN-WEAR-076"
+          ]
+        },
+        "test_count": 45,
+        "smoke_gating_tests": 25,
+        "mtbf_duts": [],
+        "kpi_metrics": [],
+        "estimated_hours": 0.7,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 99.6
+      },
+      {
+        "id": "RS-06",
+        "purpose": "Verify fix for BTFW-5372",
+        "jira_ids": [
+          "BTFW-5372"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-BRSNF-0001",
+            "HCI-BRSNF-0011",
+            "HCI-BRSNF-0033",
+            "HCI-BRSNF-0046",
+            "HCI-BRSNF-0052",
+            "HCI-BRSNF-0053",
+            "HCI-BRSNF-0057",
+            "HCI-BRSNF-0074",
+            "HCI-BRSNF-0087",
+            "HCI-BRSNF-0109",
+            "HCI-BRSNF-0127",
+            "HCI-BRSNF-0139",
+            "HCI-BRSNF-0155"
+          ],
+          "PHONE_TESTING": []
+        },
+        "test_count": 13,
+        "smoke_gating_tests": 10,
+        "mtbf_duts": [],
+        "kpi_metrics": [],
+        "estimated_hours": 0.2,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 99.9
+      },
+      {
+        "id": "RS-07",
+        "purpose": "Verify fix for BTFW-5477",
+        "jira_ids": [
+          "BTFW-5477"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-HCIFC-0001",
+            "HCI-HCIFC-0023",
+            "HCI-HCIFC-0041",
+            "HCI-HCIFC-0054",
+            "HCI-HCIFC-0074",
+            "HCI-HCIFC-0076",
+            "HCI-HCIFC-0088",
+            "HCI-HCIFC-0096",
+            "HCI-HCIFC-0098",
+            "HCI-HCIFC-0101",
+            "HCI-HCIFC-0111",
+            "HCI-HCIFC-0129",
+            "HCI-HCIFC-0135",
+            "HCI-HCIFC-0149",
+            "HCI-HCIFC-0163",
+            "HCI-HCIFC-0182",
+            "HCI-HCIFC-0193",
+            "HCI-HCIFC-0197",
+            "HCI-HCIFC-0200",
+            "HCI-HCIFC-0203",
+            "HCI-HCIFC-0206"
+          ],
+          "PHONE_TESTING": []
+        },
+        "test_count": 21,
+        "smoke_gating_tests": 12,
+        "mtbf_duts": [],
+        "kpi_metrics": [],
+        "estimated_hours": 0.4,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 99.8
+      },
+      {
+        "id": "RS-08",
+        "purpose": "Next-build verification: all open failures + gating smoke across every feature",
+        "jira_ids": [
+          "BTFW-4012",
+          "BTFW-4031"
+        ],
+        "tests": {
+          "HCI_REGRESSION": [
+            "HCI-BRAFH-0001",
+            "HCI-BRAFH-0009",
+            "HCI-BRAFH-0025",
+            "HCI-BRAFH-0046",
+            "HCI-BRAFH-0064",
+            "HCI-BRAFH-0084",
+            "HCI-BRAFH-0100",
+            "HCI-BRAFH-0107",
+            "HCI-BRAFH-0112",
+            "HCI-BRAFH-0116",
+            "HCI-BRAFH-0132",
+            "HCI-BRCON-0001",
+            "HCI-BRCON-0010",
+            "HCI-BRCON-0024",
+            "HCI-BRCON-0027",
+            "HCI-BRCON-0044",
+            "HCI-BRCON-0053",
+            "HCI-BRCON-0062",
+            "HCI-BRCON-0065",
+            "HCI-BRCON-0080",
+            "HCI-BRCON-0096",
+            "HCI-BRCON-0098",
+            "HCI-BRCON-0106",
+            "HCI-BRCON-0118",
+            "HCI-BRCON-0135",
+            "HCI-BRCON-0144",
+            "HCI-BRCON-0148",
+            "HCI-BRCON-0151",
+            "HCI-BRCON-0159",
+            "HCI-BRCON-0168",
+            "HCI-BRCON-0177",
+            "HCI-BRCON-0194",
+            "HCI-BRCON-0202",
+            "HCI-BRCON-0203",
+            "HCI-BRCON-0212",
+            "HCI-BRCON-0220",
+            "HCI-BRCON-0228",
+            "HCI-BRCON-0249",
+            "HCI-BRCON-0266",
+            "HCI-BRCON-0288",
+            "HCI-BRCON-0293",
+            "HCI-BRCON-0308",
+            "HCI-BRCON-0321",
+            "HCI-BRCON-0327",
+            "HCI-BRENC-0001",
+            "HCI-BRENC-0009",
+            "HCI-BRENC-0021",
+            "HCI-BRENC-0033",
+            "HCI-BRENC-0041",
+            "HCI-BRENC-0064",
+            "HCI-BRENC-0071",
+            "HCI-BRENC-0074",
+            "HCI-BRENC-0078",
+            "HCI-BRENC-0094",
+            "HCI-BRENC-0107",
+            "HCI-BRINQ-0001",
+            "HCI-BRINQ-0024",
+            "HCI-BRINQ-0043",
+            "HCI-BRINQ-0056",
+            "HCI-BRINQ-0071",
+            "HCI-BRINQ-0092",
+            "HCI-BRINQ-0115",
+            "HCI-BRINQ-0128",
+            "HCI-BRINQ-0138",
+            "HCI-BRINQ-0157",
+            "HCI-BRRSW-0001",
+            "HCI-BRRSW-0010",
+            "HCI-BRRSW-0022",
+            "HCI-BRRSW-0027",
+            "HCI-BRRSW-0039",
+            "HCI-BRRSW-0042",
+            "HCI-BRRSW-0048",
+            "HCI-BRRSW-0065",
+            "HCI-BRRSW-0085",
+            "HCI-BRRSW-0086",
+            "HCI-BRRSW-0089",
+            "HCI-BRRSW-0107",
+            "HCI-BRRSW-0115",
+            "HCI-BRRSW-0126",
+            "HCI-BRRSW-0127",
+            "HCI-BRRSW-0129",
+            "HCI-BRRSW-0136",
+            "HCI-BRSCO-0001",
+            "HCI-BRSCO-0014",
+            "HCI-BRSCO-0022",
+            "HCI-BRSCO-0040",
+            "HCI-BRSCO-0042",
+            "HCI-BRSCO-0051",
+            "HCI-BRSCO-0074",
+            "HCI-BRSCO-0094",
+            "HCI-BRSCO-0097",
+            "HCI-BRSCO-0119",
+            "HCI-BRSCO-0134",
+            "HCI-BRSCO-0151",
+            "HCI-BRSCO-0171",
+            "HCI-BRSCO-0182",
+            "HCI-BRSCO-0185",
+            "HCI-BRSCO-0202",
+            "HCI-BRSNF-0001",
+            "HCI-BRSNF-0011",
+            "HCI-BRSNF-0033",
+            "HCI-BRSNF-0046",
+            "HCI-BRSNF-0052",
+            "HCI-BRSNF-0053",
+            "HCI-BRSNF-0057",
+            "HCI-BRSNF-0074",
+            "HCI-BRSNF-0087",
+            "HCI-BRSNF-0109",
+            "HCI-BRSNF-0127",
+            "HCI-BRSNF-0139",
+            "HCI-BRSNF-0155",
+            "HCI-BRSSP-0001",
+            "HCI-BRSSP-0013",
+            "HCI-BRSSP-0027",
+            "HCI-BRSSP-0036",
+            "HCI-BRSSP-0054",
+            "HCI-BRSSP-0069",
+            "HCI-BRSSP-0077",
+            "HCI-BRSSP-0089",
+            "HCI-BRSSP-0101",
+            "HCI-BRSSP-0120",
+            "HCI-BRSSP-0139",
+            "HCI-BRSSP-0154",
+            "HCI-BRSSP-0173",
+            "HCI-BRSSP-0189",
+            "HCI-GATT-0001",
+            "HCI-GATT-0003",
+            "HCI-GATT-0014",
+            "HCI-GATT-0020",
+            "HCI-GATT-0039",
+            "HCI-GATT-0061",
+            "HCI-GATT-0076",
+            "HCI-GATT-0077",
+            "HCI-GATT-0100",
+            "HCI-GATT-0101",
+            "HCI-GATT-0102",
+            "HCI-GATT-0103",
+            "HCI-GATT-0104",
+            "HCI-GATT-0105",
+            "HCI-GATT-0106",
+            "HCI-GATT-0107",
+            "HCI-GATT-0108",
+            "HCI-GATT-0109",
+            "HCI-GATT-0117",
+            "HCI-GATT-0125",
+            "HCI-GATT-0133",
+            "HCI-GATT-0142",
+            "HCI-GATT-0148",
+            "HCI-GATT-0165",
+            "HCI-GATT-0172",
+            "HCI-GATT-0175",
+            "HCI-GATT-0188",
+            "HCI-GATT-0207",
+            "HCI-GATT-0220",
+            "HCI-GATT-0227",
+            "HCI-GATT-0243",
+            "HCI-GATT-0246",
+            "HCI-GATT-0253",
+            "HCI-GATT-0255",
+            "HCI-GATT-0262",
+            "HCI-GATT-0275",
+            "HCI-GATT-0283",
+            "HCI-GATT-0290",
+            "HCI-GATT-0291",
+            "HCI-HCIFC-0001",
+            "HCI-HCIFC-0023",
+            "HCI-HCIFC-0041",
+            "HCI-HCIFC-0054",
+            "HCI-HCIFC-0074",
+            "HCI-HCIFC-0076",
+            "HCI-HCIFC-0088",
+            "HCI-HCIFC-0096",
+            "HCI-HCIFC-0098",
+            "HCI-HCIFC-0101",
+            "HCI-HCIFC-0111",
+            "HCI-HCIFC-0129",
+            "HCI-HCIFC-0135",
+            "HCI-HCIFC-0149",
+            "HCI-HCIFC-0163",
+            "HCI-HCIFC-0182",
+            "HCI-HCIFC-0193",
+            "HCI-HCIFC-0197",
+            "HCI-HCIFC-0200",
+            "HCI-HCIFC-0203",
+            "HCI-HCIFC-0206",
+            "HCI-HCIRS-0001",
+            "HCI-HCIRS-0003",
+            "HCI-HCIRS-0021",
+            "HCI-HCIRS-0034",
+            "HCI-HCIRS-0037",
+            "HCI-HCIRS-0044",
+            "HCI-HCIRS-0056",
+            "HCI-HCIRS-0073",
+            "HCI-HCIRS-0095",
+            "HCI-HCIRS-0107",
+            "HCI-HCIRS-0109",
+            "HCI-HCIRS-0110",
+            "HCI-HCIRS-0133",
+            "HCI-HCIRS-0138",
+            "HCI-HCIVS-0001",
+            "HCI-HCIVS-0018",
+            "HCI-HCIVS-0031",
+            "HCI-HCIVS-0040",
+            "HCI-HCIVS-0051",
+            "HCI-HCIVS-0069",
+            "HCI-HCIVS-0083",
+            "HCI-HCIVS-0095",
+            "HCI-HCIVS-0118",
+            "HCI-HCIVS-0130",
+            "HCI-HCIVS-0136",
+            "HCI-HCIVS-0148",
+            "HCI-L2CAP-0001",
+            "HCI-L2CAP-0018",
+            "HCI-L2CAP-0023",
+            "HCI-L2CAP-0024",
+            "HCI-L2CAP-0040",
+            "HCI-L2CAP-0062",
+            "HCI-L2CAP-0083",
+            "HCI-L2CAP-0103",
+            "HCI-L2CAP-0112",
+            "HCI-L2CAP-0123",
+            "HCI-L2CAP-0139",
+            "HCI-L2CAP-0148",
+            "HCI-L2CAP-0169",
+            "HCI-L2CAP-0189",
+            "HCI-L2CAP-0213",
+            "HCI-LEADV-0001",
+            "HCI-LEADV-0016",
+            "HCI-LEADV-0034",
+            "HCI-LEADV-0053",
+            "HCI-LEADV-0077",
+            "HCI-LEADV-0097",
+            "HCI-LEADV-0108",
+            "HCI-LEADV-0120",
+            "HCI-LEADV-0132",
+            "HCI-LEADV-0134",
+            "HCI-LEADV-0144",
+            "HCI-LEADV-0156",
+            "HCI-LEADV-0165",
+            "HCI-LEADV-0178",
+            "HCI-LEADV-0200",
+            "HCI-LEADV-0220",
+            "HCI-LEADV-0234",
+            "HCI-LEADV-0252",
+            "HCI-LEADV-0266",
+            "HCI-LEAUD-0001",
+            "HCI-LEAUD-0010",
+            "HCI-LEAUD-0011",
+            "HCI-LEAUD-0013",
+            "HCI-LEAUD-0030",
+            "HCI-LEAUD-0036",
+            "HCI-LEAUD-0051",
+            "HCI-LEAUD-0052",
+            "HCI-LEAUD-0062",
+            "HCI-LEAUD-0086",
+            "HCI-LEAUD-0105",
+            "HCI-LEAUD-0108",
+            "HCI-LEAUD-0112",
+            "HCI-LEAUD-0118",
+            "HCI-LEAUD-0124",
+            "HCI-LEAUD-0125",
+            "HCI-LEAUD-0126",
+            "HCI-LEAUD-0127",
+            "HCI-LEAUD-0128",
+            "HCI-LEAUD-0129",
+            "HCI-LEAUD-0130",
+            "HCI-LEAUD-0131",
+            "HCI-LEAUD-0132",
+            "HCI-LEAUD-0133",
+            "HCI-LEAUD-0134",
+            "HCI-LEAUD-0135",
+            "HCI-LEAUD-0136",
+            "HCI-LEAUD-0137",
+            "HCI-LEAUD-0157",
+            "HCI-LEAUD-0170",
+            "HCI-LEAUD-0187",
+            "HCI-LEAUD-0191",
+            "HCI-LEAUD-0195",
+            "HCI-LEAUD-0213",
+            "HCI-LEAUD-0224",
+            "HCI-LEAUD-0230",
+            "HCI-LEAUD-0232",
+            "HCI-LEAUD-0243",
+            "HCI-LEAUD-0248",
+            "HCI-LEAUD-0251",
+            "HCI-LEAUD-0252",
+            "HCI-LEAUD-0262",
+            "HCI-LEAUD-0264",
+            "HCI-LEAUD-0274",
+            "HCI-LEAUD-0285",
+            "HCI-LEAUD-0296",
+            "HCI-LEAUD-0297",
+            "HCI-LEAUD-0298",
+            "HCI-LEAUD-0299",
+            "HCI-LEAUD-0300",
+            "HCI-LEAUD-0301",
+            "HCI-LEAUD-0302",
+            "HCI-LEAUD-0303",
+            "HCI-LEAUD-0304",
+            "HCI-LEAUD-0305",
+            "HCI-LEAUD-0306",
+            "HCI-LEAUD-0307",
+            "HCI-LEAUD-0308",
+            "HCI-LEAUD-0309",
+            "HCI-LEAUD-0310",
+            "HCI-LEAUD-0311",
+            "HCI-LEAUD-0312",
+            "HCI-LEAUD-0313",
+            "HCI-LEAUD-0314",
+            "HCI-LEAUD-0315",
+            "HCI-LEAUD-0316",
+            "HCI-LEAUD-0317",
+            "HCI-LEAUD-0318",
+            "HCI-LEAUD-0319",
+            "HCI-LEAUD-0320",
+            "HCI-LEAUD-0321",
+            "HCI-LEAUD-0322",
+            "HCI-LEAUD-0323",
+            "HCI-LEAUD-0324",
+            "HCI-LEAUD-0325",
+            "HCI-LEAUD-0326",
+            "HCI-LEAUD-0327",
+            "HCI-LEAUD-0342",
+            "HCI-LEAUD-0343",
+            "HCI-LEAUD-0350",
+            "HCI-LEAUD-0359",
+            "HCI-LEAUD-0374",
+            "HCI-LEAUD-0379",
+            "HCI-LEAUD-0387",
+            "HCI-LEAUD-0396",
+            "HCI-LEAUD-0411",
+            "HCI-LEAUD-0424",
+            "HCI-LEAUD-0428",
+            "HCI-LEAUD-0434",
+            "HCI-LEAUD-0436",
+            "HCI-LEAUD-0441",
+            "HCI-LEAUD-0456",
+            "HCI-LEAUD-0469",
+            "HCI-LEAUD-0472",
+            "HCI-LEAUD-0478",
+            "HCI-LEAUD-0480",
+            "HCI-LECON-0001",
+            "HCI-LECON-0011",
+            "HCI-LECON-0033",
+            "HCI-LECON-0047",
+            "HCI-LECON-0070",
+            "HCI-LECON-0079",
+            "HCI-LECON-0097",
+            "HCI-LECON-0102",
+            "HCI-LECON-0110",
+            "HCI-LECON-0118",
+            "HCI-LECON-0131",
+            "HCI-LECON-0152",
+            "HCI-LECON-0173",
+            "HCI-LECON-0194",
+            "HCI-LECON-0208",
+            "HCI-LECON-0219",
+            "HCI-LECON-0231",
+            "HCI-LECON-0247",
+            "HCI-LECON-0263",
+            "HCI-LECON-0278",
+            "HCI-LECON-0298",
+            "HCI-LECON-0307",
+            "HCI-LECSA-0001",
+            "HCI-LECSA-0022",
+            "HCI-LECSA-0034",
+            "HCI-LECSA-0057",
+            "HCI-LECSA-0075",
+            "HCI-LECSA-0079",
+            "HCI-LECSA-0083",
+            "HCI-LECSA-0085",
+            "HCI-LEDFD-0001",
+            "HCI-LEDFD-0009",
+            "HCI-LEDFD-0018",
+            "HCI-LEDFD-0039",
+            "HCI-LEDFD-0059",
+            "HCI-LEDFD-0081",
+            "HCI-LEDFD-0098",
+            "HCI-LEDLE-0001",
+            "HCI-LEDLE-0014",
+            "HCI-LEDLE-0018",
+            "HCI-LEDLE-0032",
+            "HCI-LEDLE-0041",
+            "HCI-LEDLE-0054",
+            "HCI-LEDLE-0060",
+            "HCI-LEDLE-0061",
+            "HCI-LEDLE-0074",
+            "HCI-LEDLE-0088",
+            "HCI-LEDLE-0096",
+            "HCI-LEDLE-0113",
+            "HCI-LEDLE-0128",
+            "HCI-LEPAD-0001",
+            "HCI-LEPAD-0009",
+            "HCI-LEPAD-0020",
+            "HCI-LEPAD-0041",
+            "HCI-LEPAD-0049",
+            "HCI-LEPAD-0062",
+            "HCI-LEPAD-0080",
+            "HCI-LEPAD-0104",
+            "HCI-LEPAD-0117",
+            "HCI-LEPAD-0136",
+            "HCI-LEPHY-0001",
+            "HCI-LEPHY-0017",
+            "HCI-LEPHY-0037",
+            "HCI-LEPHY-0058",
+            "HCI-LEPHY-0075",
+            "HCI-LEPHY-0090",
+            "HCI-LEPHY-0111",
+            "HCI-LEPHY-0121",
+            "HCI-LEPHY-0123",
+            "HCI-LEPHY-0126",
+            "HCI-LEPHY-0130",
+            "HCI-LEPHY-0138",
+            "HCI-LEPHY-0156",
+            "HCI-LEPHY-0166",
+            "HCI-LEPHY-0173",
+            "HCI-LEPHY-0176",
+            "HCI-LEPHY-0189",
+            "HCI-LEPRV-0001",
+            "HCI-LEPRV-0015",
+            "HCI-LEPRV-0024",
+            "HCI-LEPRV-0028",
+            "HCI-LEPRV-0041",
+            "HCI-LEPRV-0042",
+            "HCI-LEPRV-0050",
+            "HCI-LEPRV-0060",
+            "HCI-LEPRV-0081",
+            "HCI-LEPRV-0091",
+            "HCI-LEPRV-0096",
+            "HCI-LEPRV-0101",
+            "HCI-LEPRV-0115",
+            "HCI-LEPRV-0130",
+            "HCI-LEPRV-0139",
+            "HCI-LEPRV-0149",
+            "HCI-LEPWC-0001",
+            "HCI-LEPWC-0005",
+            "HCI-LEPWC-0008",
+            "HCI-LEPWC-0012",
+            "HCI-LEPWC-0022",
+            "HCI-LEPWC-0027",
+            "HCI-LEPWC-0040",
+            "HCI-LEPWC-0045",
+            "HCI-LEPWC-0047",
+            "HCI-LEPWC-0057",
+            "HCI-LEPWC-0058",
+            "HCI-LEPWC-0069",
+            "HCI-LEPWC-0070",
+            "HCI-LEPWC-0071",
+            "HCI-LEPWC-0072",
+            "HCI-LEPWC-0077",
+            "HCI-LEPWC-0082",
+            "HCI-LEPWC-0091",
+            "HCI-LEPWC-0100",
+            "HCI-LEPWC-0105",
+            "HCI-LESCN-0001",
+            "HCI-LESCN-0004",
+            "HCI-LESCN-0019",
+            "HCI-LESCN-0027",
+            "HCI-LESCN-0047",
+            "HCI-LESCN-0065",
+            "HCI-LESCN-0073",
+            "HCI-LESCN-0097",
+            "HCI-LESCN-0113",
+            "HCI-LESCN-0124",
+            "HCI-LESCN-0135",
+            "HCI-LESCN-0154",
+            "HCI-LESCN-0178",
+            "HCI-LESEC-0001",
+            "HCI-LESEC-0010",
+            "HCI-LESEC-0029",
+            "HCI-LESEC-0047",
+            "HCI-LESEC-0067",
+            "HCI-LESEC-0076",
+            "HCI-LESEC-0094",
+            "HCI-LESEC-0105",
+            "HCI-LESEC-0127",
+            "HCI-LESEC-0149",
+            "HCI-LESEC-0168",
+            "HCI-LESEC-0188"
+          ],
+          "PHONE_TESTING": [
+            "PHN-A2DP-001",
+            "PHN-A2DP-011",
+            "PHN-A2DP-016",
+            "PHN-A2DP-020",
+            "PHN-A2DP-023",
+            "PHN-A2DP-024",
+            "PHN-A2DP-035",
+            "PHN-A2DP-037",
+            "PHN-A2DP-045",
+            "PHN-A2DP-053",
+            "PHN-A2DP-054",
+            "PHN-A2DP-064",
+            "PHN-A2DP-070",
+            "PHN-A2DP-078",
+            "PHN-A2DP-085",
+            "PHN-A2DP-091",
+            "PHN-A2DP-094",
+            "PHN-A2DP-096",
+            "PHN-A2DP-099",
+            "PHN-AIRPL-001",
+            "PHN-AIRPL-013",
+            "PHN-AIRPL-015",
+            "PHN-AIRPL-017",
+            "PHN-AIRPL-021",
+            "PHN-AIRPL-025",
+            "PHN-AIRPL-034",
+            "PHN-AIRPL-046",
+            "PHN-AVRCP-001",
+            "PHN-AVRCP-016",
+            "PHN-AVRCP-025",
+            "PHN-AVRCP-037",
+            "PHN-AVRCP-045",
+            "PHN-AVRCP-052",
+            "PHN-COEX-001",
+            "PHN-COEX-013",
+            "PHN-COEX-017",
+            "PHN-COEX-033",
+            "PHN-COEX-039",
+            "PHN-COEX-046",
+            "PHN-COEX-057",
+            "PHN-COEX-065",
+            "PHN-HFP-001",
+            "PHN-HFP-009",
+            "PHN-HFP-025",
+            "PHN-HFP-035",
+            "PHN-HFP-046",
+            "PHN-HFP-054",
+            "PHN-HFP-058",
+            "PHN-HFP-060",
+            "PHN-HFP-067",
+            "PHN-HFP-075",
+            "PHN-HID-001",
+            "PHN-HID-016",
+            "PHN-HID-024",
+            "PHN-HID-034",
+            "PHN-LEBRC-001",
+            "PHN-LEBRC-013",
+            "PHN-LEBRC-019",
+            "PHN-LEBRC-020",
+            "PHN-LEBRC-021",
+            "PHN-LEBRC-027",
+            "PHN-LEBRC-034",
+            "PHN-LEBRC-040",
+            "PHN-LEBRC-048",
+            "PHN-LEBRC-053",
+            "PHN-LEUNI-001",
+            "PHN-LEUNI-008",
+            "PHN-LEUNI-016",
+            "PHN-LEUNI-017",
+            "PHN-LEUNI-022",
+            "PHN-LEUNI-026",
+            "PHN-LEUNI-034",
+            "PHN-LEUNI-036",
+            "PHN-LEUNI-042",
+            "PHN-LEUNI-058",
+            "PHN-LEUNI-066",
+            "PHN-LEUNI-070",
+            "PHN-LEUNI-072",
+            "PHN-LEUNI-074",
+            "PHN-LEUNI-077",
+            "PHN-LEUNI-081",
+            "PHN-LEUNI-085",
+            "PHN-LEUNI-086",
+            "PHN-LEUNI-087",
+            "PHN-LEUNI-088",
+            "PHN-LEUNI-089",
+            "PHN-LEUNI-090",
+            "PHN-MULTI-001",
+            "PHN-MULTI-013",
+            "PHN-MULTI-015",
+            "PHN-MULTI-027",
+            "PHN-MULTI-029",
+            "PHN-MULTI-034",
+            "PHN-MULTI-036",
+            "PHN-MULTI-044",
+            "PHN-MULTI-055",
+            "PHN-MULTI-058",
+            "PHN-MULTI-066",
+            "PHN-OPP-001",
+            "PHN-OPP-014",
+            "PHN-OPP-017",
+            "PHN-OPP-025",
+            "PHN-PAIR-001",
+            "PHN-PAIR-012",
+            "PHN-PAIR-015",
+            "PHN-PAIR-028",
+            "PHN-PAIR-034",
+            "PHN-PAIR-043",
+            "PHN-PAIR-057",
+            "PHN-PAIR-065",
+            "PHN-PAIR-071",
+            "PHN-PAIR-077",
+            "PHN-PAN-001",
+            "PHN-PAN-015",
+            "PHN-PAN-022",
+            "PHN-PAN-031",
+            "PHN-PBAP-001",
+            "PHN-PBAP-009",
+            "PHN-PBAP-023",
+            "PHN-PBAP-033",
+            "PHN-PBAP-047",
+            "PHN-PWR-001",
+            "PHN-PWR-007",
+            "PHN-PWR-016",
+            "PHN-PWR-026",
+            "PHN-PWR-042",
+            "PHN-PWR-053",
+            "PHN-PWR-062",
+            "PHN-WEAR-001",
+            "PHN-WEAR-007",
+            "PHN-WEAR-011",
+            "PHN-WEAR-024",
+            "PHN-WEAR-035",
+            "PHN-WEAR-043",
+            "PHN-WEAR-055",
+            "PHN-WEAR-056",
+            "PHN-WEAR-069",
+            "PHN-WEAR-071",
+            "PHN-WEAR-074",
+            "PHN-WEAR-076"
+          ]
+        },
+        "test_count": 619,
+        "smoke_gating_tests": 0,
+        "mtbf_duts": [
+          "DUT-02",
+          "DUT-05",
+          "DUT-07",
+          "DUT-11",
+          "DUT-14"
+        ],
+        "kpi_metrics": [
+          "A2DP_Latency_ms",
+          "A2DP_Dropouts_per_hr"
+        ],
+        "estimated_hours": 24,
+        "full_cycle_hours": 179.3,
+        "savings_percent": 86.6
+      }
+    ]
+  },
+  "trends": [
+    {
+      "firmware_build": "FW_v14.2.088",
+      "run_id": "BT_FULL_CYCLE_20260819_01",
+      "end_time": "2026-08-19T00:54:00Z",
+      "health_index": 35.6,
+      "health_band": "RED",
+      "pass_rate_percent": 94.52,
+      "failed": 317,
+      "blocked": 12,
+      "hci_failed": 217,
+      "phone_failed": 100,
+      "cycle_hours": 192.9,
+      "cycle_delta_hours": 24.9,
+      "crashes": 52,
+      "unique_crashes": 10,
+      "mtbf_hours": 36.9,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 2,
+      "open_criticals": 15,
+      "tickets": 162,
+      "resolved_since_previous": 0
+    },
+    {
+      "firmware_build": "FW_v14.2.093",
+      "run_id": "BT_FULL_CYCLE_20260828_01",
+      "end_time": "2026-08-28T09:24:00Z",
+      "health_index": 27.1,
+      "health_band": "RED",
+      "pass_rate_percent": 92.2,
+      "failed": 391,
+      "blocked": 77,
+      "hci_failed": 294,
+      "phone_failed": 97,
+      "cycle_hours": 201.4,
+      "cycle_delta_hours": 33.4,
+      "crashes": 44,
+      "unique_crashes": 10,
+      "mtbf_hours": 43.6,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 3,
+      "open_criticals": 19,
+      "tickets": 154,
+      "resolved_since_previous": 7
+    },
+    {
+      "firmware_build": "FW_v14.2.097",
+      "run_id": "BT_FULL_CYCLE_20260906_01",
+      "end_time": "2026-09-06T04:48:00Z",
+      "health_index": 32.6,
+      "health_band": "RED",
+      "pass_rate_percent": 93.37,
+      "failed": 351,
+      "blocked": 47,
+      "hci_failed": 263,
+      "phone_failed": 88,
+      "cycle_hours": 196.8,
+      "cycle_delta_hours": 28.8,
+      "crashes": 36,
+      "unique_crashes": 9,
+      "mtbf_hours": 53.3,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 2,
+      "open_criticals": 17,
+      "tickets": 142,
+      "resolved_since_previous": 18
+    },
+    {
+      "firmware_build": "FW_v14.2.101",
+      "run_id": "BT_FULL_CYCLE_20260915_01",
+      "end_time": "2026-09-15T04:00:00Z",
+      "health_index": 34.6,
+      "health_band": "RED",
+      "pass_rate_percent": 93.8,
+      "failed": 325,
+      "blocked": 47,
+      "hci_failed": 239,
+      "phone_failed": 86,
+      "cycle_hours": 196.0,
+      "cycle_delta_hours": 28.0,
+      "crashes": 38,
+      "unique_crashes": 8,
+      "mtbf_hours": 50.5,
+      "kpi_pass": 13,
+      "kpi_total": 14,
+      "open_blockers": 2,
+      "open_criticals": 18,
+      "tickets": 134,
+      "resolved_since_previous": 18
+    },
+    {
+      "firmware_build": "FW_v14.2.104",
+      "run_id": "BT_FULL_CYCLE_20260923_01",
+      "end_time": "2026-09-23T22:06:00Z",
+      "health_index": 38.9,
+      "health_band": "RED",
+      "pass_rate_percent": 94.25,
+      "failed": 286,
+      "blocked": 59,
+      "hci_failed": 195,
+      "phone_failed": 91,
+      "cycle_hours": 190.1,
+      "cycle_delta_hours": 22.1,
+      "crashes": 20,
+      "unique_crashes": 4,
+      "mtbf_hours": 96.0,
+      "kpi_pass": 11,
+      "kpi_total": 14,
+      "open_blockers": 2,
+      "open_criticals": 20,
+      "tickets": 102,
+      "resolved_since_previous": 14
+    },
+    {
+      "firmware_build": "FW_v14.2.106_RC1",
+      "run_id": "BT_FULL_CYCLE_20261002_01",
+      "end_time": "2026-10-02T18:24:00Z",
+      "health_index": 42.9,
+      "health_band": "RED",
+      "pass_rate_percent": 95.12,
+      "failed": 234,
+      "blocked": 59,
+      "hci_failed": 166,
+      "phone_failed": 68,
+      "cycle_hours": 186.4,
+      "cycle_delta_hours": 18.4,
+      "crashes": 20,
+      "unique_crashes": 5,
+      "mtbf_hours": 96.0,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 2,
+      "open_criticals": 11,
+      "tickets": 74,
+      "resolved_since_previous": 15
+    },
+    {
+      "firmware_build": "FW_v14.2.107_RC2",
+      "run_id": "BT_FULL_CYCLE_20261011_01",
+      "end_time": "2026-10-11T16:48:00Z",
+      "health_index": 54.7,
+      "health_band": "RED",
+      "pass_rate_percent": 95.93,
+      "failed": 204,
+      "blocked": 40,
+      "hci_failed": 153,
+      "phone_failed": 51,
+      "cycle_hours": 184.8,
+      "cycle_delta_hours": 16.8,
+      "crashes": 13,
+      "unique_crashes": 3,
+      "mtbf_hours": 147.7,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 1,
+      "open_criticals": 9,
+      "tickets": 72,
+      "resolved_since_previous": 11
+    },
+    {
+      "firmware_build": "FW_v14.2.109_RC3",
+      "run_id": "BT_FULL_CYCLE_20261020_01",
+      "end_time": "2026-10-20T11:18:00Z",
+      "health_index": 63.2,
+      "health_band": "RED",
+      "pass_rate_percent": 96.38,
+      "failed": 163,
+      "blocked": 54,
+      "hci_failed": 122,
+      "phone_failed": 41,
+      "cycle_hours": 179.3,
+      "cycle_delta_hours": 11.3,
+      "crashes": 12,
+      "unique_crashes": 3,
+      "mtbf_hours": 160.0,
+      "kpi_pass": 12,
+      "kpi_total": 14,
+      "open_blockers": 1,
+      "open_criticals": 6,
+      "tickets": 48,
+      "resolved_since_previous": 11
+    }
+  ]
+}
