@@ -9,19 +9,25 @@ the test plan and test run data that the agent analyses.
 
 ## Status
 
-| Step | Scope | State |
+All 9 steps are complete.
+
+| Step | Scope | Where |
 |---|---|---|
-| 1 | Project scaffolding and config | Done |
-| 2 | One-time test plan generator | Done |
-| 3 | Sample test run generator (8 firmware builds) | Done |
-| 4 | Data validation layer | Done |
-| 5 | Analysis engine (5 intelligence outputs) | Done |
-| 6 | Narrative layer (optional Claude API) | Done |
-| 7 | Dashboard UI (static HTML) | Done, in review |
-| 8 | Tests | Next |
-| 9 | Pipeline, docs and delivery | |
+| 1 | Project scaffolding and config | `config/settings.yaml`, `run_pipeline.py` |
+| 2 | One-time test plan generator | `generator/test_plan_generator.py` |
+| 3 | Sample test run generator (8 firmware builds) | `generator/run_generator.py` |
+| 4 | Data validation layer | `validation/` |
+| 5 | Analysis engine (5 intelligence outputs) | `analysis/` |
+| 6 | Narrative layer (optional Claude API) | `narrative/` |
+| 7 | Dashboard UI (static HTML) | `dashboard/` |
+| 8 | Unit tests | `tests/` (64 tests) |
+| 9 | Docs, CI and Vercel deployment | this README, `.github/workflows/ci.yml`, `vercel.json` |
+
+The original specification is in [`Requirements/SpecDocument.pdf`](Requirements/SpecDocument.pdf).
 
 ## Quick start
+
+Requires Python 3.10+.
 
 ```bash
 pip install -r requirements.txt
@@ -29,7 +35,12 @@ python run_pipeline.py                  # plan (reused) -> runs -> validate -> a
 open dashboard/index.html               # or double-click it: a single self-contained file
 python run_pipeline.py --regen-plan     # rebuild the one-time test plan too
 python run_pipeline.py --stage dashboard  # re-run a single stage
+
+pip install -r requirements-dev.txt     # adds pytest and the Claude SDK
+pytest                                  # 64 unit tests
 ```
+
+The `Makefile` wraps the same commands: `make pipeline`, `make test`, `make dashboard`, `make narrative`.
 
 Everything is seeded (`config/settings.yaml` -> `seeds`), so the same config always
 produces byte-identical output. The one exception is the narrative when Claude writes it.
@@ -60,6 +71,10 @@ narrative/narrator.py              executive wording (Claude API or template) ->
 dashboard/template.html            dashboard page: layout, theme tokens, SVG charts (no external libraries)
 dashboard/build_dashboard.py       injects the data -> dashboard/index.html
 run_pipeline.py                    entry point
+tests/                             pytest suite
+Requirements/SpecDocument.pdf      the original specification
+vercel.json                        static deployment of the dashboard
+.github/workflows/ci.yml           tests + reproducibility check on every PR
 data/test_plan.json                6,000 test cases + MTBF and KPI plans
 data/runs/                         one JSON per full test cycle, plus index.json
 ```
@@ -170,3 +185,61 @@ calls and opens from disk. Sections:
 Light and dark themes follow the OS setting, and a toggle overrides it. Every chart has
 hover/focus tooltips and a table view. Status is always shown as icon + label, never
 colour alone. The layout works down to phone width.
+
+## Tests (`tests/`)
+
+`pytest` runs 64 tests in a few seconds:
+
+| File | Covers |
+|---|---|
+| `test_generators.py` | Spec sizes (5,000 / 1,000 tests, 25 / 15 features, 16 DUTs); gating structure; time budgets; crash convergence; elastic duration; the planted LC3 gating bug; the committed plan and runs regenerate byte-for-byte. |
+| `test_validator.py` | Clean data passes. Eight kinds of corruption are each caught: totals, Jira links, orphan blocked tests, crash totals, KPI status, severity counts, timing, unknown test IDs. Wrong run order is caught too. |
+| `test_analysis.py` | Health index formula (including a perfect build scoring 100 / GREEN); gates; must-fix set clears every gate; forecast arithmetic; the no-burn-down case; DUT outlier and cross-talk detection (and no false alarms on uniform data); gating concentrations; clustering; action ordering; targeted re-run subsets. |
+| `test_narrative.py` | Template output. The Claude request against a mocked API: model, adaptive thinking, effort, JSON schema, fallback header. Falls back to the template on refusal, truncation, API error, missing SDK and unusable credentials. |
+| `test_dashboard_and_pipeline.py` | End-to-end pipeline into a temp directory; committed `data/` and dashboard are current; the dashboard is self-contained; embedded data round-trips; `</script>` in data cannot break the page; a validation failure stops the pipeline. |
+
+CI (`.github/workflows/ci.yml`) runs the tests on every pull request and push to `main`.
+It then re-runs the pipeline and fails if anything in `data/` changed. Together with the
+dashboard test, this means the committed dashboard can't drift from the code. A
+Claude-written narrative is the one allowed difference.
+
+## Deployment (Vercel)
+
+`vercel.json` makes Vercel serve the dashboard as a static site, whatever framework preset
+the Vercel project has:
+
+- `framework: null`, plus its own install and build commands, override the project preset.
+  A Next.js preset fails on this repo, which has no `package.json`.
+- The build copies `dashboard/index.html` and the spec PDF into `public/`, which is served
+  as the site root: `/` is the dashboard and `/SpecDocument.pdf` is the spec.
+- No Python runs on Vercel. The dashboard is built by the pipeline and committed, and CI
+  guarantees it is current.
+
+To publish new data: change the config or code, run `python run_pipeline.py`, commit, push.
+Vercel redeploys automatically.
+
+## Spec traceability
+
+| Spec requirement | Implementation |
+|---|---|
+| 2.1 Four test domains and their baselines | `config/settings.yaml` `test_plan:`; `generator/catalog.py` |
+| 2.2 Elastic duration rule | `run_generator.py` `_simulate_test_domain` (re-runs, diagnostic logs, isolation suites); `tldr.cycle` |
+| 3 One-time test plan generator | `generator/test_plan_generator.py` -> `data/test_plan.json` |
+| 3 `SampleTestRunGenerator`, deterministic JSON | `generator/run_generator.py`, seeded -> `data/runs/` |
+| 3.1 Schema: 25 HCI / 15 phone features, MTBF, KPI, Jira | Run files follow the schema, extended with per-test failures, DUT events and full tickets |
+| 3.1 >= 10 crashes early, falling later | `defect_catalog.py`: 10 signatures in build 1 falling to 3 by RC3 |
+| 4.1 #1 TL;DR: pass rate, duration delta, health 0-100 | `analysis/tldr.py`; dashboard TL;DR section |
+| 4.1 #2 Gates, slippage, MTBF per DUT | `analysis/risk.py`; dashboard Release readiness section |
+| 4.1 #3 DUT variance, cross-talk, blocked concentrations | `analysis/anomalies.py`; dashboard Anomalies section |
+| 4.1 #4 Subsystem clusters, recurring vs single crashes | `analysis/clustering.py`; dashboard Bug clustering section |
+| 4.1 #5 Role-based tasks, targeted re-run subsets | `analysis/next_actions.py`; dashboard Next actions section |
+| Final output: a dashboard | `dashboard/index.html`, deployed via `vercel.json` |
+
+## Limitations
+
+- All data is simulated. Swapping in real telemetry means writing run files in the same
+  schema; the validator, analysis and dashboard work unchanged.
+- The slippage forecast is a planning model (configurable fix-day, triage and cadence
+  assumptions), not a statistical prediction.
+- The Claude narrative is not deterministic. The committed dashboard uses the template
+  wording until you run `make narrative` and commit the result; CI accepts either.
