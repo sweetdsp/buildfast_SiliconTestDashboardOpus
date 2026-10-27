@@ -1,0 +1,58 @@
+{
+  "run_id": "BT_FULL_CYCLE_20261020_01",
+  "firmware_build": "FW_v14.2.109_RC3",
+  "source": "template",
+  "model": null,
+  "fallback_reason": "client not configured (usually missing credentials)",
+  "executive_summary": "FW_v14.2.109_RC3 scores 63.2/100 (RED) on the build health index with a 96.38% pass rate. Release recommendation is NO-GO: 0 of 5 gates pass; failing: Open Blocker Jiras, Open Critical Jiras, Overall pass rate %, MTBF hours per DUT, KPI metrics passing. Projected ready 2026-11-12 against a 2026-11-10 target (AT_RISK). Top priority: Fix BTFW-4012 (LC3 codec frame buffer NULL dereference on CIS re-establishment) immediately.",
+  "tldr_bullets": [
+    "FW_v14.2.109_RC3: health index 63.2/100 (RED), +8.5 vs FW_v14.2.107_RC2.",
+    "Pass rate 96.38% across 6,000 HCI + phone tests (163 failed, 54 blocked), +0.45 pts vs previous build.",
+    "Full cycle took 7.47 days (179.3 h), +11.3 h over the 7-day baseline due to failure re-runs; critical path HCI_REGRESSION.",
+    "MTBF 160.0 h per DUT with 12 crashes (3 unique signatures); 1 Blocker and 6 Critical Jiras open.",
+    "KPI breaches: A2DP_Latency_ms 124.3 vs target < 100 (FAIL), A2DP_Dropouts_per_hr 1.209 vs target < 1.0 (FAIL)."
+  ],
+  "release_statement": "NO-GO: projected ready 2026-11-12 vs target 2026-11-10 (+2.2 days, AT_RISK). Must fix: BTFW-4012, BTFW-4031.",
+  "key_risks": [
+    "Open Blocker Jiras: 1 (needs <= 0)",
+    "Open Critical Jiras: 6 (needs <= 5)",
+    "Overall pass rate %: 96.38 (needs >= 98.0)",
+    "MTBF hours per DUT: 160.0 (needs >= 200)",
+    "KPI metrics passing: 12/14 (needs all)",
+    "BTFW-4012 (Blocker, AUDIO_CODEC) fails 4 gating tests and blocks 46 tests in 4 suites: 41 LE_Audio_CIS_BIS, 5 LE_Audio_Unicast. Indicative of a gating driver bug."
+  ],
+  "team_briefs": [
+    {
+      "team": "Audio / Codec Firmware",
+      "brief": "P0 Fix BTFW-4012 (LC3 codec frame buffer NULL dereference on CIS re-establishment) immediately."
+    },
+    {
+      "team": "Release Lead",
+      "brief": "P0 Hold the release: 5 of 5 gates failing (Open Blocker Jiras, Open Critical Jiras, Overall pass rate %, MTBF hours per DUT, KPI metrics passing)."
+    },
+    {
+      "team": "BR/EDR Controller Firmware",
+      "brief": "P1 Fix BTFW-4031 (Scheduler starves ISO events when A2DP ACL and LE Audio CIS run concurrently); P2 Fix BTFW-4018 (LMP response timeout during role switch with encrypted ACL)."
+    },
+    {
+      "team": "Hardware / Board Bring-up",
+      "brief": "P1 Inspect DUT-02 (EVT2 board, RF lot LOT-A17) and swap it for a DVT1 board in the next MTBF run to separate hardware from firmware causes."
+    },
+    {
+      "team": "Test Infrastructure / Triage",
+      "brief": "P1 Run targeted subset RS-08 on the next build (619 tests, ~24 h, 86.6% shorter than the 179.3 h full cycle); P2 Merge 10 candidate duplicate clusters (26 tickets) into root-cause tickets, starting with 'ISO SDU dropped / sequence gap' (4 tickets); P2 Add an alternative setup path for LE_Audio_CIS_BIS, LE_Audio_Unicast so persistently blocked tests regain coverage while the gating bugs are open."
+    },
+    {
+      "team": "HCI / Transport Firmware",
+      "brief": "P2 Fix BTFW-4022 (Controller hangs on HCI_Reset issued right after A2DP stream teardown); P2 Fix BTFW-5477 (HCI_Flow_Control: Event mask not honoured)."
+    },
+    {
+      "team": "Host Stack",
+      "brief": "P2 Fix BTFW-4027 (Robust caching: database hash stale after Service Changed indication)."
+    },
+    {
+      "team": "Power Management Firmware",
+      "brief": "P2 Fix BTFW-5372 (Sniff_Mode: Current draw above budget)."
+    }
+  ]
+}

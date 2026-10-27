@@ -1,0 +1,3147 @@
+{
+  "checks_total": 523,
+  "checks_passed": 523,
+  "checks_failed": 0,
+  "status": "PASS",
+  "failures": [],
+  "checks": [
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: total_tests matches test cases",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: feature test counts sum to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: unique test case IDs",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: every dependency points at a gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: durations fit the baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: total_tests matches test cases",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: feature test counts sum to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: unique test case IDs",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: every dependency points at a gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: durations fit the baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "HCI_REGRESSION: 25 features",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "test_plan",
+      "check": "PHONE_TESTING: 15 features",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3990 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3970 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3985 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3961 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3980 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3983 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3965 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3977 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "MTBF: affected DUTs for BTFW-3972 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260819_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3983 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3961 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3965 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3970 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3977 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3990 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3972 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-3980 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260828_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3990 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3970 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3977 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3983 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3980 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3965 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "MTBF: affected DUTs for BTFW-3993 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260906_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-3970 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-3983 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-3980 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-3977 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-4022 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "MTBF: affected DUTs for BTFW-3990 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260915_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: affected DUTs for BTFW-3983 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: affected DUTs for BTFW-3977 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20260923_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: affected DUTs for BTFW-4029 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: affected DUTs for BTFW-3980 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "MTBF: affected DUTs for BTFW-4022 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261002_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "MTBF: affected DUTs for BTFW-4022 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261011_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "metadata: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "domain order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "jira_telemetry: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "metadata: end - start equals actual cycle hours",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "metadata: cycle equals the longest domain",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "metadata: cycle delta = actual - baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "HCI_REGRESSION: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: total matches test plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: passed + failed + blocked = total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: executed = total - blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: pass rate consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: all plan features present",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: feature pass + fail + blocked = feature total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: feature fail counts sum to domain failed",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: feature blocked counts sum to domain blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: failed_tests list matches failed count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: blocked_tests list matches blocked count",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: every listed test exists in the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: no test both failed and blocked",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: failed test features match the plan",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: every failure is linked to a Jira (100% automation)",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: every blocked test depends on a failed gating test",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "PHONE_TESTING: duration >= baseline",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: duts_active matches DUT details",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: crash totals consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: unique crash count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: crash_mapping occurrences sum to total crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: mtbf_hours = operational hours / crashes",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: crash events linked to Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: crash timestamps inside the MTBF window",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: affected DUTs for BTFW-4012 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: affected DUTs for BTFW-4022 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "MTBF: affected DUTs for BTFW-4018 match events",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "KPI_AUDIO: required fields",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "KPI: every plan metric measured",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "KPI: pass count consistent",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "KPI: status agrees with target",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "KPI: every breach has a linked Jira",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "Jira: ticket IDs unique",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "Jira: total matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "Jira: severity distribution sums to total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "BT_FULL_CYCLE_20261020_01",
+      "check": "Jira: severity distribution matches tickets",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "cross_run",
+      "check": "build indexes are 1..N in order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "cross_run",
+      "check": "runs are in chronological order",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "scope": "cross_run",
+      "check": "index.json lists every run",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}

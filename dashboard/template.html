@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bluetooth Test Dashboard</title>
+<style>
+:root {
+  color-scheme: light;
+  --page: #f9f9f7; --surface: #fcfcfb; --surface-2: #f0efec;
+  --ink: #0b0b0b; --ink-2: #52514e; --muted: #6f6d68;
+  --grid: #e1e0d9; --axis: #c3c2b7; --border: rgba(11,11,11,0.10);
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --deemph: #c3c2b7;
+  --good: #0ca30c; --warning: #fab219; --serious: #ec835a; --critical: #d03b3b; --good-text: #006300; --bad-text: #b02a2a;
+  --seq-0: #f0efec; --seq-1: #cde2fb; --seq-2: #9ec5f4; --seq-3: #6da7ec; --seq-4: #3987e5; --seq-5: #256abf; --seq-6: #104281;
+  --focus: #2a78d6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page: #0d0d0d; --surface: #1a1a19; --surface-2: #262624;
+    --ink: #f0efec; --ink-2: #c3c2b7; --muted: #9a988f;
+    --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    --deemph: #4a4a46;
+    --good-text: #0ca30c; --bad-text: #e66767;
+    --seq-0: #262624; --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5; --seq-5: #6da7ec; --seq-6: #b7d3f6;
+    --focus: #6da7ec;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page: #0d0d0d; --surface: #1a1a19; --surface-2: #262624;
+  --ink: #f0efec; --ink-2: #c3c2b7; --muted: #9a988f;
+  --grid: #2c2c2a; --axis: #383835; --border: rgba(255,255,255,0.10);
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  --deemph: #4a4a46;
+  --good-text: #0ca30c; --bad-text: #e66767;
+  --seq-0: #262624; --seq-1: #0d366b; --seq-2: #184f95; --seq-3: #256abf; --seq-4: #3987e5; --seq-5: #6da7ec; --seq-6: #b7d3f6;
+  --focus: #6da7ec;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding: 0 16px 48px; }
+header.top { padding: 20px 0 12px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: flex-end; justify-content: space-between; }
+header.top h1 { font-size: 22px; margin: 0; font-weight: 650; letter-spacing: -0.01em; }
+.sub { color: var(--ink-2); font-size: 13px; }
+.meta-line { display: flex; flex-wrap: wrap; gap: 4px 16px; color: var(--ink-2); font-size: 13px; margin-top: 4px; }
+.meta-line b { color: var(--ink); font-weight: 600; }
+button, select {
+  font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; padding: 6px 12px; cursor: pointer;
+}
+button:hover, select:hover { background: var(--surface-2); }
+nav.sections { position: sticky; top: 0; z-index: 5; background: var(--page); border-bottom: 1px solid var(--border);
+  display: flex; gap: 4px; overflow-x: auto; padding: 8px 0; scrollbar-width: none; }
+nav.sections a { text-decoration: none; color: var(--ink-2); padding: 4px 10px; border-radius: 999px; white-space: nowrap; font-size: 13px; }
+nav.sections a:hover { background: var(--surface-2); color: var(--ink); }
+section { margin-top: 28px; scroll-margin-top: 56px; }
+section > h2 { font-size: 17px; margin: 0 0 4px; font-weight: 650; }
+section > .lede { color: var(--ink-2); margin: 0 0 14px; font-size: 13px; max-width: 80ch; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; min-width: 0; }
+.card h3 { font-size: 14px; margin: 0 0 2px; font-weight: 600; }
+.card .note { color: var(--muted); font-size: 12px; margin: 0 0 10px; }
+.grid { display: grid; gap: 12px; }
+.g-tiles { grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); }
+.g-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); }
+.g-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.hero { display: grid; grid-template-columns: minmax(0, 260px) minmax(0, 1fr); gap: 12px; }
+@media (max-width: 720px) { .hero { grid-template-columns: minmax(0, 1fr); } }
+.hero-fig { font-size: 64px; line-height: 1; font-weight: 650; letter-spacing: -0.02em; margin: 6px 0 8px; }
+.hero-fig small { font-size: 20px; color: var(--ink-2); font-weight: 500; }
+.tile .label { color: var(--ink-2); font-size: 12.5px; }
+.tile .value { font-size: 26px; font-weight: 650; margin: 2px 0; letter-spacing: -0.01em; }
+.tile .delta { font-size: 12.5px; color: var(--ink-2); }
+.up-good { color: var(--good-text); } .down-bad { color: var(--bad-text); }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.badge .ic { width: 16px; height: 16px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 10px; font-weight: 800; color: #fff; flex: none; }
+.ic.good { background: var(--good); } .ic.warning { background: var(--warning); color: #0b0b0b; }
+.ic.serious { background: var(--serious); color: #0b0b0b; } .ic.critical { background: var(--critical); }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: var(--surface-2); color: var(--ink-2); white-space: nowrap; }
+.pill.p0 { background: var(--critical); color: #fff; } .pill.p1 { background: var(--serious); color: #0b0b0b; }
+.summary-text { font-size: 15px; line-height: 1.6; margin: 0 0 10px; max-width: 90ch; }
+ul.bullets { margin: 0; padding-left: 18px; } ul.bullets li { margin: 3px 0; }
+.source { font-size: 12px; color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; font-size: 12px; white-space: nowrap; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table-scroll { overflow-x: auto; }
+details.tv { margin-top: 8px; } details.tv summary { cursor: pointer; color: var(--ink-2); font-size: 12.5px; }
+.chart { position: relative; width: 100%; }
+.chart svg { display: block; width: 100%; overflow: visible; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; color: var(--ink-2); margin: 0 0 6px; }
+.legend .key { display: inline-block; vertical-align: middle; margin-right: 6px; }
+.legend .key.line { width: 14px; height: 2px; border-radius: 1px; }
+.legend .key.rect { width: 10px; height: 10px; border-radius: 2px; }
+.axis-text { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.end-label { fill: var(--ink); font-size: 11.5px; font-weight: 600; }
+.ref-label { fill: var(--muted); font-size: 11px; }
+#tip { position: fixed; z-index: 50; pointer-events: none; background: var(--surface); color: var(--ink);
+  border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12.5px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  max-width: 280px; display: none; }
+#tip .t { color: var(--ink-2); font-size: 11.5px; margin-bottom: 4px; }
+#tip .row { display: flex; align-items: center; gap: 8px; }
+#tip .row .k { width: 12px; height: 2px; border-radius: 1px; flex: none; }
+#tip .row .v { font-weight: 650; font-variant-numeric: tabular-nums; }
+#tip .row .n { color: var(--ink-2); }
+.heat { border-collapse: separate; border-spacing: 2px; width: 100%; }
+.heat th, .heat td { border: 0; padding: 0; }
+.heat th.feat { width: 1%; text-align: left; font-weight: 500; color: var(--ink); font-size: 12.5px; padding-right: 10px; white-space: nowrap; }
+.heat th.col { text-align: center; font-size: 11px; color: var(--muted); font-weight: 500; padding-bottom: 4px; }
+.heat td.cell { min-width: 30px; height: 22px; border-radius: 4px; }
+.heat tr.group th { padding: 10px 0 4px; font-size: 12px; color: var(--ink-2); font-weight: 600; text-align: left; }
+.scale { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink-2); margin-top: 10px; align-items: center; }
+.scale span.sw { display: inline-block; width: 18px; height: 12px; border-radius: 3px; margin-right: 4px; vertical-align: -2px; }
+.anom { display: flex; flex-direction: column; gap: 6px; }
+.anom .type { font-size: 11.5px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+.action { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid var(--grid); }
+.action:last-child { border-bottom: 0; }
+.action .pill { align-self: start; }
+.action .team { font-size: 12px; color: var(--ink-2); font-weight: 600; }
+.action .what { font-size: 14px; }
+.action .why { font-size: 12.5px; color: var(--ink-2); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px; font-size: 13px; color: var(--ink-2); }
+.kv { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: 13px; }
+.kv dt { color: var(--ink-2); } .kv dd { margin: 0; font-weight: 600; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+.mono.id { white-space: nowrap; }
+footer { margin-top: 36px; color: var(--muted); font-size: 12px; }
+@media print { nav.sections, #theme { display: none; } .card { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Bluetooth Test Infrastructure Dashboard</h1>
+      <div class="meta-line" id="meta-line"></div>
+    </div>
+    <button id="theme" type="button" aria-label="Toggle light or dark theme">Theme</button>
+  </header>
+  <nav class="sections" aria-label="Sections">
+    <a href="#tldr">TL;DR</a><a href="#release">Release readiness</a><a href="#trends">Trends</a>
+    <a href="#domains">Test domains</a><a href="#anomalies">Anomalies</a><a href="#clusters">Bug clusters</a>
+    <a href="#actions">Next actions</a>
+  </nav>
+  <main id="app"></main>
+  <footer id="footer"></footer>
+</div>
+<div id="tip" role="tooltip"></div>
+<script type="application/json" id="dashboard-data">/*__DASHBOARD_DATA__*/null</script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("dashboard-data").textContent);
+const I = D.insights;
+const SVGNS = "http://www.w3.org/2000/svg";
+const charts = [];
+
+// ---------------------------------------------------------------- helpers
+function h(tag, props, ...kids) {
+  const el = document.createElement(tag);
+  if (props) for (const [k, v] of Object.entries(props)) {
+    if (v == null) continue;
+    if (k === "class") el.className = v;
+    else if (k === "text") el.textContent = v;
+    else if (k === "style") el.style.cssText = v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v);
+  }
+  for (const c of kids.flat()) if (c != null) el.append(c instanceof Node ? c : document.createTextNode(String(c)));
+  return el;
+}
+function s(tag, attrs, style) {
+  const el = document.createElementNS(SVGNS, tag);
+  for (const [k, v] of Object.entries(attrs || {})) el.setAttribute(k, v);
+  if (style) el.style.cssText = style;
+  return el;
+}
+const fmt = (v, d = 0) => v == null ? "n/a" : Number(v).toLocaleString("en-US", { maximumFractionDigits: d, minimumFractionDigits: d });
+const signed = (v, d = 1) => v == null ? "n/a" : (v > 0 ? "+" : v < 0 ? "−" : "±") + fmt(Math.abs(v), d);
+const date10 = (t) => t ? t.slice(0, 10) : "n/a";
+function card(title, note, ...body) {
+  return h("div", { class: "card" }, title ? h("h3", { text: title }) : null, note ? h("p", { class: "note", text: note }) : null, ...body);
+}
+function section(id, title, lede, ...body) {
+  return h("section", { id }, h("h2", { text: title }), lede ? h("p", { class: "lede", text: lede }) : null, ...body);
+}
+const STATUS = {
+  PASS: ["good", "✓", "Pass"], FAIL: ["critical", "✕", "Fail"], DEGRADED: ["warning", "!", "Degraded"],
+  GREEN: ["good", "✓", "Green"], AMBER: ["warning", "!", "Amber"], RED: ["critical", "✕", "Red"],
+  "NO-GO": ["critical", "✕", "No-go"], GO: ["good", "✓", "Go"],
+  ON_TRACK: ["good", "✓", "On track"], AT_RISK: ["warning", "!", "At risk"], OFF_TRACK: ["critical", "✕", "Off track"],
+  HIGH: ["serious", "!", "High"], MEDIUM: ["warning", "!", "Medium"],
+  ACTIVE: ["serious", "!", "Active"], RESOLVED: ["good", "✓", "Resolved"],
+  Blocker: ["critical", "✕", "Blocker"], Critical: ["serious", "!", "Critical"], Medium: ["warning", "!", "Medium"], Trivial: ["good", "✓", "Trivial"],
+};
+function badge(key, labelOverride) {
+  const [cls, icon, label] = STATUS[key] || ["warning", "?", key];
+  return h("span", { class: "badge" }, h("span", { class: "ic " + cls, "aria-hidden": "true", text: icon }), labelOverride || label);
+}
+function tableView(headers, rows, numCols = []) {
+  return h("div", { class: "table-scroll" }, h("table", null,
+    h("thead", null, h("tr", null, headers.map((x, i) => h("th", { class: numCols.includes(i) ? "num" : null, text: x })))),
+    h("tbody", null, rows.map(r => h("tr", null, r.map((c, i) => h("td", { class: numCols.includes(i) ? "num" : null }, c)))))));
+}
+function details(label, content) { return h("details", { class: "tv" }, h("summary", { text: label }), content); }
+
+// ---------------------------------------------------------------- tooltip
+const tip = document.getElementById("tip");
+function showTip(x, y, title, rows) {
+  tip.replaceChildren(h("div", { class: "t", text: title }),
+    ...rows.map(r => h("div", { class: "row" },
+      r.color ? h("span", { class: "k", style: "background:" + r.color }) : null,
+      h("span", { class: "v", text: r.value }), h("span", { class: "n", text: r.label }))));
+  tip.style.display = "block";
+  const w = tip.offsetWidth, ht = tip.offsetHeight;
+  let left = x + 14, top = y + 14;
+  if (left + w > window.innerWidth - 8) left = x - w - 14;
+  if (top + ht > window.innerHeight - 8) top = y - ht - 14;
+  tip.style.left = Math.max(8, left) + "px"; tip.style.top = Math.max(8, top) + "px";
+}
+function hideTip() { tip.style.display = "none"; }
+function tipFor(el, title, rows) {
+  el.addEventListener("pointermove", e => showTip(e.clientX, e.clientY, title, rows));
+  el.addEventListener("pointerleave", hideTip);
+  el.addEventListener("focus", () => { const b = el.getBoundingClientRect(); showTip(b.right, b.top, title, rows); });
+  el.addEventListener("blur", hideTip);
+}
+
+// ---------------------------------------------------------------- scales
+function niceTicks(min, max, count = 4) {
+  if (max === min) max = min + 1;
+  const raw = (max - min) / count, mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  const step = [1, 2, 2.5, 5, 10].map(m => m * mag).find(st => st >= raw);
+  const lo = Math.floor(min / step) * step, hi = Math.ceil(max / step) * step;
+  const ticks = []; for (let v = lo; v <= hi + step / 2; v += step) ticks.push(+v.toFixed(6));
+  return ticks;
+}
+const compact = v => Math.abs(v) >= 1000 ? fmt(v / 1000, v % 1000 ? 1 : 0) + "K" : fmt(v, Number.isInteger(v) ? 0 : 1);
+function mount(container, draw) {
+  const run = () => { container.replaceChildren(); draw(Math.max(container.clientWidth, 260)); };
+  charts.push(run); requestAnimationFrame(run);
+}
+function roundedRightBar(x, y, w, hgt, r) {
+  r = Math.min(r, w, hgt / 2);
+  return `M${x},${y}h${w - r}a${r},${r} 0 0 1 ${r},${r}v${hgt - 2 * r}a${r},${r} 0 0 1 -${r},${r}h-${w - r}z`;
+}
+function roundedTopBar(x, y, w, hgt, r) {
+  r = Math.min(r, hgt, w / 2);
+  return `M${x},${y + hgt}v-${hgt - r}a${r},${r} 0 0 1 ${r},-${r}h${w - 2 * r}a${r},${r} 0 0 1 ${r},${r}v${hgt - r}z`;
+}
+
+// Multi-series line chart with crosshair tooltip. One y-axis only.
+function lineChart(container, o) {
+  const legend = o.series.length > 1 ? h("div", { class: "legend" }, o.series.map(sr =>
+    h("span", null, h("span", { class: "key line", style: "background:" + sr.color }), sr.name))) : null;
+  const holder = h("div", { class: "chart" });
+  container.append(legend || "", holder);
+  mount(holder, W => {
+    const H = o.height || 190, m = { l: 40, r: 44, t: 12, b: 26 };
+    const all = o.series.flatMap(sr => sr.values).filter(v => v != null).concat(o.ref ? [o.ref.value] : []);
+    const ticks = niceTicks(o.yMin != null ? o.yMin : Math.min(...all), o.yMax != null ? o.yMax : Math.max(...all));
+    const y0 = ticks[0], y1 = ticks[ticks.length - 1];
+    const n = o.labels.length;
+    const X = i => m.l + (n === 1 ? 0 : i * (W - m.l - m.r) / (n - 1));
+    const Y = v => m.t + (1 - (v - y0) / (y1 - y0)) * (H - m.t - m.b);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": o.aria, tabindex: 0 });
+    ticks.forEach(t => {
+      svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(t), y2: Y(t) }, `stroke:var(${t === y0 ? "--axis" : "--grid"});stroke-width:1`));
+      const tx = s("text", { x: m.l - 6, y: Y(t) + 4, "text-anchor": "end", class: "axis-text" }); tx.textContent = compact(t) + (o.unit || ""); svg.append(tx);
+    });
+    o.labels.forEach((lb, i) => {
+      if (W < 420 && i % 2 && i !== n - 1) return;
+      const tx = s("text", { x: X(i), y: H - 8, "text-anchor": "middle", class: "axis-text" }); tx.textContent = lb; svg.append(tx);
+    });
+    if (o.ref) {
+      svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(o.ref.value), y2: Y(o.ref.value) }, "stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3"));
+      const tx = s("text", { x: W - m.r + 4, y: Y(o.ref.value) + 4, class: "ref-label" }); tx.textContent = o.ref.label; svg.append(tx);
+    }
+    o.series.forEach(sr => {
+      const pts = sr.values.map((v, i) => v == null ? null : [X(i), Y(v)]).filter(Boolean);
+      if (o.area && o.series.length === 1) svg.append(s("path", { d: `M${pts[0][0]},${Y(y0)}L${pts.map(p => p.join(",")).join("L")}L${pts[pts.length - 1][0]},${Y(y0)}Z` }, `fill:${sr.color};opacity:0.1`));
+      svg.append(s("polyline", { points: pts.map(p => p.join(",")).join(" ") }, `fill:none;stroke:${sr.color};stroke-width:2;stroke-linejoin:round;stroke-linecap:round`));
+      const last = pts[pts.length - 1];
+      svg.append(s("circle", { cx: last[0], cy: last[1], r: 4 }, `fill:${sr.color};stroke:var(--surface);stroke-width:2`));
+      const tx = s("text", { x: last[0] + 8, y: last[1] + 4, class: "end-label" }); tx.textContent = (o.fmt || fmt)(sr.values[n - 1]); svg.append(tx);
+    });
+    const cross = s("line", { y1: m.t, y2: H - m.b }, "stroke:var(--axis);stroke-width:1;display:none");
+    const dots = o.series.map(sr => { const c = s("circle", { r: 4 }, `fill:${sr.color};stroke:var(--surface);stroke-width:2;display:none`); svg.append(c); return c; });
+    svg.append(cross);
+    const hit = s("rect", { x: m.l - 10, y: 0, width: W - m.l - m.r + 20, height: H }, "fill:transparent");
+    svg.append(hit);
+    let idx = n - 1;
+    const show = (i, cx, cy) => {
+      idx = i; cross.setAttribute("x1", X(i)); cross.setAttribute("x2", X(i)); cross.style.display = "";
+      o.series.forEach((sr, k) => { if (sr.values[i] == null) return; dots[k].setAttribute("cx", X(i)); dots[k].setAttribute("cy", Y(sr.values[i])); dots[k].style.display = ""; });
+      showTip(cx, cy, o.tipTitle ? o.tipTitle(i) : o.labels[i], o.series.map(sr => ({ color: sr.color, value: (o.fmt || fmt)(sr.values[i]), label: sr.name })));
+    };
+    const hide = () => { cross.style.display = "none"; dots.forEach(d => d.style.display = "none"); hideTip(); };
+    hit.addEventListener("pointermove", e => {
+      const b = svg.getBoundingClientRect(), px = (e.clientX - b.left) * W / b.width;
+      const i = Math.max(0, Math.min(n - 1, Math.round((px - m.l) / ((W - m.l - m.r) / (n - 1)))));
+      show(i, e.clientX, e.clientY);
+    });
+    hit.addEventListener("pointerleave", hide);
+    svg.addEventListener("keydown", e => {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault(); const i = Math.max(0, Math.min(n - 1, idx + (e.key === "ArrowRight" ? 1 : -1)));
+      const b = svg.getBoundingClientRect(); show(i, b.left + X(i) * b.width / W, b.top + 20);
+    });
+    svg.addEventListener("focus", () => { const b = svg.getBoundingClientRect(); show(idx, b.left + X(idx) * b.width / W, b.top + 20); });
+    svg.addEventListener("blur", hide);
+    holder.append(svg);
+  });
+}
+
+// Vertical columns, emphasis form: highlighted columns in the accent, the rest de-emphasised.
+function columnChart(container, o) {
+  const holder = h("div", { class: "chart" }); container.append(holder);
+  mount(holder, W => {
+    const H = o.height || 200, m = { l: 34, r: 8, t: 18, b: 30 };
+    const ticks = niceTicks(0, Math.max(...o.values, 1));
+    const y1 = ticks[ticks.length - 1], n = o.values.length, band = (W - m.l - m.r) / n, bw = Math.min(24, band * 0.62);
+    const Y = v => m.t + (1 - v / y1) * (H - m.t - m.b);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": o.aria });
+    ticks.forEach(t => {
+      svg.append(s("line", { x1: m.l, x2: W - m.r, y1: Y(t), y2: Y(t) }, `stroke:var(${t === 0 ? "--axis" : "--grid"});stroke-width:1`));
+      const tx = s("text", { x: m.l - 6, y: Y(t) + 4, "text-anchor": "end", class: "axis-text" }); tx.textContent = compact(t); svg.append(tx);
+    });
+    o.values.forEach((v, i) => {
+      const x = m.l + i * band + (band - bw) / 2, hi = o.highlight.includes(i);
+      if (v > 0) svg.append(s("path", { d: roundedTopBar(x, Y(v), bw, Y(0) - Y(v), 4) }, `fill:var(${hi ? "--s1" : "--deemph"})`));
+      if (hi) { const tx = s("text", { x: x + bw / 2, y: Y(v) - 5, "text-anchor": "middle", class: "end-label" }); tx.textContent = fmt(v); svg.append(tx); }
+      if (W >= 520 || i % 2 === 0) {
+        const tx = s("text", { x: x + bw / 2, y: H - 10, "text-anchor": "middle", class: "axis-text" }); tx.textContent = o.labels[i]; svg.append(tx);
+      }
+      const hit = s("rect", { x: m.l + i * band, y: m.t, width: band, height: H - m.t - m.b, tabindex: 0, "aria-label": `${o.labels[i]}: ${v}` }, "fill:transparent");
+      tipFor(hit, o.tipTitle(i), o.tipRows(i));
+      svg.append(hit);
+    });
+    holder.append(svg);
+  });
+}
+
+// Horizontal bars; one or more stacked series with a 2px surface gap and a rounded data-end.
+function hBars(container, o) {
+  const legend = o.series.length > 1 ? h("div", { class: "legend" }, o.series.map(sr =>
+    h("span", null, h("span", { class: "key rect", style: "background:" + sr.color }), sr.name))) : null;
+  const holder = h("div", { class: "chart" }); container.append(legend || "", holder);
+  mount(holder, W => {
+    const row = 30, bh = 16, labelW = Math.min(o.labelWidth || 170, W * 0.42), m = { l: labelW, r: 46, t: 4, b: 4 };
+    const H = m.t + m.b + row * o.rows.length;
+    const max = Math.max(...o.rows.map(r => r.values.reduce((a, b) => a + b, 0)), 1);
+    const Xw = v => v / max * (W - m.l - m.r);
+    const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, height: H, role: "img", "aria-label": o.aria });
+    svg.append(s("line", { x1: m.l, x2: m.l, y1: m.t, y2: H - m.b }, "stroke:var(--axis);stroke-width:1"));
+    o.rows.forEach((r, i) => {
+      const y = m.t + i * row + (row - bh) / 2;
+      const lb = s("text", { x: m.l - 8, y: y + bh / 2 + 4, "text-anchor": "end", class: "axis-text" }, "fill:var(--ink)");
+      let label = r.label; const maxChars = Math.floor(labelW / 6.6);
+      if (label.length > maxChars) label = label.slice(0, maxChars - 1) + "…";
+      lb.textContent = label; svg.append(lb);
+      let x = m.l; const total = r.values.reduce((a, b) => a + b, 0);
+      const lastIdx = r.values.reduce((li, v, k) => v > 0 ? k : li, -1);
+      r.values.forEach((v, k) => {
+        if (v <= 0) return;
+        const w = Math.max(Xw(v) - (k === lastIdx ? 0 : 2), 1);
+        const col = r.colors ? r.colors[k] : o.series[k].color;
+        svg.append(k === lastIdx ? s("path", { d: roundedRightBar(x, y, w, bh, 4) }, `fill:${col}`) : s("rect", { x, y, width: w, height: bh }, `fill:${col}`));
+        x += Xw(v);
+      });
+      const tv = s("text", { x: m.l + Xw(total) + 6, y: y + bh / 2 + 4, class: "end-label" }); tv.textContent = (o.fmt || fmt)(total); svg.append(tv);
+      const hit = s("rect", { x: 0, y: m.t + i * row, width: W, height: row, tabindex: 0, "aria-label": `${r.label}: ${total}` }, "fill:transparent");
+      tipFor(hit, r.label, (o.tipRows ? o.tipRows(r, i) : r.values.map((v, k) => ({ color: o.series[k].color, value: fmt(v), label: o.series[k].name }))));
+      svg.append(hit);
+    });
+    holder.append(svg);
+  });
+}
+
+function sparkline(values, opts = {}) {
+  const W = opts.w || 96, H = opts.h || 26, pad = 4;
+  const all = values.concat(opts.ref != null ? [opts.ref] : []);
+  const lo = Math.min(...all), hi = Math.max(...all), span = hi - lo || 1;
+  const X = i => pad + i * (W - 2 * pad) / (values.length - 1), Y = v => H - pad - (v - lo) / span * (H - 2 * pad);
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, "aria-hidden": "true" });
+  if (opts.ref != null) svg.append(s("line", { x1: pad, x2: W - pad, y1: Y(opts.ref), y2: Y(opts.ref) }, "stroke:var(--muted);stroke-width:1;stroke-dasharray:3 2"));
+  svg.append(s("polyline", { points: values.map((v, i) => `${X(i)},${Y(v)}`).join(" ") }, "fill:none;stroke:var(--muted);stroke-width:1.5;stroke-linejoin:round"));
+  const li = values.length - 1;
+  svg.append(s("circle", { cx: X(li), cy: Y(values[li]), r: 3 }, "fill:var(--s1);stroke:var(--surface);stroke-width:1.5"));
+  return svg;
+}
+
+function sparkColumns(values) {
+  const W = 96, H = 24, n = values.length, band = W / n, bw = Math.min(8, band - 2), max = Math.max(...values, 1);
+  const svg = s("svg", { viewBox: `0 0 ${W} ${H}`, width: W, height: H, "aria-hidden": "true" });
+  values.forEach((v, i) => { if (v > 0) { const hh = Math.max(2, v / max * (H - 2)); svg.append(s("rect", { x: i * band + (band - bw) / 2, y: H - hh, width: bw, height: hh, rx: 1.5 }, `fill:var(${i === n - 1 ? "--s1" : "--deemph"})`)); } });
+  svg.append(s("line", { x1: 0, x2: W, y1: H - 0.5, y2: H - 0.5 }, "stroke:var(--axis);stroke-width:1"));
+  return svg;
+}
+
+// ---------------------------------------------------------------- sections
+const L = D.build_labels, T = I.trends, tl = I.tldr, risk = I.risk, fc = risk.forecast;
+const buildTitle = i => D.builds[i];
+
+function renderMeta() {
+  const m = D.meta;
+  document.getElementById("meta-line").append(
+    h("span", null, "Build ", h("b", { text: m.firmware_build })),
+    h("span", null, "Chipset ", h("b", { text: m.chipset_revision })),
+    h("span", null, "Run ", h("b", { text: m.run_id })),
+    h("span", { text: `${date10(m.start_time)} → ${date10(m.end_time)}` }),
+    h("span", { text: `${m.runs} builds analysed` }));
+  const n = D.narrative;
+  document.getElementById("footer").append(
+    h("p", { text: `Generated from ${m.runs} full test cycles (${D.builds[0]} → ${D.builds[D.builds.length - 1]}), test plan ${m.test_plan_version}. ` +
+      `All data is simulated by the mock data engine; the analysis engine computes every number shown. ` +
+      (n ? (n.source === "claude" ? `Narrative written by Claude (${n.model}) from the computed facts.` : `Narrative generated from templates (${n.fallback_reason}).`) : "") }));
+}
+
+function statTile(label, value, delta, deltaClass) {
+  return h("div", { class: "card tile" }, h("div", { class: "label", text: label }), h("div", { class: "value", text: value }),
+    delta ? h("div", { class: "delta " + (deltaClass || ""), text: delta }) : null);
+}
+
+function renderTldr() {
+  const hx = tl.health_index, n = D.narrative, tt = tl.test_totals, cyc = tl.cycle;
+  const prev = T.length > 1 ? T[T.length - 2] : null;
+  const heroCard = h("div", { class: "card" },
+    h("h3", { text: "Build health index" }),
+    h("div", { class: "hero-fig" }, fmt(hx.score, 1), h("small", { text: " / 100" })),
+    h("div", null, badge(hx.band), h("span", { class: "sub", text: tl.health_delta != null ? `  ${signed(tl.health_delta)} vs ${tl.previous_firmware_build}` : "" })),
+    details("How it is scored", tableView(["Component", "Weight", "Score", "Basis"],
+      Object.entries(hx.components).map(([k, c]) => [k.replace("_", " "), Math.round(c.weight * 100) + "%", fmt(c.score, 1), c.detail]), [1, 2])));
+  const summary = h("div", { class: "card" },
+    h("h3", { text: "Executive summary" }),
+    h("p", { class: "summary-text", text: n ? n.executive_summary : tl.headline.join(" ") }),
+    h("ul", { class: "bullets" }, (n ? n.tldr_bullets : tl.headline).map(b => h("li", { text: b }))),
+    h("p", { class: "source", text: n && n.source === "claude" ? `Written by Claude (${n.model}) from computed facts` : "Generated from templates" }));
+  const pr = tl.pass_rate_delta_pts;
+  const tiles = h("div", { class: "grid g-tiles", style: "margin-top:12px" },
+    statTile("Pass rate (HCI + phone)", fmt(tt.pass_rate_percent, 2) + "%", pr != null ? `${signed(pr, 2)} pts vs previous build` : null, pr > 0 ? "up-good" : pr < 0 ? "down-bad" : ""),
+    statTile("Failed / blocked tests", `${fmt(tt.failed)} / ${fmt(tt.blocked)}`, `of ${fmt(tt.total_tests)} test cases`),
+    statTile("Cycle duration", fmt(cyc.actual_days, 2) + " days", `${signed(cyc.delta_hours)} h vs 7-day baseline`, cyc.delta_hours > 0 ? "down-bad" : "up-good"),
+    statTile("MTBF per DUT", fmt(tl.mtbf_hours, 0) + " h", `gate ${D.gates_config.min_mtbf_hours} h · ${tl.total_crashes} crashes, ${tl.unique_crashes} unique`, tl.mtbf_hours >= D.gates_config.min_mtbf_hours ? "up-good" : "down-bad"),
+    statTile("Open Blocker / Critical", `${tl.open_blockers} / ${tl.open_criticals}`, prev ? `was ${prev.open_blockers} / ${prev.open_criticals}` : null),
+    statTile("KPIs passing", `${tl.kpi_summary.pass} / ${tl.kpi_summary.pass + tl.kpi_summary.degraded + tl.kpi_summary.fail}`, tl.kpi_summary.breached.length ? "Breached: " + tl.kpi_summary.breached.join(", ") : "All within target", tl.kpi_summary.breached.length ? "down-bad" : "up-good"));
+  return section("tldr", "TL;DR", null, h("div", { class: "hero" }, heroCard, summary), tiles);
+}
+
+function renderRelease() {
+  const n = D.narrative;
+  const gates = card("Release gates", `${risk.gates_passed} of ${risk.gates_total} passing`,
+    tableView(["Gate", "Threshold", "Actual", "Status"], risk.gates.map(g => [g.gate, g.threshold, String(g.actual), badge(g.status)]), [2]));
+  const verdict = card("Release decision", null,
+    h("div", { style: "display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:4px 0 10px" },
+      h("span", { style: "font-size:22px;font-weight:650" }, badge(risk.release_recommendation)), badge(fc.schedule_status)),
+    h("p", { style: "margin:0 0 10px", text: n ? n.release_statement : "" }),
+    h("dl", { class: "kv" },
+      h("dt", { text: "Target release" }), h("dd", { text: date10(fc.target_release_date) }),
+      h("dt", { text: "Projected ready" }), h("dd", { text: date10(fc.projected_ready_date) }),
+      h("dt", { text: "Slip" }), h("dd", { text: fc.slip_days == null ? "no credible forecast" : `${signed(fc.slip_days)} days` })));
+  const bd = fc.breakdown_days, parts = [["Fixes", bd.fix, "var(--s1)"], ["Triage", bd.triage, "var(--s2)"], ["Verification cycle", bd.verification_cycle, "var(--s3)"], ["Burn-down cycles", bd.burn_down_cycles || 0, "var(--s4)"]];
+  const timeline = card("Time to ready, from the last run end", "Days per stage of the forecast; fixes run in parallel across subsystem teams.");
+  hBars(timeline, { aria: "Forecast breakdown in days", labelWidth: 90, fmt: v => fmt(v, 1) + " d",
+    series: parts.map(p => ({ name: `${p[0]} (${fmt(p[1], 1)} d)`, color: p[2] })),
+    rows: [{ label: "Forecast", values: parts.map(p => p[1]) }],
+    tipRows: r => parts.map(p => ({ color: p[2], value: fmt(p[1], 1) + " d", label: p[0] })) });
+  const pp = fc.pass_rate_projection;
+  timeline.append(h("p", { class: "note", style: "margin-top:8px", text:
+    `Pass-rate gate: ${pp.current_non_pass} tests not passing now; the must-fix set clears ${pp.cleared_by_must_fix}, leaving ${pp.projected_non_pass} vs ${pp.allowed_non_pass} allowed. ` +
+    (pp.shortfall ? `${pp.shortfall} more must be cleared: ${pp.extra_fix_cycles} extra fix cycle(s) at ${fmt(pp.burn_down_velocity_per_build, 1)} tests per build.` : "No extra fix cycles needed.") }));
+  const must = card("Must-fix before release", "The smallest set of tickets the gates require, highest impact first.",
+    tableView(["Jira", "Title", "Severity", "Required by", "Failed", "Blocked", "Crashes"],
+      fc.must_fix.map(t => [h("span", { class: "mono id", text: t.jira_id }), t.title, badge(t.severity), t.required_by, fmt(t.failed_tests), fmt(t.blocked_tests), fmt(t.crash_occurrences)]), [4, 5, 6]));
+  const blockers = card("Open Blocker & Critical Jiras", `${risk.release_blockers.length} tickets, ranked by impact (failed + blocked tests + 5× crashes + 10× KPI breaches)`,
+    tableView(["Jira", "Title", "Severity", "Subsystem", "Open builds", "Impact"],
+      risk.release_blockers.map(t => [h("span", { class: "mono id", text: t.jira_id }), t.title, badge(t.severity), t.subsystem, fmt(t.builds_open), fmt(t.impact_score)]), [4, 5]));
+  return section("release", "Release readiness", "Build readiness against the release gates, with a schedule forecast based on fix effort, failure volume and the recent burn-down rate.",
+    h("div", { class: "grid g-2" }, verdict, gates), h("div", { class: "grid g-2", style: "margin-top:12px" }, timeline, must),
+    h("div", { style: "margin-top:12px" }, blockers));
+}
+
+function trendCard(title, note, series, o = {}) {
+  const c = card(title, note);
+  lineChart(c, { labels: L, series, tipTitle: buildTitle, aria: `${title} by build`, ...o });
+  c.append(details("Table view", tableView(["Build", ...series.map(x => x.name)], D.builds.map((b, i) => [b, ...series.map(x => (o.fmt || fmt)(x.values[i]))]), series.map((_, k) => k + 1))));
+  return c;
+}
+
+function renderTrends() {
+  const g = D.gates_config;
+  return section("trends", "Trends across builds", `${D.builds.length} firmware builds, one full test cycle each.`,
+    h("div", { class: "grid g-2" },
+      trendCard("Health index", "0–100, higher is better", [{ name: "Health index", values: T.map(t => t.health_index), color: "var(--s1)" }], { yMin: 0, yMax: 100, area: true, fmt: v => fmt(v, 1) }),
+      trendCard("Overall pass rate", `HCI + phone; release gate ${g.min_pass_rate_percent}%`, [{ name: "Pass rate", values: T.map(t => t.pass_rate_percent), color: "var(--s1)" }], { ref: { value: g.min_pass_rate_percent, label: "Gate" }, fmt: v => fmt(v, 2) + "%" }),
+      trendCard("MTBF crashes", "Total crash events and unique signatures per cycle", [
+        { name: "Total crashes", values: T.map(t => t.crashes), color: "var(--s1)" },
+        { name: "Unique signatures", values: T.map(t => t.unique_crashes), color: "var(--s2)" }], { yMin: 0 }),
+      trendCard("MTBF per DUT", `Hours between crashes; release gate ${g.min_mtbf_hours} h`, [{ name: "MTBF", values: T.map(t => t.mtbf_hours), color: "var(--s1)" }], { yMin: 0, ref: { value: g.min_mtbf_hours, label: "Gate" }, fmt: v => fmt(v, 0) + " h" }),
+      trendCard("Open Blocker & Critical Jiras", "Tickets linked to the cycle's results", [
+        { name: "Critical", values: T.map(t => t.open_criticals), color: "var(--s1)" },
+        { name: "Blocker", values: T.map(t => t.open_blockers), color: "var(--s2)" }], { yMin: 0 }),
+      trendCard("Cycle duration", "Hours; 168 h is the 7-day baseline", [{ name: "Cycle", values: T.map(t => t.cycle_hours), color: "var(--s1)" }], { ref: { value: 168, label: "Base" }, fmt: v => fmt(v, 1) + " h" })));
+}
+
+function heatBin(rate) {
+  if (rate <= 0) return 0;
+  return rate <= 1 ? 1 : rate <= 2 ? 2 : rate <= 4 ? 3 : rate <= 8 ? 4 : rate <= 16 ? 5 : 6;
+}
+function heatmapTable() {
+  const tbl = h("table", { class: "heat" });
+  tbl.append(h("thead", null, h("tr", null, h("th", { class: "feat", text: "Feature" }), L.map(l => h("th", { class: "col", text: l })))));
+  const body = h("tbody");
+  [["HCI_REGRESSION", "HCI regression (25 features)"], ["PHONE_TESTING", "Phone testing (15 features)"]].forEach(([dom, label]) => {
+    body.append(h("tr", { class: "group" }, h("th", { colspan: L.length + 1, text: label })));
+    D.heatmap[dom].forEach(r => {
+      body.append(h("tr", null, h("th", { class: "feat", scope: "row", text: r.feature }), r.cells.map((c, i) => {
+        const td = h("td", { class: "cell", style: `background:var(--seq-${heatBin(c.rate)})`, "aria-label": `${r.feature}, ${D.builds[i]}: ${c.rate}% not passing (${c.fail} failed, ${c.blocked} blocked of ${c.total})` });
+        tipFor(td, `${r.feature} · ${D.builds[i]}`, [
+          { value: fmt(c.rate, 1) + "%", label: "not passing" }, { value: fmt(c.fail), label: "failed" },
+          { value: fmt(c.blocked), label: "blocked" }, { value: fmt(c.total), label: "tests" }]);
+        return td;
+      })));
+    });
+  });
+  tbl.append(body);
+  const bins = ["0%", "≤ 1%", "1–2%", "2–4%", "4–8%", "8–16%", "> 16%"];
+  return [h("div", { class: "table-scroll" }, tbl),
+    h("div", { class: "scale" }, h("span", { text: "Failed + blocked share:" }), bins.map((b, i) => h("span", null, h("span", { class: "sw", style: `background:var(--seq-${i})` }), b)))];
+}
+
+function renderDomains() {
+  const heat = card("Feature health by build", "Share of each feature's tests failed or blocked, per full cycle. Hover a cell for counts.", ...heatmapTable());
+  const latest = ["HCI_REGRESSION", "PHONE_TESTING"].flatMap(dom => D.heatmap[dom].map(r => ({ dom, ...r, c: r.cells[r.cells.length - 1] })))
+    .filter(r => r.c.fail + r.c.blocked > 0).sort((a, b) => (b.c.fail + b.c.blocked) - (a.c.fail + a.c.blocked)).slice(0, 12);
+  const top = card("Most affected features, latest build", `${D.meta.firmware_build}: failed and blocked tests by feature (top 12)`);
+  hBars(top, { aria: "Failed and blocked tests by feature", series: [{ name: "Failed", color: "var(--s1)" }, { name: "Blocked", color: "var(--s2)" }],
+    rows: latest.map(r => ({ label: r.feature, values: [r.c.fail, r.c.blocked] })) });
+  top.append(details("Table view", tableView(["Feature", "Domain", "Failed", "Blocked", "Tests"], latest.map(r => [r.feature, r.dom === "HCI_REGRESSION" ? "HCI" : "Phone", r.c.fail, r.c.blocked, r.total]), [2, 3, 4])));
+
+  const A = I.anomalies, out = new Set(A.outlier_duts), duts = A.dut_crash_table;
+  const dutCard = card("MTBF crashes per DUT, all builds", `16 DUTs × 120 h per cycle. Highlighted: statistical outliers (${A.outlier_duts.join(", ") || "none"}).`);
+  columnChart(dutCard, { height: 300, aria: "Crashes per DUT across all builds", labels: duts.map(d => d.dut_id.replace("DUT-", "")), values: duts.map(d => d.crashes_all_builds),
+    highlight: duts.map((d, i) => out.has(d.dut_id) ? i : -1).filter(i => i >= 0),
+    tipTitle: i => duts[i].dut_id, tipRows: i => [
+      { value: fmt(duts[i].crashes_all_builds), label: "crashes, all builds" }, { value: fmt(duts[i].crashes_latest_build), label: "crashes, latest build" },
+      { value: duts[i].board_rev, label: "board" }, { value: duts[i].rf_module_lot, label: "RF lot" }, { value: duts[i].bench, label: "bench" }] });
+  dutCard.append(details("Table view", tableView(["DUT", "Board", "RF lot", "Bench", "All builds", "Latest"], duts.map(d => [d.dut_id, d.board_rev, d.rf_module_lot, d.bench, d.crashes_all_builds, d.crashes_latest_build]), [4, 5])));
+
+  const kpi = card("KPI & performance", `${D.kpis.length} metrics, latest build; sparkline shows the build-by-build average against the target (dashed).`,
+    tableView(["Metric", "Target", "Avg", "p95", "Change", "Status", "Trend", "Jira"], D.kpis.map(k => [
+      k.metric_name, k.target, fmt(k.measured_avg, k.target_value < 10 ? 2 : 0), fmt(k.measured_p95, k.target_value < 10 ? 2 : 0),
+      k.delta_vs_previous_build == null ? "n/a" : signed(k.delta_vs_previous_build, k.target_value < 10 ? 2 : 1),
+      badge(k.status), sparkline(D.kpi_series[k.metric_name].avg, { ref: k.target_value }), k.linked_jira ? h("span", { class: "mono id", text: k.linked_jira }) : "—"]), [2, 3, 4]));
+  return section("domains", "Test domains", "HCI regression (5,000 tests), phone interoperability (1,000), MTBF stress on 16 DUTs, and the KPI matrix.",
+    heat, h("div", { class: "grid g-2", style: "margin-top:12px" }, top, dutCard), h("div", { style: "margin-top:12px" }, kpi));
+}
+
+function anomalyCard(type, f, extra) {
+  return h("div", { class: "card anom" }, h("div", { class: "type", text: type }), badge(f.severity), h("div", { text: f.summary }), extra || null);
+}
+function renderAnomalies() {
+  const A = I.anomalies, cards = [];
+  A.dut_variance.forEach(f => cards.push(anomalyCard("DUT-specific variance", f, h("div", { class: "note", text: "Top signatures: " + f.top_signatures.map(x => `${x.signature} (${x.count})`).join(", ") }))));
+  A.hardware_groups.forEach(f => cards.push(anomalyCard("Hardware group", f)));
+  A.cross_talk.forEach(f => cards.push(anomalyCard("Feature cross-talk", f, f.feature_spikes[0] && f.feature_spikes[0].correlation != null ?
+    h("div", { class: "note", text: `Correlation across builds: r = ${f.feature_spikes[0].correlation} (${f.feature_spikes[0].feature})` }) : null)));
+  A.blocked_concentrations.forEach(f => cards.push(anomalyCard("Blocked concentration", f, h("div", { class: "note mono", text: "Gating tests: " + f.gating_tests.join(", ") }))));
+  A.regressions.forEach(f => cards.push(anomalyCard("New regression", f)));
+  A.coverage_gaps.forEach(f => cards.push(anomalyCard("Coverage blind spot", f)));
+  return section("anomalies", "Anomalies & blind spots", `${A.count} findings (${A.high} high): hardware-dependent crashes, cross-feature degradation, gating bugs and untested gaps.`,
+    h("div", { class: "grid g-3" }, cards.length ? cards : [card(null, null, "No anomalies flagged.")]));
+}
+
+function renderClusters() {
+  const C = I.clusters, subs = C.subsystems;
+  const impact = card("Root-cause buckets by firmware subsystem", "Impact = severity weight (Blocker 10, Critical 5, Medium 2, Trivial 1) + 0.2 × affected tests + crashes");
+  hBars(impact, { aria: "Impact score by subsystem", labelWidth: 210, series: [{ name: "Impact", color: "var(--s1)" }], fmt: v => fmt(v, 1),
+    rows: subs.map(x => ({ label: x.subsystem_name, values: [x.impact_score] })),
+    tipRows: r => { const x = subs.find(y => y.subsystem_name === r.label); return [
+      { value: fmt(x.impact_score, 1), label: "impact" }, { value: fmt(x.tickets), label: "tickets" },
+      { value: `${x.severity.Blocker}/${x.severity.Critical}/${x.severity.Medium}/${x.severity.Trivial}`, label: "B/C/M/T" },
+      { value: fmt(x.failed_tests), label: "failed tests" }, { value: fmt(x.blocked_tests), label: "blocked tests" }, { value: fmt(x.crash_occurrences), label: "crashes" }]; } });
+  impact.append(details("Table view", tableView(["Subsystem", "Owner", "Tickets", "B/C/M/T", "Failed", "Blocked", "Crashes", "Top features"],
+    subs.map(x => [x.subsystem_name, x.owner_team, x.tickets, `${x.severity.Blocker}/${x.severity.Critical}/${x.severity.Medium}/${x.severity.Trivial}`, x.failed_tests, x.blocked_tests, x.crash_occurrences, x.top_features.map(f => f[0]).join(", ")]), [2, 4, 5, 6])));
+  const cs = C.crash_signatures;
+  const crash = card("Crash signatures across all builds", `${cs.recurring} recurring vs ${cs.single_instance} single-instance; ${cs.active} still active, ${cs.resolved} resolved`,
+    tableView(["Signature", "Jira", "Severity", "Status", "Type", "Total", "DUTs", "By build"], cs.signatures.map(x => [
+      h("span", { class: "mono id", text: x.crash_signature }), h("span", { class: "mono id", text: x.jira_id }), badge(x.severity), badge(x.status),
+      x.classification === "RECURRING" ? "Recurring" : "Single", fmt(x.total_occurrences), fmt(x.affected_duts.length),
+      sparkColumns(D.builds.map(b => x.occurrences_by_build[b] || 0))]), [5, 6]));
+  const fp = C.failure_persistence;
+  const dups = card("Candidate duplicate tickets", `${C.duplicate_candidates.length} groups sharing subsystem and failure signature; ${fp.persistent_failures} tests failing ${fp.persistent_threshold_builds}+ builds in a row, ${fp.new_failures} new this build`,
+    tableView(["Signature", "Subsystem", "Tickets", "Failed tests"], C.duplicate_candidates.map(d => [d.signature, d.subsystem, h("span", { class: "mono", text: d.tickets.join(", ") }), fmt(d.failed_tests)]), [3]));
+  return section("clusters", "Semantic bug clustering", "Tickets grouped into root-cause buckets for the development teams.",
+    h("div", { class: "grid g-2" }, impact, dups), h("div", { style: "margin-top:12px" }, crash));
+}
+
+function copyText(text, btn) {
+  const done = () => { const o = btn.textContent; btn.textContent = "Copied"; setTimeout(() => btn.textContent = o, 1400); };
+  if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(text).then(done, () => fallbackCopy(text, done));
+  else fallbackCopy(text, done);
+}
+function fallbackCopy(text, done) {
+  const ta = h("textarea", { style: "position:fixed;left:-9999px" }); ta.value = text; document.body.append(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch (e) { /* ignore */ } ta.remove();
+}
+
+function renderActions() {
+  const N = I.next_actions, n = D.narrative, teams = Object.keys(N.by_team);
+  const list = h("div");
+  const draw = team => list.replaceChildren(...N.actions.filter(a => team === "all" || a.team === team).map(a =>
+    h("div", { class: "action" }, h("span", { class: "pill " + a.priority.toLowerCase(), text: a.priority }),
+      h("div", null, h("div", { class: "team", text: `${a.team} · ${a.id}` }), h("div", { class: "what", text: a.action }), h("div", { class: "why", text: a.rationale })))));
+  const sel = h("select", { "aria-label": "Filter actions by team", onchange: e => draw(e.target.value) },
+    h("option", { value: "all", text: `All teams (${N.actions.length})` }), teams.map(t => h("option", { value: t, text: `${t} (${N.by_team[t].length})` })));
+  draw("all");
+  const actions = card(null, null, h("div", { class: "filters" }, h("span", { text: "Team" }), sel), list);
+  const briefs = n && n.team_briefs ? card("Team briefs", n.source === "claude" ? "Written by Claude from the action list" : "From the action list",
+    h("ul", { class: "bullets" }, n.team_briefs.map(b => h("li", null, h("b", { text: b.team + ": " }), b.brief)))) : null;
+  const subsets = card("Targeted re-run subsets", "Run these instead of a full cycle to verify fixes. Each includes the ticket's failing and blocked tests plus the gating smoke tests of affected features.",
+    tableView(["ID", "Purpose", "Tests", "MTBF DUTs", "KPIs", "Est. hours", "vs full cycle", ""], N.rerun_subsets.map(r => {
+      const ids = [...r.tests.HCI_REGRESSION, ...r.tests.PHONE_TESTING];
+      const btn = h("button", { type: "button", text: "Copy test IDs" }); btn.addEventListener("click", () => copyText(ids.join("\n"), btn));
+      return [h("span", { class: "mono id", text: r.id }), r.purpose, fmt(r.test_count), r.mtbf_duts.length ? r.mtbf_duts.join(", ") : "—",
+        r.kpi_metrics.length ? fmt(r.kpi_metrics.length) : "—", fmt(r.estimated_hours, 1), `−${fmt(r.savings_percent, 1)}%`, btn];
+    }), [2, 5, 6]));
+  return section("actions", "Next actions", "Prescriptive tasks by developer role, ordered by priority, with targeted re-run subsets instead of full-cycle executions.",
+    h("div", { class: "grid g-2" }, actions, briefs || h("div")), h("div", { style: "margin-top:12px" }, subsets));
+}
+
+// ---------------------------------------------------------------- boot
+function initTheme() {
+  const root = document.documentElement, btn = document.getElementById("theme");
+  let saved = null; try { saved = localStorage.getItem("bt-dash-theme"); } catch (e) { /* storage unavailable */ }
+  if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+  const current = () => root.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+  const label = () => btn.textContent = current() === "dark" ? "Light theme" : "Dark theme";
+  label();
+  btn.addEventListener("click", () => {
+    root.dataset.theme = current() === "dark" ? "light" : "dark"; label();
+    try { localStorage.setItem("bt-dash-theme", root.dataset.theme); } catch (e) { /* storage unavailable */ }
+  });
+}
+initTheme();
+renderMeta();
+document.getElementById("app").append(renderTldr(), renderRelease(), renderTrends(), renderDomains(), renderAnomalies(), renderClusters(), renderActions());
+let rt; window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => charts.forEach(f => f()), 120); });
+</script>
+</body>
+</html>

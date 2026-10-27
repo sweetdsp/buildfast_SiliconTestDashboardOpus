@@ -12,6 +12,10 @@ seeds:
 paths:
   test_plan: data/test_plan.json
   runs_dir: data/runs
+  validation_report: data/validation_report.json
+  insights: data/insights.json
+  narrative: data/narrative.json
+  dashboard: dashboard/index.html
 
 # ---------------------------------------------------------------------------
 # Test plan (spec section 2.1)
@@ -90,3 +94,43 @@ release:
     min_pass_rate_percent: 98.0
     min_mtbf_hours: 200
     all_kpis_pass: true
+
+# ---------------------------------------------------------------------------
+# Analysis engine (Step 5)
+# ---------------------------------------------------------------------------
+analysis:
+  health_index:
+    weights: {pass_rate: 0.40, defects: 0.25, mtbf: 0.20, kpi: 0.15}
+    pass_rate_floor: 90          # pass rate at or below this scores 0; 100% scores 100
+    defect_penalty: {Blocker: 20, Critical: 5, Medium: 0.5, Trivial: 0.1}  # points per open ticket
+    bands: {green: 85, amber: 70}  # >= green GREEN, >= amber AMBER, else RED
+  slippage:
+    fix_days: {Blocker: 5, Critical: 3, Medium: 1.5, Trivial: 0.5}  # per ticket, serial within a subsystem team
+    triage_hours_per_failure: 0.5
+    triage_capacity_hours_per_day: 48   # 6 engineers x 8 h
+    burn_down_window_builds: 3          # builds used to measure failure burn-down velocity
+    at_risk_slip_days: 7                # slip <= 0 ON_TRACK, <= 7 AT_RISK, else OFF_TRACK
+  anomalies:
+    dut_outlier_ratio: 2.0       # DUT crashes vs fleet median ...
+    dut_outlier_z: 2.0           # ... and z-score, both required
+    group_ratio: 1.5             # hardware group crash rate vs rest of fleet
+    kpi_step_sigma: 3            # KPI build-to-build change beyond 3 std devs is a step
+    feature_spike_ratio: 1.4     # feature failures up >= 40% ...
+    feature_spike_min: 5         # ... and by >= 5 tests
+    blocked_concentration_min: 10
+    blocked_feature_share: 0.05  # >= 5% of a feature blocked is a coverage gap
+    persistent_blocked_builds: 3
+  clustering:
+    persistent_failure_builds: 3
+  rerun:
+    mtbf_soak_hours: 24          # targeted MTBF soak on affected DUTs
+    kpi_remeasure_hours: 4       # per metric
+
+# ---------------------------------------------------------------------------
+# Narrative layer (Step 6)
+# ---------------------------------------------------------------------------
+narrative:
+  mode: auto              # auto: Claude when the SDK + credentials are available, else template | template | claude
+  model: claude-opus-5-5
+  effort: medium
+  max_tokens: 16000
