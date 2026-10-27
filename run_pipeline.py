@@ -28,10 +28,16 @@ from validation.validator import Validator
 STAGES = ["plan", "runs", "validate", "analyse", "narrate", "dashboard"]
 
 
+def shown(path):
+    """Path for log messages: relative to the repo when inside it, absolute otherwise."""
+    path = resolve(path)
+    return path.relative_to(resolve(".")) if path.is_relative_to(resolve(".")) else path
+
+
 def stage_plan(config, regen):
     path = resolve(config["paths"]["test_plan"])
     if path.exists() and not regen:
-        print(f"[plan] reusing existing test plan {path.relative_to(resolve('.'))} (use --regen-plan to rebuild)")
+        print(f"[plan] reusing existing test plan {shown(path)} (use --regen-plan to rebuild)")
         return
     plan = TestPlanGenerator(config).generate()
     write_json(path, plan)
@@ -46,7 +52,7 @@ def stage_runs(config):
     plan = read_json(config["paths"]["test_plan"])
     runs = SampleTestRunGenerator(config, plan).generate_all()
     out = write_runs(config, runs)
-    print(f"[runs] wrote {len(runs)} runs to {out.relative_to(resolve('.'))}/")
+    print(f"[runs] wrote {len(runs)} runs to {shown(out)}/")
     print(f"  {'build':<18}{'cycle h':>8}{'HCI f/b':>10}{'PHN f/b':>9}{'crash/uniq':>11}"
           f"{'MTBF h':>8}{'KPI ok':>7}{'Jiras':>7}{'B/C':>6}")
     for r in runs:
@@ -108,7 +114,7 @@ def stage_narrate(config, mode=None):
 
 def stage_dashboard(config):
     out = build_dashboard(config)
-    print(f"[dashboard] wrote {out.relative_to(resolve('.'))} ({out.stat().st_size // 1024} KB) - open it in a browser")
+    print(f"[dashboard] wrote {shown(out)} ({out.stat().st_size // 1024} KB) - open it in a browser")
 
 
 def main(argv=None):

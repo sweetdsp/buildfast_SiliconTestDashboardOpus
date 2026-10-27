@@ -28,6 +28,8 @@ def _test_type(variant):
 
 
 class TestPlanGenerator:
+    __test__ = False  # not a pytest test class despite the name
+
     def __init__(self, config):
         self.config = config
         self.rng = random.Random(config["seeds"]["test_plan"])

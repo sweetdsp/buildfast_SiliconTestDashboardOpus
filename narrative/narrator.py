@@ -148,6 +148,8 @@ def claude_narrative(insights, cfg):
         )
     except TypeError as e:  # raised by the SDK when no API key, auth token or profile is configured
         raise NarrativeUnavailable(f"client not configured (usually missing credentials): {e}") from e
+    except anthropic.CredentialsError as e:  # a selected profile or config file that cannot be used
+        raise NarrativeUnavailable(f"credentials not usable: {e}") from e
     except (anthropic.AuthenticationError, anthropic.PermissionDeniedError) as e:
         raise NarrativeUnavailable(f"credentials rejected: {e.message}") from e
     except anthropic.RateLimitError as e:
